@@ -1,0 +1,101 @@
+/* ============================================================
+   Design tokens — the entire visual vocabulary.
+   Add nothing here without updating CLAUDE.md.
+   ============================================================ */
+
+:root {
+  /* ----- Color ------------------------------------------ */
+  --paper: #F3F0E8;
+  --ink: #1C1B18;
+  --pencil: #2D45B8;
+
+  /* Ink at reduced opacity — no additional hues */
+  --ink-60: color-mix(in srgb, var(--ink) 60%, transparent);
+  --ink-40: color-mix(in srgb, var(--ink) 40%, transparent);
+  --ink-20: color-mix(in srgb, var(--ink) 20%, transparent);
+  --ink-10: color-mix(in srgb, var(--ink) 10%, transparent);
+
+  /* ----- Typography ------------------------------------- */
+  --font-serif: 'Newsreader Variable', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
+
+  /*
+   * Handwriting font — placeholder until replaced with a font cut from
+   * real handwriting. Swap only this token; every component uses --font-hand.
+   * Two candidates are loaded so the test page can compare them side-by-side.
+   */
+  --font-hand: 'Kalam', cursive;
+  --font-hand-alt: 'Nanum Pen Script', cursive;
+
+  /*
+   * Type scale — optical sizes baked in via font-variation-settings.
+   * opsz should match approximate rendered size in px.
+   * Display: opsz 48–72  (headlines, pull-quotes)
+   * Text:    opsz 16–24  (body, subheads)
+   * Small:   opsz 10–14  (labels, captions, margin notes)
+   */
+
+  /* Step names follow a simple t-shirt sizing */
+  --text-xs:   0.6875rem;   /* 11px  — labels, metadata            */
+  --text-sm:   0.8125rem;   /* 13px  — captions, margin notes       */
+  --text-base: 1.0625rem;   /* 17px  — body                         */
+  --text-md:   1.25rem;     /* 20px  — lead, standfirst             */
+  --text-lg:   1.5625rem;   /* 25px  — h3                           */
+  --text-xl:   2rem;        /* 32px  — h2                           */
+  --text-2xl:  2.75rem;     /* 44px  — h1 / section title           */
+  --text-3xl:  3.75rem;     /* 60px  — display / hero               */
+
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-text:   1.6;
+  --leading-loose:  1.8;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.06em;   /* mono labels */
+  --tracking-wider:  0.1em;
+
+  /* ----- Layout ----------------------------------------- */
+  /*
+   * Two-column notebook layout:
+   *   [ ← gap → | ←———— main ————→ | ← gap → | ←— margin —→ | ← gap → ]
+   *
+   * On a 1280px viewport:
+   *   margin column: 220px
+   *   gutter:         32px
+   *   main column:   ~65ch ≈ 680px
+   *   outer margin:   auto (centered as a group)
+   *
+   * The two columns are wrapped in .notebook-grid. Max-width contains the
+   * whole layout. Outer padding handles the left/right breathing room.
+   */
+  --col-main-max:   680px;
+  --col-margin:     220px;
+  --col-gutter:     2rem;        /* gap between main and margin */
+  --col-outer:      clamp(1.25rem, 5vw, 3rem);  /* page edge padding */
+
+  --layout-max: calc(var(--col-main-max) + var(--col-gutter) + var(--col-margin) + var(--col-outer) * 2);
+
+  /* ----- Spacing ---------------------------------------- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* ----- Borders & radii -------------------------------- */
+  --border-hairline: 1px solid var(--ink-20);
+  --radius-sm: 2px;
+
+  /* ----- Motion ----------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+  --duration-draw: 1200ms;   /* SVG stroke-dashoffset annotation draw */
+}

@@ -1,0 +1,336 @@
+/* ============================================================
+   Global styles — reset, base typography, notebook layout,
+   view transitions, reduced-motion fallbacks.
+   ============================================================ */
+
+@import './tokens.css';
+
+/* Self-hosted variable fonts -------------------------------- */
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+/* Handwriting placeholders — both loaded so test page can compare */
+@import '@fontsource/kalam/400.css';
+@import '@fontsource/nanum-pen-script/400.css';
+
+/* Page transitions (native cross-document) ------------------ */
+@view-transition {
+  navigation: auto;
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   Base typography
+   ============================================================ */
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  font-variation-settings: 'opsz' 17, 'wght' 400;
+  line-height: var(--leading-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'opsz' 44, 'wght' 500;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--text-xl);
+  font-variation-settings: 'opsz' 32, 'wght' 500;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 25, 'wght' 500;
+  line-height: var(--leading-snug);
+}
+
+h4, h5, h6 {
+  font-size: var(--text-base);
+  font-variation-settings: 'opsz' 17, 'wght' 600;
+  line-height: var(--leading-snug);
+}
+
+.text-display {
+  font-size: var(--text-3xl);
+  font-variation-settings: 'opsz' 60, 'wght' 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+p {
+  max-width: 68ch;
+}
+
+p + p {
+  margin-top: var(--space-4);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--ink-40);
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  text-decoration-color: var(--pencil);
+}
+
+strong, b {
+  font-variation-settings: 'opsz' 17, 'wght' 650;
+}
+
+em, i {
+  font-style: italic;
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+blockquote {
+  border-left: 2px solid var(--pencil);
+  padding-left: var(--space-6);
+  font-variation-settings: 'opsz' 20, 'wght' 400;
+  font-style: italic;
+  color: var(--ink-60);
+}
+
+hr {
+  border: none;
+  border-top: var(--border-hairline);
+  margin: var(--space-12) 0;
+}
+
+/* ============================================================
+   Notebook grid layout
+   ============================================================
+   The main column caps at --col-main-max. On desktop, sidenotes
+   sit in an absolute-positioned margin column to the right,
+   top-aligned with their anchor span via JS. On mobile they
+   collapse inline.
+
+   Structure:
+     .notebook-grid       position: relative container
+       .notebook-main     max-width capped, position: relative
+         ... prose ...
+         .sidenote        position: absolute on desktop
+   ============================================================ */
+
+.notebook-grid {
+  position: relative;
+  max-width: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--col-outer);
+}
+
+.notebook-main {
+  position: relative;
+  max-width: var(--col-main-max);
+}
+
+/* ============================================================
+   Note anchors
+   ============================================================
+   CSS underline is the no-JS fallback; Rough Notation replaces
+   it once rn-ready is set on <html> (see Base.astro).
+   ============================================================ */
+.note-anchor {
+  cursor: default;
+  /* fallback — overridden by Rough Notation */
+  text-decoration: underline;
+  text-decoration-color: var(--pencil);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+html.rn-ready .note-anchor {
+  text-decoration: none;
+}
+
+/* ============================================================
+   span-to-margin — element extends into the margin column
+   ============================================================ */
+@media (min-width: 900px) {
+  .span-to-margin {
+    width: calc(100% + var(--col-gutter) + var(--col-margin));
+    max-width: calc(var(--col-main-max) + var(--col-gutter) + var(--col-margin));
+  }
+}
+
+/* ============================================================
+   Section marks — mono number + handwritten label in margin
+   ============================================================ */
+.section-mark {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.section-mark-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--ink-40);
+}
+
+.section-mark-label {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--pencil);
+}
+
+/* ============================================================
+   Mobile toggle button (the small mark beside the anchor)
+   ============================================================ */
+.sidenote-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  border: 1px solid var(--pencil);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  line-height: 1;
+  color: var(--pencil);
+  background: transparent;
+  cursor: pointer;
+  vertical-align: super;
+  padding: 0;
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.sidenote-toggle:hover,
+.sidenote-toggle[aria-expanded="true"] {
+  background: var(--pencil);
+  color: var(--paper);
+}
+
+/* ============================================================
+   Sidenotes
+   ============================================================ */
+.sidenote {
+  font-family: var(--font-hand);
+  font-size: 1rem;         /* Kalam/handwriting reads small — size up */
+  line-height: 1.4;
+  color: var(--ink-60);
+}
+
+.sidenote[data-type="annotation"] {
+  color: var(--pencil);
+}
+
+/* Show alternate font for comparison */
+.sidenote[data-font="alt"] {
+  font-family: var(--font-hand-alt);
+}
+
+/* Mobile: inline, hidden by default */
+@media (max-width: 899px) {
+  .sidenote {
+    display: none;
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--pencil);
+  }
+
+  .sidenote.is-open {
+    display: block;
+  }
+}
+
+/* Desktop: pulled out of flow, positioned beside anchor by JS */
+@media (min-width: 900px) {
+  .notebook-grid {
+    /* Reserve space for the margin column so it doesn't clip */
+    padding-right: calc(var(--col-outer) + var(--col-margin) + var(--col-gutter));
+  }
+
+  .sidenote {
+    position: absolute;
+    width: var(--col-margin);
+    left: calc(100% + var(--col-gutter));
+    top: 0;           /* overridden per-note by positionSidenotes() */
+    transform: rotate(-0.35deg);
+    transform-origin: left top;
+  }
+
+  .sidenote-toggle {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Page wrapper
+   ============================================================ */
+.page-body {
+  padding-block: var(--space-16);
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

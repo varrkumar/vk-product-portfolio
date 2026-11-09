@@ -1,0 +1,43 @@
+---
+title: Redesigning how researchers share unfinished ideas
+tagline: When the barrier isn't the UI — it's the social contract.
+problem: >
+  A sharing feature in a research tool had near-zero adoption despite correct
+  discoverability and no user errors. The brief assumed UI confusion. The
+  actual problem was different.
+role: Lead product designer
+team: 2 engineers, 1 researcher
+timeline: 14 weeks (2024)
+constraints:
+  - Could not change the underlying data model — shared items are immutable
+  - No A/B infrastructure at the time, so concept tests only
+  - Engineering capacity was 1 sprint post-research
+decisions:
+  - options:
+      - Redesign the sharing UI
+      - Add a "draft" label to shared items
+      - Reframe the action as a feedback request
+    chosen: Reframe the action as a feedback request
+    rationale: >
+      UI redesign didn't address the root cause. Draft labelling helped but
+      still positioned the researcher as the author of a finished thing.
+      Feedback-request framing recast the social dynamic entirely.
+    confidence: observed
+outcome:
+  summary: >
+    Sharing events increased 3.1× in the first 30 days. Median share
+    recipients rose from 1.0 to 2.4, suggesting researchers were sharing
+    with networks, not just one safe contact.
+  metrics:
+    - 3.1× sharing events (day 1–30)
+    - 2.4 median recipients (up from 1.0)
+    - "[TODO: 90-day retention data]"
+reflection: >
+  I spent two weeks on UI fixes before questioning the brief. The lesson
+  recurs: resist the pull of the solution space until the problem is actually
+  defined.
+order: 1
+draft: false
+---
+
+{/* Full case study body in MDX — coming in build step 2 */}

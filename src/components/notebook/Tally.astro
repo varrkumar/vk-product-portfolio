@@ -1,0 +1,67 @@
+---
+/*
+ * <Tally count={6} /> — SVG tally marks, groups of 5.
+ * Drawn in the hand-font color. Used in PullQuote margins
+ * to show evidence counts (n of N said this).
+ */
+interface Props {
+  count: number;
+}
+const { count } = Astro.props;
+
+const H = 22;        // mark height
+const S = 8;         // spacing between marks in a group
+const G = 14;        // extra gap between groups
+
+type Segment = { d: string };
+const segs: Segment[] = [];
+let x = 2;
+
+const full = Math.floor(count / 5);
+const rem  = count % 5;
+
+for (let g = 0; g < full; g++) {
+  const gx = x;
+  for (let i = 0; i < 4; i++) {
+    segs.push({ d: `M ${x} 2 L ${x} ${H}` });
+    if (i < 3) x += S;
+  }
+  // diagonal across the group
+  segs.push({ d: `M ${gx - 3} ${H - 3} L ${x + 4} 4` });
+  x += G;
+}
+
+for (let i = 0; i < rem; i++) {
+  segs.push({ d: `M ${x} 2 L ${x} ${H}` });
+  x += S;
+}
+
+const viewW = x + 4;
+---
+
+<svg
+  class="tally"
+  width={viewW}
+  height={H + 4}
+  viewBox={`0 0 ${viewW} ${H + 4}`}
+  aria-label={`${count} tally marks`}
+  role="img"
+>
+  {segs.map(seg => (
+    <path
+      d={seg.d}
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      fill="none"
+    />
+  ))}
+</svg>
+
+<style>
+  .tally {
+    display: block;
+    color: var(--pencil);
+    opacity: 0.75;
+  }
+</style>

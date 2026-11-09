@@ -1,0 +1,67 @@
+---
+/*
+ * <PullQuote> — a large editorial quote that spans main+margin column.
+ * Optional tally marks appear in the margin beside it.
+ *
+ * Usage:
+ *   <PullQuote tally={3} tallyLabel="of 6 said this unprompted" tallyId="pq-1">
+ *     "I know how to click the button..."
+ *   </PullQuote>
+ */
+import Tally from './Tally.astro';
+
+interface Props {
+  tally?: number;
+  tallyLabel?: string;
+  tallyId?: string;
+}
+const { tally, tallyLabel = 'said this', tallyId = 'pq-tally' } = Astro.props;
+---
+
+<figure class="pull-quote span-to-margin">
+  <blockquote class="pull-quote-text">
+    <slot />
+  </blockquote>
+</figure>
+
+{tally !== undefined && (
+  <aside id={tallyId} class="sidenote sidenote--tally" data-type="note">
+    <Tally count={tally} />
+    <span class="label tally-label">{tallyLabel}</span>
+  </aside>
+)}
+
+<style>
+  .pull-quote {
+    margin-block: var(--space-8);
+  }
+
+  .pull-quote-text {
+    font-size: var(--text-xl);
+    font-variation-settings: 'opsz' 32, 'wght' 400;
+    font-style: italic;
+    line-height: var(--leading-snug);
+    color: var(--ink);
+    border-left: none;
+    padding-left: 0;
+    max-width: none;
+    /* hanging open-quote */
+    text-indent: -0.45em;
+  }
+
+  .pull-quote-text::before {
+    content: open-quote;
+    color: var(--pencil);
+  }
+
+  .pull-quote-text::after {
+    content: close-quote;
+    color: var(--pencil);
+  }
+
+  .tally-label {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--pencil);
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+/*
+ * <Reframe> — the opening moment of every case study.
+ * Shows the original question struck through, then the reframed
+ * question below it. Strikethrough draws left-to-right on load;
+ * new question fades up after. Static fallback under reduced-motion.
+ */
+interface Props {
+  original: string;
+  reframed: string;
+}
+const { original, reframed } = Astro.props;
+---
+
+<div class="reframe">
+  <p class="reframe-original" aria-hidden="true">
+    <span class="reframe-text">{original}</span>
+    <span class="reframe-line"></span>
+  </p>
+  <p class="reframe-new">{reframed}</p>
+</div>
+
+<style>
+  .reframe {
+    padding-block: var(--space-6) var(--space-12);
+  }
+
+  .reframe-original {
+    position: relative;
+    display: inline-block;
+    max-width: 18ch;
+    font-size: var(--text-2xl);
+    font-variation-settings: 'opsz' 44, 'wght' 400;
+    line-height: var(--leading-tight);
+    color: var(--ink-40);
+    margin-bottom: var(--space-8);
+  }
+
+  .reframe-text {
+    display: block;
+  }
+
+  .reframe-line {
+    position: absolute;
+    left: -0.05em;
+    right: -0.05em;
+    top: 48%;
+    height: 1.5px;
+    background: var(--ink-60);
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: strike-draw 0.65s var(--ease-out) 0.5s forwards;
+  }
+
+  @keyframes strike-draw {
+    to { transform: scaleX(1); }
+  }
+
+  .reframe-new {
+    font-size: var(--text-2xl);
+    font-variation-settings: 'opsz' 44, 'wght' 400;
+    line-height: var(--leading-tight);
+    max-width: 18ch;
+    color: var(--ink);
+    animation: fade-rise 0.55s var(--ease-out) 1.05s both;
+  }
+
+  @keyframes fade-rise {
+    from { opacity: 0; transform: translateY(0.35em); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reframe-line {
+      animation: none;
+      transform: scaleX(1);
+    }
+    .reframe-new {
+      animation: none;
+    }
+  }
+</style>

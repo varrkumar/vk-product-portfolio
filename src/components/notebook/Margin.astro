@@ -1,0 +1,47 @@
+---
+/*
+ * <Margin> — a sidenote anchored beside its prose context.
+ *
+ * Usage in MDX:
+ *   <Margin id="note-1" type="annotation">
+ *     I initially assumed users wanted X…
+ *   </Margin>
+ *
+ * On desktop the note appears in the margin column.
+ * On mobile a small toggle button in the prose reveals it inline.
+ *
+ * The id must be unique per page and match the sidenote-ref marker
+ * placed manually in prose (or via a shortcode helper later).
+ */
+
+interface Props {
+  id: string;
+  type?: 'note' | 'annotation' | 'question';
+  label?: string;
+}
+
+const { id, type = 'note', label } = Astro.props;
+---
+
+<button
+  class="sidenote-toggle"
+  aria-controls={id}
+  aria-expanded="false"
+  aria-label={`Toggle margin note`}
+>◦</button>
+
+<aside
+  id={id}
+  class="sidenote"
+  data-type={type}
+>
+  {label && <span class="label sidenote-label">{label}</span>}
+  <slot />
+</aside>
+
+<style>
+  .sidenote-label {
+    display: block;
+    margin-bottom: 0.4em;
+  }
+</style>

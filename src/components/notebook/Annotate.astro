@@ -1,0 +1,34 @@
+---
+/*
+ * <Annotate> — inline Rough Notation annotation in --pencil.
+ * The annotation draws in when the element scrolls into view.
+ * Under prefers-reduced-motion it appears immediately (no draw).
+ *
+ * Usage in MDX:
+ *   <Annotate type="circle">social contract</Annotate>
+ *   <Annotate type="underline">key phrase</Annotate>
+ *   <Annotate type="bracket">a longer aside</Annotate>
+ *   <Annotate type="box">decision</Annotate>
+ */
+interface Props {
+  type?: 'underline' | 'circle' | 'box' | 'bracket' | 'strike-through';
+}
+const { type = 'underline' } = Astro.props;
+---
+
+<span class="annotate" data-rn-type={type}><slot /></span>
+
+<style>
+  .annotate {
+    /* CSS fallback underline removed once Rough Notation initialises.
+       JS adds .rn-ready to <html> after first annotation is shown. */
+  }
+
+  /* Before RN initialises, show a simple pencil underline for underline/circle types */
+  :global(html:not(.rn-ready)) .annotate[data-rn-type="underline"] {
+    text-decoration: underline;
+    text-decoration-color: var(--pencil);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+</style>

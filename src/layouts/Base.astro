@@ -1,0 +1,118 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Product portfolio — Varrshitha Kumar' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      /* -------------------------------------------------------
+       * Sidenote positioning
+       * Sidenotes are position:absolute inside .notebook-main.
+       * We set top= to match the anchor span or section heading.
+       * Re-runs after fonts load (layout shift) and on resize.
+       * ------------------------------------------------------- */
+      function positionSidenotes() {
+        const main = document.querySelector<HTMLElement>('.notebook-main');
+        if (!main || window.innerWidth < 900) return;
+
+        const mainTop = main.getBoundingClientRect().top;
+
+        document.querySelectorAll<HTMLElement>('.sidenote[id]').forEach(note => {
+          let ref: Element | null = null;
+
+          if (note.dataset.sectionRef) {
+            ref = document.getElementById(note.dataset.sectionRef);
+          } else {
+            ref = document.querySelector(`.note-anchor[data-note="${note.id}"]`);
+          }
+
+          if (!ref) return;
+          const refTop = ref.getBoundingClientRect().top;
+          note.style.top = `${refTop - mainTop}px`;
+        });
+      }
+
+      positionSidenotes();
+      document.fonts.ready.then(positionSidenotes);
+
+      let raf = 0;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(positionSidenotes);
+      });
+
+      /* -------------------------------------------------------
+       * Mobile sidenote toggles
+       * ------------------------------------------------------- */
+      document.querySelectorAll<HTMLButtonElement>('.sidenote-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const noteId = btn.getAttribute('aria-controls');
+          if (!noteId) return;
+          const note = document.getElementById(noteId);
+          if (!note) return;
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          note.classList.toggle('is-open', !open);
+        });
+      });
+
+      /* -------------------------------------------------------
+       * Rough Notation — draw annotations on scroll-into-view.
+       * Dynamically imported so it's off the critical path.
+       * prefers-reduced-motion: annotation shown immediately, no draw.
+       * ------------------------------------------------------- */
+      const rnElements = document.querySelectorAll<HTMLElement>('[data-rn-type]');
+      if (rnElements.length > 0) {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const pencil = getComputedStyle(document.documentElement)
+          .getPropertyValue('--pencil').trim() || '#2D45B8';
+
+        const { annotate } = await import('rough-notation');
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              const type = (el.dataset.rnType || 'underline') as Parameters<typeof annotate>[1]['type'];
+              const color = el.dataset.rnColor || pencil;
+
+              const a = annotate(el, {
+                type,
+                color,
+                strokeWidth: 1.5,
+                padding: type === 'circle' ? 6 : 2,
+                animate: !reduced,
+                animationDuration: 700,
+              });
+              a.show();
+              observer.unobserve(el);
+            });
+          },
+          { threshold: 0.4 }
+        );
+
+        rnElements.forEach(el => observer.observe(el));
+        document.documentElement.classList.add('rn-ready');
+      }
+    </script>
+  </body>
+</html>

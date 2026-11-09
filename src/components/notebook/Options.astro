@@ -1,0 +1,80 @@
+---
+/*
+ * <Options> — the decision moment.
+ * Renders a handwritten-style option list.
+ * Rejected options have a CSS line-through.
+ * The chosen option gets a Rough Notation circle drawn on scroll.
+ *
+ * Usage:
+ *   <Options
+ *     chosen={2}
+ *     items={[
+ *       "Redesign the sharing UI",
+ *       "Add a 'draft' label to shared items",
+ *       "Reframe the action as feedback request",
+ *     ]}
+ *   />
+ */
+interface Props {
+  items: string[];
+  chosen: number; // 0-indexed
+}
+const { items, chosen } = Astro.props;
+---
+
+<ul class="options-list" role="list">
+  {items.map((item, i) => (
+    <li
+      class={`option ${i === chosen ? 'option--chosen' : 'option--rejected'}`}
+      data-rn-type={i === chosen ? 'circle' : undefined}
+    >
+      <span class="option-letter">{String.fromCharCode(65 + i)} —</span>
+      <span class="option-text">{item}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .options-list {
+    list-style: none;
+    margin-block: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .option {
+    font-family: var(--font-hand);
+    font-size: 1.125rem;
+    line-height: 1.5;
+    display: flex;
+    gap: 0.5em;
+    align-items: baseline;
+  }
+
+  .option-letter {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--ink-40);
+    flex-shrink: 0;
+    padding-top: 0.1em;
+  }
+
+  .option--rejected .option-text {
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-60);
+    color: var(--ink-40);
+  }
+
+  .option--chosen .option-text {
+    color: var(--ink);
+    /* Rough Notation circle is drawn around the full <li> by JS */
+  }
+
+  /* padding for Rough Notation circle clearance */
+  .option--chosen {
+    padding: 0.2em 0.4em;
+    margin-left: -0.4em;
+  }
+</style>
