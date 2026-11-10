@@ -169,6 +169,7 @@ src/
 All project content lives in `notes/` (git-ignored; some intakes hold confidential details). Read the relevant intake before writing any case study or entry, and never publish anything an intake marks confidential.
 
 - `notes/handoff.md`: where the last session left off. Read it first.
+- `notes/build-plan.md`: the plan for the remaining case studies, short entries and landing page, including the writing standard.
 - `notes/content-map.md`: site sections, which projects are case studies vs. short entries, throughlines. Start here.
 - `notes/intake-<project>.md`: one per project (biomotivate, us-bank, workbench-hr, halo, dfa-gotr, sous, depop-popups, dsc, women-in-product, echos). `[TODO]` = missing from me; `(inferred)` = not confirmed. Keep both as visible placeholders, don't fill them in.
 - `notes/voice-guide.md`: how I write. Follow it for all copy.
