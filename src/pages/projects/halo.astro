@@ -1,0 +1,312 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import InsightLine from '../../components/notebook/InsightLine.astro';
+import Fork from '../../components/notebook/Fork.astro';
+import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
+import Reflection from '../../components/notebook/Reflection.astro';
+import { nextCaseStudy } from '../../data/entries';
+
+const next = nextCaseStudy('halo');
+
+/*
+ * Copy rules for this page (see notes/intake-halo.md):
+ * - Every fact comes from the intake or the Final Poster (Figma: XRay Poster file).
+ * - Quotes are from real participants, credited as "non-designer", "artist", etc.
+ * - Credit the team: Salina Mu, Sam Parks, Nicole Huang. I was project lead.
+ * - [TODO: …] marks what only Varrshitha can fill in.
+ *
+ * Figures: no Figma exports yet. Each figure section below lists the exact frames
+ * to export from Figma (file: XRay Poster, page: Final Poster). Export @2x PNG,
+ * move to src/assets/halo/, then replace the placeholder <section>s with <Figure>.
+ *
+ * Cover: Halo mascot illustration or the Setup/Nudge/Flag flow overview.
+ * Figma: "XRay Poster" file → "Final Poster" page → mascot or stage overview.
+ * Export @2x, add as cover prop on <CaseHero>.
+ */
+---
+
+<Base title="Halo: catching bias before you hit Generate · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="04" />
+
+    <CaseHero
+      entryNum="04"
+      eyebrow="Halo · UCRE / XRAY"
+      title="Catching bias before you hit Generate"
+      lede="Users of AI design tools rarely notice the bias in what those tools produce. Halo is a companion that learns which biases you care about, asks before you generate, and flags what it finds after."
+      meta={[
+        { label: "Role", value: "Project lead" },
+        { label: "Timeline", value: "Spring 2026, one semester" },
+        { label: "Team", value: "Salina Mu, Sam Parks, Nicole Huang, Varr Kumar" },
+        { label: "Focus", value: "HCI research, UX, responsible AI, illustration" },
+        { label: "Output", value: "Research poster, hi-fi prototype" },
+      ]}
+      note="handed: help everyday users of AI design tools notice and address bias.<br><br>turned out: users don't look for bias while generating, so Halo comes to them."
+    />
+
+    <!-- 01 -->
+    <SectionRow num="01" label="the brief">
+      <Fragment slot="main">
+        <p class="body">
+          People using AI design tools are trying to make something fast. Canva AI gives you three
+          outputs from a sentence; you compare them, pick the best, and move on. The question we
+          started with was whether anyone in that loop stops to check the image for bias.
+        </p>
+        <p class="body">
+          For a semester project in User-Centered Research and Evaluation, a team of four ran 8
+          think-aloud sessions over three days. Each participant completed three design prompts in
+          Canva AI while narrating what they were doing and thinking. We synthesized what we heard
+          through empathy mapping, affinity clustering, and a user-flow model that set the current
+          experience alongside where Halo would sit inside it.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          we picked Canva AI because it's what college students actually use. the problem is not
+          specific to Canva, but starting specific kept the research grounded.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 02 -->
+    <SectionRow num="02" label="what we found">
+      <Fragment slot="main">
+        <p class="body">
+          Most participants noticed bias that was obvious: a "professional" setting with no women,
+          a "diverse" group that looked narrowly defined. They would re-prompt once and usually get
+          something better. What they did not do was look for bias before accepting an output.
+          When something was subtle, they didn't name it. When fixing it would take more than one
+          extra prompt, they let it go.
+        </p>
+        <p class="body">
+          Outside the tool, they had the knowledge. They had heard that AI could produce biased
+          images, that careless prompting could make it worse, that they had some responsibility.
+          One participant said they felt "a strong responsibility to correct the AI outputs." But
+          knowing something in general doesn't mean you notice it in the specific image you're
+          about to use. The gap wasn't awareness. It was the moment between generating and
+          accepting, which the current tool made essentially invisible.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <section class="cs-row" style="padding-bottom: 104px">
+      <div></div>
+      <figure style="margin: 0">
+        <blockquote class="quote">"Honestly, I wouldn't have even noticed it."</blockquote>
+        <figcaption class="mono" style="margin-top: 20px">Non-designer participant</figcaption>
+      </figure>
+      <aside class="cs-margin sw-note" style="padding-top: 10px">
+        <p class="note" style="margin:0;transform:rotate(0.8deg)">
+          this quote is what named the whole problem. not "I checked and it was fine." just: I would
+          have kept going.
+        </p>
+      </aside>
+    </section>
+
+    <!-- 03 -->
+    <InsightLine
+      num="03"
+      label="the turn"
+      observed="Participants fixed obvious bias and ignored what was subtle or slow to fix"
+      assumed="That more awareness would close the gap"
+    >
+      They knew AI was biased. They didn't see it in the image they were about to use.
+    </InsightLine>
+
+    <!-- 04 -->
+    <Fork
+      num="04"
+      label="where to intervene"
+      context="If users won't go looking for bias on their own, putting a tool somewhere they'd have to seek it out was the wrong move. The question was where in the experience Halo could actually be."
+      options={[
+        { label: "A standalone bias-audit tool, used after generating.", pathNotTaken: "If participants said they'd 'just use it' without checking, a separate tool asks them to do what they already said they wouldn't." },
+        { label: "Education and guidelines: tutorials, prompting guides.", pathNotTaken: "They already knew the general fact. The gap was noticing bias in a specific image at a specific moment, not knowing about it in the abstract." },
+        { label: "A companion inside the generation flow, integrated into the prompt bar.", chosen: true },
+      ]}
+      rationale="Halo doesn't add a new place to go. It's already where the work happens. The prompt bar is where every session starts, and that's where the bias often starts too."
+      knew={[
+        { text: "Participants knew AI could produce biased output but didn't look for it while generating", confidence: "observed" },
+        { text: "A tool placed outside the flow would be used about as often as the participants said they'd use it: rarely", confidence: "assumed" },
+        { text: "That integrating into an existing tool is harder to build and test than a standalone prototype", confidence: "assumed" },
+      ]}
+    />
+
+    <!-- fig. 1 placeholder: export from Figma before shipping -->
+    <!-- Figma: "XRay Poster" file → "Final Poster" page → user flow section -->
+    <!-- Two side-by-side diagrams: current Canva AI flow / flow with Halo -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono fig-num">fig. 1</div>
+      </div>
+      <figure style="margin: 0">
+        <div class="fig-placeholder cs-wide">
+          <div class="fig-ph-inner">
+            <span class="mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px">Export from Figma</span>
+            <span>"XRay Poster" file → "Final Poster" page → user flow section</span>
+            <span style="display: block; margin-top: 4px; opacity: 0.6">Two panels: current Canva AI flow / flow with Halo</span>
+          </div>
+        </div>
+        <figcaption class="mono fig-caption">Current Canva AI flow vs. the same flow with Halo. The generate button is the only step where something new happens: Setup before, Nudge at the prompt, Flag after.</figcaption>
+      </figure>
+      <aside class="cs-margin sw-note" style="padding-top: 28px">
+        <p class="note" style="margin: 0; transform: rotate(-0.8deg)">the user flow was the clearest artifact from research: there is no step in the current loop where anyone checks for bias.</p>
+      </aside>
+    </section>
+
+    <!-- 05 -->
+    <Fork
+      num="05"
+      label="before, after, or both"
+      context="Even inside the flow, there were two moments to work with: before you generate (vague prompts are where most bias gets introduced) and after (outputs that slipped through anyway). We built both."
+      options={[
+        { label: "Intervene only before generation, with a Nudge that refines the prompt.", pathNotTaken: "A refined prompt still produces biased output sometimes. 'Is this one actually okay?' still doesn't have an answer." },
+        { label: "Intervene only after generation, flagging what it finds in the output.", pathNotTaken: "You can fix a biased image, but the prompt has already defaulted. The Nudge prevents bias the user can name in advance." },
+        { label: "Both: a Setup to set priorities, a Nudge before generation, and a Flag after.", chosen: true },
+      ]}
+      rationale="Setup lets users rank which biases matter most to them: representation and diversity, cultural sensitivity, gender stereotypes, body and appearance, socioeconomic cues. The Nudge asks three or four clarifying questions tied to those priorities, then rewrites the prompt with the constraints included. The Flag scans what was generated and breaks it down by area: gender split, age distribution, disability representation, cultural context, racial and ethnic diversity, socioeconomic cues. Every result is framed as coming from training data, not from the user's intent. The Nudge handles bias the user knows to watch for. The Flag handles what gets through anyway, and answers the question that kept surfacing in the research: I know AI can be biased, but is this image biased?"
+      knew={[
+        { text: "Vague prompts let the model fill in defaults, which is where much of the bias originates", confidence: "observed" },
+        { text: "Participants couldn't always tell whether a specific output was biased or just imperfect", confidence: "observed" },
+        { text: "That adding questions before every generation would slow down the users who said they'd 'just use it'", confidence: "assumed" },
+        { text: "That inferring gender, race, age, and disability from generated faces carries its own stereotyping risk", confidence: "assumed" },
+      ]}
+    />
+
+    <!-- fig. 2 placeholder: export from Figma before shipping -->
+    <!-- Figma: "XRay Poster" file → "Final Poster" page -->
+    <!-- Frames needed: Stage 1 Setup screen, Stage 2 Nudge question card + refined prompt, Stage 3 Flag insights panel, Halo mascot -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono fig-num">fig. 2</div>
+      </div>
+      <figure class="cs-wide" style="margin: 0">
+        <div class="fig-placeholder" style="aspect-ratio: 16 / 7">
+          <div class="fig-ph-inner">
+            <span class="mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px">Export from Figma</span>
+            <span>"XRay Poster" file → "Final Poster" page → stages 1–3</span>
+            <span style="display: block; margin-top: 4px; opacity: 0.6">Setup · Nudge question card + refined prompt · Flag insights panel</span>
+            <span style="display: block; margin-top: 2px; opacity: 0.6">Halo mascot (separate export)</span>
+          </div>
+        </div>
+        <figcaption class="mono fig-caption">The three stages of Halo, overlaid on Canva AI: Setup (priority ranking), Nudge (questions + refined prompt), and Flag (bias breakdown with area scores).</figcaption>
+        <p class="note sw-note fig-note-wide">I illustrated Halo. the "halo effect" in psychology is when one good quality makes you overlook the bad ones. the name is a small joke about exactly what it's trying to fix.</p>
+      </figure>
+    </section>
+
+    <!-- 06 -->
+    <SectionRow num="06" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "Poster", label: "research poster presented to CMU HCI faculty and classmates" },
+          { number: "Hi-fi", label: "prototype: Setup, Nudge, and Flag stages overlaid on Canva AI" },
+          { number: "Tested", label: "and critiqued by faculty and peers; friction in the Nudge flow sharpened the case for a one-tap quick mode" },
+        ]} />
+        <p class="body" style="margin-top: 32px">
+          The critiques that came back are real ones. The Nudge adds questions before every generation,
+          and the participants who said they'd "just use it" are exactly the ones most likely to skip it.
+          The refined prompt can veer into checklist diversity, close to the tokenism it's meant to avoid.
+          And inferring gender, race, age, and disability from a generated face is itself a judgment call.
+          A one-tap "quick" mode and a study on where people actually stop are the obvious next steps.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(1deg)">
+          "these biases come from training data, not intent." that line in the Flag copy was the one the
+          team kept coming back to. it's doing a lot of work.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 07 -->
+    <Reflection num="07" label="what stuck">
+      If a user says "I'd just use it," you can tell them not to or you can be there when they do.
+    </Reflection>
+
+    <footer class="cs-row" style="align-items: end; padding-top: 24px">
+      <div></div>
+      <a href={`/${next.section}/${next.slug}`} class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
+        <div class="next-q">{next.footerQ}</div>
+      </a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+
+  .quote {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 36, 'wght' 300;
+    max-width: none;
+  }
+
+  .fig-num { color: var(--ink-60); }
+
+  .fig-placeholder {
+    background: #f4f4f2;
+    border: 1px solid rgba(28, 27, 24, 0.1);
+    aspect-ratio: 16 / 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .fig-ph-inner {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(28, 27, 24, 0.4);
+    text-align: center;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+  .fig-caption {
+    margin-top: 16px;
+    max-width: 640px;
+    line-height: 1.6;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+  .fig-note-wide {
+    margin: 18px 0 0;
+    max-width: 560px;
+    transform: rotate(-0.6deg);
+  }
+
+  .next { text-decoration: none; color: var(--ink); display: block; }
+  .next-q {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .next:hover .next-q { text-decoration: underline; text-decoration-color: var(--pencil); text-underline-offset: 6px; }
+
+  @media (max-width: 1000px) {
+    .body { font-size: 19px; }
+    .quote { font-size: 28px; }
+  }
+</style>
