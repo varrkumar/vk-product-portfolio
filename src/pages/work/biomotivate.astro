@@ -8,6 +8,9 @@ import Fork from '../../components/notebook/Fork.astro';
 import Figure from '../../components/notebook/Figure.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
+import { nextCaseStudy } from '../../data/entries';
+
+const next = nextCaseStudy('biomotivate');
 
 import cover from '../../assets/biomotivate/cover.png';
 import flyer1 from '../../assets/biomotivate/flyer-1.png';
@@ -257,9 +260,9 @@ import afterDiscover from '../../assets/biomotivate/after-discover.png';
 
     <footer class="cs-row" style="align-items: end; padding-top: 24px">
       <div></div>
-      <a href="/work/workbench-hr" class="next">
-        <div class="mono" style="margin-bottom: 10px">Next entry →</div>
-        <div class="next-q">What's the smallest thing we can build that proves the whole idea?</div>
+      <a href={`/${next.section}/${next.slug}`} class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
+        <div class="next-q">{next.footerQ}</div>
       </a>
       <div></div>
     </footer>
