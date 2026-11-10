@@ -40,7 +40,7 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
           I work at the intersection of AI, design, and human behavior —
           building things and writing about why they were built the way they were.
         </p>
-        <p class="intro-status mono">CMU · Pittsburgh · Fall 2026</p>
+        <p class="intro-status mono">CMU · Pittsburgh · <span id="local-time"></span></p>
       </div>
       <aside class="intro-aside sw-note" style="padding-top: 12px">
         <p class="note" style="margin:0; transform:rotate(-1deg)">
@@ -382,5 +382,29 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
       const isOn = document.documentElement.classList.toggle('show-work');
       btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
     });
+  })();
+
+  /* Local Pittsburgh time + semester status */
+  (function () {
+    const el = document.getElementById('local-time');
+    if (!el) return;
+    function status() {
+      const now = new Date();
+      const time = now.toLocaleTimeString('en-US', {
+        timeZone: 'America/New_York',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      });
+      /* semester derived from month: Aug–Dec = fall, Jan–Apr = spring, May–Jul = summer */
+      const month = now.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'long' });
+      const year  = now.toLocaleString('en-US', { timeZone: 'America/New_York', year: 'numeric' });
+      const m = now.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'numeric' });
+      const mn = parseInt(m, 10);
+      const sem = mn >= 8 ? 'Fall ' + year : mn >= 5 ? 'Summer ' + year : 'Spring ' + year;
+      el.textContent = sem + ' · ' + time;
+    }
+    status();
+    setInterval(status, 30000);
   })();
 </script>

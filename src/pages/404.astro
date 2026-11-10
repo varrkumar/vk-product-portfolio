@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="404 · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink)">
+
+    <header class="cs-row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
+      <a href="/" style="font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink); text-decoration: none">vk.</a>
+      <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
+        <a class="mono nav-link" href="/work">Work</a>
+        <a class="mono nav-link" href="/projects">Projects</a>
+        <a class="mono nav-link" href="/design">Design</a>
+        <a class="mono nav-link" href="/about">About</a>
+      </nav>
+      <div></div>
+    </header>
+
+    <section class="cs-row" style="padding-top: 100px; padding-bottom: 120px; align-items: start">
+      <span class="four-o-four mono">404</span>
+      <div>
+        <h1 class="not-found-title">a page I didn't write</h1>
+        <p class="not-found-sub">
+          Whatever you were looking for isn't here. It might not exist yet,
+          or the URL changed, or I cut it.
+        </p>
+        <a href="/" class="back mono">← back to what exists</a>
+      </div>
+      <aside style="padding-top: 8px">
+        <p class="note" style="margin:0; transform:rotate(-1.2deg)">
+          some pages take longer than others.
+        </p>
+      </aside>
+    </section>
+
+  </div>
+</Base>
+
+<style>
+  .four-o-four {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-20);
+    padding-top: 10px;
+  }
+  .not-found-title {
+    font-family: var(--font-serif);
+    font-size: 44px;
+    font-style: italic;
+    font-variation-settings: 'opsz' 44, 'wght' 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    max-width: none;
+  }
+  .not-found-sub {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-variation-settings: 'opsz' 17, 'wght' 400;
+    line-height: 1.6;
+    color: var(--ink-60);
+    margin: 0 0 28px;
+    max-width: 46ch;
+  }
+  .nav-link {
+    color: var(--ink-60);
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--ink); }
+  .back {
+    color: var(--pencil);
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .back:hover { text-decoration: underline; }
+
+  @media (max-width: 1000px) {
+    .not-found-title { font-size: 32px; }
+  }
+</style>
