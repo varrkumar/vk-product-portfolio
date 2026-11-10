@@ -1,0 +1,266 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import InsightLine from '../../components/notebook/InsightLine.astro';
+import Fork from '../../components/notebook/Fork.astro';
+import Figure from '../../components/notebook/Figure.astro';
+import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
+import Reflection from '../../components/notebook/Reflection.astro';
+import { nextCaseStudy } from '../../data/entries';
+
+const next = nextCaseStudy('girls-on-the-run');
+
+import cover from '../../assets/girls-on-the-run/cover.jpg';
+import survey from '../../assets/girls-on-the-run/survey.png';
+import sticky from '../../assets/girls-on-the-run/sticky.png';
+import posterCoach from '../../assets/girls-on-the-run/poster-coach.png';
+import posterQuotes from '../../assets/girls-on-the-run/poster-quotes.png';
+import brochureFront from '../../assets/girls-on-the-run/brochure-front.jpg';
+import brochureBack from '../../assets/girls-on-the-run/brochure-back.png';
+
+/*
+ * Copy rules for this page (see notes/intake-dfa-gotr.md):
+ * - Every fact comes from the intake or the DFA project page (dfaxcmu.org/girls-on-the-run).
+ * - Survey numbers: n=30 past-season coaches. All confidence: observed.
+ * - Credit: project lead Skylar Wang; team Amy Cha, Maithili Chaudhari, Annabelle Chow,
+ *   Inseo Kim, Varrshitha Kumar, Chloe Xu.
+ * - No kids' faces. All images used here are design artifacts or program materials.
+ */
+---
+
+<Base title="Girls on the Run: coach recruitment · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="05" />
+
+    <CaseHero
+      entryNum="05"
+      eyebrow="Girls on the Run · Design for America @ CMU"
+      title="The recruitment poster sold the wrong reason to show up"
+      lede="Coaches stay for the girls, not the low time commitment. The posters didn't say so, and that gap was why recruitment wasn't working."
+      meta={[
+        { label: "Role", value: "Research, synthesis, ideation, design" },
+        { label: "Timeline", value: "Fall 2025 – Spring 2026, one school year" },
+        { label: "Team", value: "Design for America @ CMU, led by Skylar Wang" },
+        { label: "Focus", value: "UX research, message strategy, print design" },
+        { label: "Output", value: "6 editable recruitment materials in Canva" },
+      ]}
+      cover={cover}
+      coverAlt="Girls on the Run DFA project poster showing the team and final recruitment materials."
+      note="handed: support coach recruitment and expand reach.<br><br>turned out: the materials sold the weakest reason coaches volunteer."
+    />
+
+    <!-- 01 -->
+    <SectionRow num="01" label="the brief">
+      <Fragment slot="main">
+        <p class="body">
+          Girls on the Run builds confidence, character, and friendship through curriculum-based
+          activities and running, with volunteer coaches leading small groups of girls. The UPMC
+          Magee-Womens branch, which serves most of Western Pennsylvania, wanted to recruit more
+          coaches and reach more students.
+        </p>
+        <p class="body">
+          We were a team from Design for America at CMU, led by Skylar Wang and working with the
+          organization for one full school year. The brief was broad: support recruitment and expand
+          reach. We started where you have to: with the coaches who already volunteer.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the organization didn't tell us the recruitment was broken. we had to figure that out from
+          the gap between who was showing up and who the materials were talking to.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 02 -->
+    <SectionRow num="02" label="listening">
+      <Fragment slot="main">
+        <p class="body">
+          Thirty past-season coaches answered a survey about what motivated them. Expert interviews
+          with three organizers gave us the recruitment process from the inside: how outreach worked,
+          where it stalled, what coaches needed once they started.
+        </p>
+        <p class="body">
+          We also mapped the journey of a prospective coach from first contact through their first
+          practice. The map showed something the survey would confirm: people weren't staying away
+          because they'd never heard of Girls on the Run. They were hesitating because they weren't
+          sure they were qualified. No running background required, no coaching experience required.
+          That wasn't visible in the materials. The main questions on the map were: Can I manage the
+          time? Am I prepared to lead a group? What does a coach actually do?
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <Figure
+          fig=""
+          caption="One of three concepts that made it past ideation. Mine: direct outreach to school PE staff, who already work with kids in that age group."
+          images={[{ src: sticky, alt: "Handwritten sticky note reading: direct outreach to physical education staff at schools to see if they'd be interested in coaching." }]}
+        />
+      </Fragment>
+    </SectionRow>
+
+    <!-- 03 -->
+    <InsightLine
+      num="03"
+      label="the turn"
+      observed="83% of surveyed coaches cited interacting with a younger generation; only 20% cited low time commitment"
+      assumed="That closing this message gap would bring in coaches who stay"
+    >
+      The recruitment pitch led with convenience. The coaches who already said yes were there for the girls.
+    </InsightLine>
+
+    <!-- 04 -->
+    <Fork
+      num="04"
+      label="what the headline sells"
+      context="The survey told us what coaches actually valued. The question was which of those things to put in the headline."
+      options={[
+        { label: "Convenience. Easy, flexible, no running or coaching background needed.", pathNotTaken: "One in five coaches cited this. Recruiting on convenience brings in coaches who leave when it stops being convenient." },
+        { label: "The mission. Girls' confidence, character, community impact.", pathNotTaken: "True, and coaches believe it. But it's the message every nonprofit leads with. It doesn't answer the question a prospective coach is actually asking: what will this be like for me?" },
+        { label: "The coach's own experience. Real quotes, in coaches' own words.", chosen: true },
+      ]}
+      rationale="The survey gave us the words. Coaches talked about 'the girls' faces when they accomplished their goals' and 'watching girls evolve and create lasting memories.' That's why they're still volunteering after multiple seasons, and it's the kind of thing that makes someone reading a poster think: I want that. We led with it."
+      knew={[
+        { text: "83% of coaches cited connection with a younger generation; 77% staying active; only 20% low time commitment", confidence: "observed" },
+        { text: "Prospects had misconceptions about the running and coaching requirements", confidence: "observed" },
+        { text: "Recruiting for connection would attract coaches who stay for the same reason current coaches do", confidence: "assumed" },
+      ]}
+    />
+
+    <Figure
+      fig="fig. 1"
+      wide
+      caption="Survey results from 30 past-season coaches: what positives would you cite to recommend GOTR coaching? The gap between 'interacting with a younger generation' (83%) and 'low time commitment' (20%) shaped the whole message strategy."
+      note="the existing materials led with low commitment. this chart is why we changed it."
+      images={[{ src: survey, alt: "Bar chart: interacting with a younger generation 83%, being able to stay active 77%, real-life community impact 57%, pre-made lesson plans 57%, committed team of girls 57%, making GOTR fun 47%, race day 40%, support from other coaches 33%, low time commitment 20%, clear communication 17%." }]}
+    />
+
+    <!-- 05 -->
+    <SectionRow num="05" label="answering the barrier">
+      <Fragment slot="main">
+        <p class="body">
+          Leading with coach experience answered the first question: why would I do this? The journey
+          map showed a second one still open: can I actually do this? People came in curious and left
+          confused. The materials assumed GOTR was understood, but prospects had it wrong. No running
+          background required, no coaching experience required. That wasn't said clearly anywhere.
+        </p>
+        <p class="body">
+          We designed a Day-in-the-Life format: posters that walk through what a practice looks like,
+          hour by hour, for both a coach and a girl. And we made the low-barrier facts explicit, up
+          front, in plain language. The goal was to let someone read the materials and answer yes to
+          both questions before they ever made contact.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">
+          the Day-in-the-Life came from the journey map, not the survey. the map showed that
+          not knowing what coaching looked like was holding people back as much as not knowing why.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 06 -->
+    <SectionRow num="06" label="testing the message" pb="104px">
+      <Fragment slot="main">
+        <p class="body">
+          Before finalizing, we A/B tested quotes and images with current and past coaches to check
+          which ones most accurately reflected their own motivations. The goal was to recruit for
+          intrinsic reasons: bring in people who want what current coaches say they're getting, not
+          people who sign up for convenience and leave when it's not convenient enough.
+        </p>
+        <p class="body">
+          The experience and connection quotes came back as most resonant. The final materials use
+          coaches' language almost verbatim. We also built everything in Canva with editable elements,
+          so GOTR staff could update text and images each season without needing a designer.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      caption="Final coach poster (left) and quotes poster (right). Both lead with what coaches said, not what seemed easy to sell."
+      note="the quotes poster exists because there were too many good lines for one poster."
+      images={[
+        { src: posterCoach, alt: "Final GOTR coach recruitment poster featuring a real coach quote about the girls' accomplishments, with program details and a QR code.", label: "coach poster" },
+        { src: posterQuotes, alt: "Final GOTR quotes poster with multiple coach testimonials about connection, impact, and why they keep coming back.", label: "quotes poster" },
+      ]}
+      ratio="3 / 4"
+    />
+
+    <!-- 07 -->
+    <SectionRow num="07" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "6", label: "recruitment materials delivered, all editable in Canva" },
+          { number: "30", label: "coach survey responses that drove the message" },
+          { number: "A/B", label: "tested with coaches before finalizing quotes and images" },
+        ]} />
+        <p class="body" style="margin-top: 32px">
+          The deliverables are in GOTR's hands. Post-launch recruitment numbers haven't been
+          reported yet. The real test is the next recruitment season: does the new message bring in
+          coaches who stay the way current coaches have? That's the question the survey set up,
+          and the season will answer it.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(1deg)">
+          we handed off editable Canva files specifically so they wouldn't need us to update a
+          headline. the design decision that matters most is the one they can actually use.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 3"
+      caption="Take-home brochure, front and back. Front: what GOTR is and why coaches join. Back: what to expect, paid opportunities, and a QR code to sign up."
+      note="the brochure had to do both jobs: answer 'why?' and answer 'can I?'. two sides, two questions."
+      images={[
+        { src: brochureFront, alt: "GOTR brochure front: headline about building confidence, overview of the program, coach benefits, and testimonials.", label: "front" },
+        { src: brochureBack, alt: "GOTR brochure back: what coaching involves, stipend information, QR code to apply, and GOTR logo.", label: "back" },
+      ]}
+      ratio="4 / 3"
+    />
+
+    <!-- 08 -->
+    <Reflection num="08" label="what stuck">
+      If the data tells you what people actually value, trust it over what sounds like a good headline.
+    </Reflection>
+
+    <footer class="cs-row" style="align-items: end; padding-top: 24px">
+      <div></div>
+      <a href={`/${next.section}/${next.slug}`} class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
+        <div class="next-q">{next.footerQ}</div>
+      </a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+
+  .next { text-decoration: none; color: var(--ink); display: block; }
+  .next-q {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .next:hover .next-q { text-decoration: underline; text-decoration-color: var(--pencil); text-underline-offset: 6px; }
+
+  @media (max-width: 1000px) {
+    .body { font-size: 19px; }
+  }
+</style>
