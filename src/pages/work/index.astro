@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import { bySection } from '../../data/entries.ts';
+
+const entries = bySection('work').filter(e => !e.draft);
+---
+
+<Base title="Work · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <div class="cs-row" style="padding-top: 56px; padding-bottom: 32px">
+      <div></div>
+      <div>
+        <p class="page-eyebrow mono">Work</p>
+        <h1 class="page-title">Product and UX case studies</h1>
+      </div>
+    </div>
+
+    <div class="entries-list">
+      {entries.map(entry => (
+        <a href={`/work/${entry.slug}`} class="entry-row cs-row">
+          <span class="entry-num mono">{entry.num ?? '—'}</span>
+          <div class="entry-body">
+            <div class="entry-title-line">
+              <span class="entry-title">{entry.title}</span>
+              <span class="entry-meta mono">{entry.context} · {entry.year}</span>
+            </div>
+            <p class="entry-summary">{entry.summary}</p>
+            <div class="entry-reframe">
+              <span class="entry-handed">{entry.handed}</span>
+              <span class="entry-arrow" aria-hidden="true"> → </span>
+              <span class="entry-turned">{entry.turnedOut}</span>
+            </div>
+          </div>
+          <div></div>
+        </a>
+      ))}
+    </div>
+
+    <footer class="cs-row" style="padding-top: 48px; align-items: end">
+      <div></div>
+      <a href="/" class="back mono">← Home</a>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .page-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-40);
+    margin: 0 0 10px;
+    max-width: none;
+  }
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-variation-settings: 'opsz' 36, 'wght' 400;
+    font-style: italic;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    max-width: none;
+  }
+  .entries-list {
+    border-top: 1px solid var(--ink-10);
+  }
+  .entry-row {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--ink-10);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+  .entry-row:hover {
+    background: color-mix(in srgb, var(--pencil) 4%, transparent);
+  }
+  .entry-num {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-40);
+    padding-top: 6px;
+  }
+  .entry-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .entry-title-line {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .entry-title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-variation-settings: 'opsz' 24, 'wght' 400;
+    line-height: 1.2;
+  }
+  .entry-meta {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-40);
+  }
+  .entry-summary {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-variation-settings: 'opsz' 15, 'wght' 400;
+    line-height: 1.6;
+    color: var(--ink-60);
+    margin: 0;
+    max-width: 54ch;
+  }
+  .entry-reframe {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-variation-settings: 'opsz' 13, 'wght' 400;
+    color: var(--ink-60);
+    line-height: 1.4;
+  }
+  .entry-handed { color: var(--ink-40); }
+  .entry-arrow {
+    color: var(--pencil);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .entry-turned { color: var(--ink); }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+
+  @media (max-width: 1000px) {
+    .entry-num { display: none; }
+    .page-title { font-size: 28px; }
+  }
+</style>

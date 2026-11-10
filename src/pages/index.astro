@@ -1,16 +1,386 @@
 ---
+import Base from '../layouts/Base.astro';
+import { CASE_STUDIES, SHORT_ENTRIES } from '../data/entries.ts';
+
+const visibleCaseStudies = CASE_STUDIES.filter(e => !e.draft);
+
+const projectShort = SHORT_ENTRIES.filter(e => e.section === 'projects');
+const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Varrshitha Kumar · Product">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <!-- Nav ---------------------------------------------------------------- -->
+    <header class="cs-row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
+      <span style="font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink)">vk.</span>
+      <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
+        <a class="mono nav-link" href="/work">Work</a>
+        <a class="mono nav-link" href="/projects">Projects</a>
+        <a class="mono nav-link" href="/design">Design</a>
+        <a class="mono nav-link" href="/about">About</a>
+      </nav>
+      <div style="display: flex; justify-content: flex-start">
+        <button class="cs-toggle" id="show-work-toggle" aria-pressed="true" aria-label="Show your work">
+          <span class="cs-toggle-pill" aria-hidden="true">
+            <span class="cs-toggle-knob"></span>
+          </span>
+          <span class="hand" style="font-size: 19px; color: var(--pencil)">show your work</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Intro -------------------------------------------------------------- -->
+    <section class="cs-row" style="padding-top: 80px; padding-bottom: 96px; align-items: start">
+      <div></div>
+      <div>
+        <p class="intro-name">Varrshitha Kumar</p>
+        <p class="intro-position">Product manager and designer, studying at CMU.</p>
+        <p class="intro-sub">
+          I work at the intersection of AI, design, and human behavior —
+          building things and writing about why they were built the way they were.
+        </p>
+        <p class="intro-status mono">CMU · Pittsburgh · Fall 2026</p>
+      </div>
+      <aside class="intro-aside sw-note" style="padding-top: 12px">
+        <p class="note" style="margin:0; transform:rotate(-1deg)">
+          this is a notebook, not a highlight reel. flip the switch to see the margins.
+        </p>
+      </aside>
+    </section>
+
+    <!-- Selected work ------------------------------------------------------- -->
+    <div class="cs-row" style="padding-bottom: 20px">
+      <div></div>
+      <p class="section-heading mono">Selected work</p>
+    </div>
+
+    <div class="entries-list">
+      {visibleCaseStudies.map(entry => (
+        <a href={`/${entry.section}/${entry.slug}`} class="entry-row cs-row">
+          <span class="entry-num mono">{entry.num}</span>
+          <div class="entry-body">
+            <div class="entry-title-line">
+              <span class="entry-title">{entry.title}</span>
+              <span class="entry-meta mono">{entry.context} · {entry.year}</span>
+            </div>
+            <div class="entry-reframe">
+              <span class="entry-handed">{entry.handed}</span>
+              <span class="entry-arrow" aria-hidden="true"> → </span>
+              <span class="entry-turned">{entry.turnedOut}</span>
+            </div>
+          </div>
+          <div></div>
+        </a>
+      ))}
+    </div>
+
+    <!-- More work ----------------------------------------------------------- -->
+    <div class="cs-row" style="padding-top: 72px; padding-bottom: 20px">
+      <div></div>
+      <p class="section-heading mono">More work</p>
+    </div>
+
+    <!-- Projects group -->
+    <div class="cs-row" style="padding-bottom: 10px">
+      <div></div>
+      <p class="group-label mono">Projects</p>
+    </div>
+
+    {projectShort.map(entry => (
+      <a href={`/${entry.section}/${entry.slug}`} class="short-row cs-row">
+        <div></div>
+        <div class="short-body">
+          <span class="short-title">{entry.title}</span>
+          <span class="short-sep">&thinsp;—&thinsp;</span>
+          <span class="short-summary">{entry.summary}</span>
+          <span class="short-year mono">{entry.year}</span>
+        </div>
+        <div></div>
+      </a>
+    ))}
+
+    <!-- Design group -->
+    <div class="cs-row" style="padding-top: 32px; padding-bottom: 10px">
+      <div></div>
+      <p class="group-label mono">Design</p>
+    </div>
+
+    {designShort.map(entry => (
+      <a href={`/${entry.section}/${entry.slug}`} class="short-row cs-row">
+        <div></div>
+        <div class="short-body">
+          <span class="short-title">{entry.title}</span>
+          <span class="short-sep">&thinsp;—&thinsp;</span>
+          <span class="short-summary">{entry.summary}</span>
+          <span class="short-year mono">{entry.year}</span>
+        </div>
+        <div></div>
+      </a>
+    ))}
+
+    <!-- Footer ------------------------------------------------------------- -->
+    <footer class="cs-row" style="padding-top: 96px; align-items: start">
+      <div></div>
+      <div class="footer-links">
+        <a class="footer-link" href="mailto:varrshik@andrew.cmu.edu">varrshik@andrew.cmu.edu</a>
+        <a class="footer-link" href="https://www.linkedin.com/in/varrkumar/" target="_blank" rel="noopener">LinkedIn →</a>
+      </div>
+      <aside class="sw-note" style="padding-top: 2px">
+        <p class="note" style="margin:0; font-size: 16px; transform: rotate(0.5deg)">
+          this site is a notebook. flip the switch to see the margins.
+        </p>
+      </aside>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  /* Intro */
+  .intro-name {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-style: italic;
+    font-variation-settings: 'opsz' 48, 'wght' 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    max-width: none;
+  }
+  .intro-position {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-variation-settings: 'opsz' 22, 'wght' 400;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0 0 14px;
+    max-width: none;
+  }
+  .intro-sub {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-variation-settings: 'opsz' 17, 'wght' 400;
+    line-height: 1.6;
+    color: var(--ink-60);
+    margin: 0 0 20px;
+    max-width: 54ch;
+  }
+  .intro-status {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-40);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-40);
+    margin: 0;
+    max-width: none;
+  }
+  .group-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-60);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Entry rows (case studies) */
+  .entries-list {
+    border-top: 1px solid var(--ink-10);
+  }
+  .entry-row {
+    display: grid;
+    grid-template-columns: 120px minmax(0,640px) minmax(0,270px);
+    column-gap: 56px;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 56px;
+    box-sizing: border-box;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--ink-10);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+  .entry-row:hover {
+    background: color-mix(in srgb, var(--pencil) 4%, transparent);
+  }
+  .entry-num {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-40);
+    padding-top: 5px;
+  }
+  .entry-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .entry-title-line {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .entry-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-variation-settings: 'opsz' 22, 'wght' 400;
+    line-height: 1.2;
+  }
+  .entry-meta {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-40);
+  }
+  .entry-reframe {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    font-variation-settings: 'opsz' 14, 'wght' 400;
+    line-height: 1.5;
+    color: var(--ink-60);
+  }
+  .entry-handed {
+    color: var(--ink-40);
+  }
+  .entry-arrow {
+    color: var(--pencil);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .entry-turned {
+    color: var(--ink);
+  }
+
+  /* Short entry rows */
+  .short-row {
+    text-decoration: none;
+    color: var(--ink);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: background var(--duration-fast) var(--ease-out);
+    display: grid;
+    grid-template-columns: 120px minmax(0,640px) minmax(0,270px);
+    column-gap: 56px;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 56px;
+    box-sizing: border-box;
+  }
+  .short-row:hover {
+    background: color-mix(in srgb, var(--pencil) 3%, transparent);
+  }
+  .short-body {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-variation-settings: 'opsz' 15, 'wght' 400;
+    line-height: 1.5;
+    color: var(--ink-60);
+  }
+  .short-title {
+    color: var(--ink);
+    font-variation-settings: 'opsz' 15, 'wght' 500;
+  }
+  .short-sep {
+    color: var(--ink-40);
+  }
+  .short-year {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-40);
+  }
+
+  /* Nav */
+  .nav-link {
+    color: var(--ink-60);
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--ink); }
+
+  /* Footer */
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-60);
+    text-decoration: none;
+  }
+  .footer-link:hover { color: var(--ink); }
+
+  /* Toggle (same as CaseStudyHeader) */
+  .cs-toggle {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+  }
+  .cs-toggle:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .cs-toggle-pill {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    border: 1.5px solid var(--pencil);
+    border-radius: 12px;
+    box-sizing: border-box;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .cs-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--pencil);
+    transition: left .25s ease;
+  }
+  .cs-toggle[aria-pressed="false"] .cs-toggle-knob { left: 2px; }
+  @media (prefers-reduced-motion: reduce) { .cs-toggle-knob { transition: none; } }
+
+  /* Mobile */
+  @media (max-width: 1000px) {
+    .entry-row, .short-row {
+      grid-template-columns: minmax(0,1fr);
+      padding-inline: 24px;
+      row-gap: 6px;
+    }
+    .entry-num { display: none; }
+    .intro-name { font-size: 36px; }
+    .intro-position { font-size: 19px; }
+    .short-year { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('show-work-toggle');
+    if (!btn) return;
+    document.documentElement.classList.add('show-work');
+    btn.setAttribute('aria-pressed', 'true');
+    btn.addEventListener('click', function () {
+      const isOn = document.documentElement.classList.toggle('show-work');
+      btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+    });
+  })();
+</script>
