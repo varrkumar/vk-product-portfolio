@@ -1,0 +1,117 @@
+---
+/*
+ * <Figure> — one or more images, pasted into the notebook.
+ * Images sit in the main column (or span main + margin with `wide`),
+ * each with an optional small mono label above it ("before", "after").
+ * A mono caption runs underneath; an optional handwritten note sits in the
+ * margin (or under the images when wide) and fades with "show your work".
+ * Each image links to its full-size file so detail is one click away.
+ *
+ * Usage:
+ *   import a from '../../assets/x/a.png';
+ *   <Figure fig="fig. 1" wide caption="…" note="…"
+ *     images={[{ src: a, alt: '…', label: 'before' }]} />
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Img {
+  src: ImageMetadata;
+  alt: string;
+  label?: string;
+}
+interface Props {
+  images: Img[];
+  fig?: string;
+  caption?: string;
+  note?: string;
+  wide?: boolean;
+  ratio?: string;            // e.g. "16 / 10": frames every image the same size
+  pb?: string;
+}
+const { images, fig = '', caption = '', note = '', wide = false, ratio = '', pb = '96px' } = Astro.props;
+const cols = images.length;
+---
+
+<section class="cs-row figure-row" style={`padding-bottom: ${pb}`}>
+  <div class="cs-gutter" style="padding-top: 4px">
+    {fig && <div class="mono fig-num">{fig}</div>}
+  </div>
+
+  <figure class={`fig ${wide ? 'cs-wide' : ''}`} style="margin: 0">
+    <div class="fig-grid" style={`--cols: ${cols}${ratio ? `; --ratio: ${ratio}` : ''}`} data-ratio={ratio ? '' : undefined}>
+      {images.map(img => (
+        <div class="fig-item">
+          {img.label && <div class="mono fig-label">{img.label}</div>}
+          <a href={img.src.src} class="fig-link" aria-label={`Open full size: ${img.alt}`}>
+            <Image
+              src={img.src}
+              alt={img.alt}
+              widths={[480, 960, 1440]}
+              sizes={wide ? '(max-width: 1000px) 100vw, 480px' : '(max-width: 1000px) 100vw, 320px'}
+              class="fig-img"
+            />
+          </a>
+        </div>
+      ))}
+    </div>
+    {caption && <figcaption class="mono fig-caption">{caption}</figcaption>}
+    {wide && note && <p class="note sw-note fig-note-wide">{note}</p>}
+  </figure>
+
+  {!wide && (
+    <aside class="cs-margin sw-note" style="padding-top: 28px">
+      {note && <p class="note" style="margin: 0; transform: rotate(-0.8deg)">{note}</p>}
+    </aside>
+  )}
+</section>
+
+<style>
+  .fig-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+  .fig-label {
+    margin-bottom: 10px;
+  }
+  .fig-link {
+    display: block;
+    line-height: 0;
+  }
+  .fig-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: var(--border-hairline);
+    background: #fff;
+  }
+  /* Equal frames: different screenshots sit in identical boxes, top-aligned. */
+  .fig-grid[data-ratio] .fig-img {
+    aspect-ratio: var(--ratio);
+    object-fit: contain;
+    object-position: top center;
+  }
+  .fig-link:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 4px;
+  }
+  .fig-caption {
+    margin-top: 16px;
+    max-width: 640px;
+    line-height: 1.6;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+  .fig-note-wide {
+    margin: 18px 0 0;
+    max-width: 560px;
+    transform: rotate(-0.6deg);
+  }
+  @media (max-width: 1000px) {
+    .fig-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  }
+</style>

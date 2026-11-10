@@ -1,209 +1,318 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
-import HeroReframe from '../../components/notebook/HeroReframe.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
 import SectionRow from '../../components/notebook/SectionRow.astro';
 import InsightLine from '../../components/notebook/InsightLine.astro';
 import Fork from '../../components/notebook/Fork.astro';
-import Versions from '../../components/notebook/Versions.astro';
+import Figure from '../../components/notebook/Figure.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
-import Tally from '../../components/notebook/Tally.astro';
-import Annotate from '../../components/notebook/Annotate.astro';
+
+import cover from '../../assets/biomotivate/cover.png';
+import flyer1 from '../../assets/biomotivate/flyer-1.png';
+import flyer2 from '../../assets/biomotivate/flyer-2.png';
+import beforeDiscover from '../../assets/biomotivate/before-discover.png';
+import afterDiscover from '../../assets/biomotivate/after-discover.png';
+
+/*
+ * Copy rules for this page (see notes/intake-biomotivate.md):
+ * - Every fact comes from the intake, the flyers, or the screenshots. Nothing invented.
+ * - [TODO: …] marks what only Varrshitha can fill in. Leave them visible.
+ * - Patients are in addiction recovery: no names, no identifying details,
+ *   no generated images of patients, quotes paraphrased.
+ */
 ---
 
-<Base title="Biomotivate: Peace Platform -- VK">
+<Base title="Biomotivate: Peace · VK">
   <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
 
-    <CaseStudyHeader entryNum="02" />
+    <CaseStudyHeader entryNum="03" />
 
-    <HeroReframe
-      original="Why are patients losing interest in VR therapy?"
-      reframed="When does a tool built for everyone stop working for anyone?"
-      entryNum="02"
-      marginNote="Product intern. 4 months, summer 2025. VR, an addiction recovery house, and 20+ think-alouds."
-      marginSub="(the reframe took six weeks. the answer was always in the usage data.)"
+    <CaseHero
+      entryNum="03"
+      eyebrow="Biomotivate · Peace platform"
+      title="Making therapy videos personal"
+      lede="I was hired to fix the interface of a VR therapy platform at an addiction recovery house. The real problem was that patients had stopped finding anything in it worth watching."
+      meta={[
+        { label: "Role", value: "Product intern" },
+        { label: "Timeline", value: "Summer 2025, 4 months" },
+        { label: "Team", value: "Founder, 1 engineer, psychology and data science interns" },
+        { label: "Focus", value: "Product, UX research, AI video" },
+        { label: "Results", value: "+60% engagement, +40% new patients" },
+      ]}
+      cover={cover}
+      coverAlt="Biomotivate's brain characters: meditating, lifting weights, cooking, reading."
+      note="handed: fix the UI.<br><br>turned out: why were patients who'd used it for a year walking away?<br><br><span style='color:#66625A'>(names and details are left out. these are people in recovery.)</span>"
     />
 
-    <!-- 01 brief -->
-    <SectionRow num="01" label="the brief" pb="88px">
+    <!-- 01 -->
+    <SectionRow num="01" label="the brief">
       <Fragment slot="main">
-        <p style="font-size:21px;line-height:1.62;margin:0 0 22px;font-family:var(--font-serif);font-variation-settings:'opsz' 20,'wght' 400">
-          I was hired to fix the UI of Peace &mdash; a VR video-therapy platform used at a residential addiction recovery house in Pittsburgh.
-          Patients used it as part of their daily routine: they put on an Oculus headset and watched a short therapy video.
-          The team was already tracking a steady attendance decline when I arrived.
+        <p class="body">
+          Peace is a VR therapy platform made by Biomotivate, a Pittsburgh startup. At an addiction
+          recovery house, patients used it as part of their routine: put on an Oculus headset and watch
+          a short video that pairs a hard memory with something uplifting. Some of them had been doing
+          this for over a year.
         </p>
-        <p style="font-size:21px;line-height:1.62;margin:0;font-family:var(--font-serif);font-variation-settings:'opsz' 20,'wght' 400">
-          The assignment was: clean up the interface. I found something else first.
+        <p class="body">
+          My job was the interface. But the team was also tracking a number that wasn't on my ticket.
+          Attendance had been falling, steadily, since before I got there.
         </p>
       </Fragment>
       <Fragment slot="margin">
-        <div style="font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:18px;line-height:1.5;transform:rotate(-1deg)">
-          The UI ticket was real. So was the decline. I did both &mdash; folded the fixes into a rebuild I did myself in FlutterFlow.
-        </div>
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          I could have shipped the fixes and had a clean internship. I wanted to know why people were leaving.
+        </p>
       </Fragment>
     </SectionRow>
 
-    <!-- 02 listening -->
-    <SectionRow num="02" label="listening" pb="40px">
+    <!-- 02 -->
+    <SectionRow num="02" label="listening">
       <Fragment slot="main">
-        <p style="font-size:21px;line-height:1.62;margin:0 0 22px;font-family:var(--font-serif);font-variation-settings:'opsz' 20,'wght' 400">
-          I ran
-          <Annotate type="circle">20+ think-alouds</Annotate>
-          and sat in on VR therapy sessions. Nobody struggled with the interface &mdash; long-time users navigated it without a second thought.
-          What I noticed: they searched for videos they hadn&rsquo;t seen before.
-          Almost everyone watched the one mandatory video and skipped the two optional ones.
+        <p class="body">
+          So I went where the patients were. I ran VR sessions myself and sat through about 20
+          think-alouds, watching people use Peace while they talked me through it.
         </p>
-        <p style="font-size:21px;line-height:1.62;margin:0;font-family:var(--font-serif);font-variation-settings:'opsz' 20,'wght' 400">
-          I tested one explanation first. If patients understood what VR therapy was doing for them &mdash; the actual science, in plain language &mdash; maybe they&rsquo;d be more motivated to show up.
-          I designed educational flyers explaining the method and posted them around the house.
-          [TODO: did attendance move after the flyers? confirm outcome before publishing.]
+        <p class="body">
+          Nobody struggled with the headset or the app. The long-time patients moved through it without
+          a second thought. What they did instead was search, scrolling for a video they hadn't seen yet.
+          Each session had one required video and a choice of two optional ones. Almost nobody picked
+          the optional ones.
         </p>
-      </Fragment>
-      <Fragment slot="margin">
-        <div style="font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:18px;line-height:1.5;transform:rotate(0.8deg)">
-          Running the sessions gave me different data than the think-alouds. Sessions: how the content was used. Think-alouds: why.
-        </div>
+        <p class="body">
+          If the videos helped, why skip them? If the app was easy, why stop coming? Were they bored?
+          Of therapy?
+        </p>
       </Fragment>
     </SectionRow>
 
-    <!-- pull quote -->
-    <section class="cs-row" style="padding-bottom:96px">
-      <div></div>
-      <figure style="margin:0;padding:24px 0">
-        <blockquote style="margin:0;font-size:38px;line-height:1.22;font-style:italic;font-weight:300;letter-spacing:-0.01em;border:none;padding:0;color:var(--ink);font-family:var(--font-serif);font-variation-settings:'opsz' 40,'wght' 300">&ldquo;I know which ones I&rsquo;ve seen. I&rsquo;m looking for one I haven&rsquo;t.&rdquo;</blockquote>
-        <figcaption class="mono" style="margin-top:22px">Observed behavior &mdash; paraphrased across think-alouds</figcaption>
-      </figure>
-      <aside class="sw-note" style="padding-top:30px">
-        <Tally count={4} />
-        <div class="note" style="margin-top:6px;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--ink-60)">4 of the first 6 participants searched for unseen content before watching.</div>
-      </aside>
-    </section>
-
-    <!-- 03 the turn -->
+    <!-- 03 -->
     <InsightLine
       num="03"
       label="the turn"
-      validated="Long-term users declining as much as new ones"
-      observed="Consistent searching behavior across 20+ sessions"
-      assumed="Education alone wouldn't turn attendance around"
+      observed="Patients searched for videos they hadn't seen"
+      assumed="That this, not the UI, was why attendance fell"
     >
-      The interface was fine. The content had run out of people it was made for.
+      They weren't lost in the app. They were tired of what was in it.
     </InsightLine>
 
-    <!-- 04 the diagnosis -->
+    <!-- 04 -->
     <Fork
       num="04"
-      label="the diagnosis"
-      context="Attendance was falling among experienced users, not just newcomers. That meant it wasn't about learning the device. I had four explanations left."
+      label="four suspects"
+      context="That was my hunch. Before betting on it, I lined up every explanation I could think of for the drop."
       options={[
-        { label: "Device friction. The VR headsets had a learning curve.", pathNotTaken: "Long-term users who used VR daily for other things were declining too. Ruled out early." },
-        { label: "UI friction. The interface was confusing.", pathNotTaken: "No support tickets. Confused users usually file them. Ruled out." },
-        { label: "Motivation. Patients didn't understand how the therapy was helping them.", pathNotTaken: "I tested this first with educational flyers. [TODO: confirm outcome before publishing.]" },
-        { label: "Content. Stale and not personally meaningful.", chosen: true },
+        { label: "The headset. VR takes getting used to.", pathNotTaken: "fair for new patients. it doesn't explain people who'd used it for a year." },
+        { label: "The interface.", pathNotTaken: "the people leaving were the ones who knew the app best." },
+        { label: "Understanding. Patients didn't know how the therapy was helping them.", pathNotTaken: "I tested this one first, with flyers. [TODO: what happened]" },
+        { label: "The content. Nothing new, and nothing that felt like theirs.", chosen: true },
       ]}
-      rationale="People searched for videos they hadn't seen yet. The ones who kept coming watched the same mandatory video every time. The optional extras were almost never touched. The decline included people who'd used the platform for over a year. That's not confusion or low motivation. That's running out of content worth watching."
+      rationale="The headset and the interface couldn't explain why the people who knew them best were leaving. The flyers could explain the method, but understanding why something works isn't the same as wanting to do it. [TODO: confirm once the flyer outcome is in.] The content fit everything: the same library, watched for months, made for no one in particular."
       knew={[
-        { text: "Long-term users declining as much as new ones. Observed in attendance records.", confidence: "observed" },
-        { text: "Patients searched for unseen videos every session. Observed in think-alouds.", confidence: "observed" },
-        { text: "Almost no optional videos watched. Observed in usage data.", confidence: "observed" },
-        { text: "Flyers might still help as support material even if not the main cause. Assumed.", confidence: "assumed" },
+        { text: "Long-time users were leaving, not just new ones", confidence: "observed" },
+        { text: "Patients searched for videos they hadn't seen", confidence: "observed" },
+        { text: "The optional videos were almost never picked", confidence: "observed" },
+        { text: "That understanding the therapy would make people want to come", confidence: "assumed" },
       ]}
     />
 
-    <!-- 05 what to build -->
+    <Figure
+      fig="fig. 1"
+      caption="The flyers I designed for the house, explaining in plain language how Peace works and why it helps. This was my test of suspect C."
+      note="Page two has a section called “What if I get bored?” Our answer was: there are 250+ videos."
+      images={[
+        { src: flyer1, alt: "Flyer, page one: what Peace is, how pairing hard memories with positive videos works, and long-term benefits." },
+        { src: flyer2, alt: "Flyer, page two: why try it, paid opportunities, helping others, and what to do if you get bored." },
+      ]}
+    />
+
+    <!-- 05 -->
     <Fork
       num="05"
-      label="what to build"
-      context="Once I knew content was the problem, the question was what kind of content would actually fix it. The team's first instinct was to add more topics."
+      label="more, or personal"
+      context="The team's first idea was more videos on more topics. But by our own flyer, the library already had 250+ videos, and people were still scrolling past them."
       options={[
-        { label: "More stock videos across a wider range of topics.", pathNotTaken: "More of the same, spread thinner. No reason any one of them would mean more to anyone." },
-        { label: "Personalized videos generated from each patient's own input.", chosen: true },
+        { label: "More stock videos, on more topics.", pathNotTaken: "if the library were small. ours wasn't." },
+        { label: "Videos made from each patient's own memories and interests.", chosen: true },
       ]}
-      rationale="Novelty wasn't what made the first personalized videos work. Early users rewatched them and asked to watch them again during free time. They came back to contribute more ideas. That's not novelty &mdash; that's ownership. More stock topics would still be content made for everyone. That's what had run out."
+      rationale="The first personalized videos got rewatched. People asked to watch them in their free time and came back with ideas for more. The founder pushed back hard: personal videos are slow to make, they don't scale, you can't show one to anyone else, and they raise the privacy stakes. I brought the usability testing results and made the case for long-term value. [TODO: one line, in my voice, on how that conversation went]"
       knew={[
-        { text: "First personalized videos were rewatched and requested again. Observed in pilot.", confidence: "validated" },
-        { text: "One confound to name: patients felt they should watch because we made it for them. I saw this. It's real and it's a bias.", confidence: "observed" },
-        { text: "Personalized production is slower and doesn't scale. Acceptable for pilot. Assumed.", confidence: "assumed" },
-        { text: "More stock topics wouldn't create rewatch behavior. Assumed from past usage patterns.", confidence: "assumed" },
+        { text: "The first personalized videos were rewatched and asked for again", confidence: "observed" },
+        { text: "Some patients felt guilty skipping a video made for them", confidence: "observed" },
+        { text: "That more topics wouldn't get anyone to rewatch", confidence: "assumed" },
       ]}
     />
 
-    <!-- pull quote 2 -->
-    <section class="cs-row" style="padding-bottom:88px">
+    <section class="cs-row" style="padding-bottom: 104px">
       <div></div>
-      <figure style="margin:0;padding:24px 0">
-        <blockquote style="margin:0;font-size:34px;line-height:1.3;font-style:italic;font-weight:300;letter-spacing:-0.01em;border:none;padding:0;color:var(--ink);font-family:var(--font-serif);font-variation-settings:'opsz' 36,'wght' 300">&ldquo;I felt bad for not watching it. You made it for me.&rdquo;</blockquote>
-        <figcaption class="mono" style="margin-top:22px">Patient, anonymized and paraphrased</figcaption>
+      <figure style="margin: 0">
+        <blockquote class="quote">“I felt bad for not watching it, because you made it for me.”</blockquote>
+        <figcaption class="mono" style="margin-top: 20px">A patient, paraphrased</figcaption>
       </figure>
-      <aside class="sw-note" style="padding-top:30px">
-        <div style="font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:17px;line-height:1.5">The hunch that started it all &mdash; and a confound I had to name. I&rsquo;m not sure how much of the engagement came from ownership and how much from guilt.</div>
+      <aside class="cs-margin sw-note" style="padding-top: 10px">
+        <p class="note" style="margin:0;transform:rotate(0.8deg)">
+          This is where the hunch came from. It's also a bias: people might watch because they feel they owe us.
+          Both are true, so it comes back in the results.
+        </p>
       </aside>
     </section>
 
-    <!-- 06 the standard -->
-    <Versions
-      num="06"
-      label="the standard"
-      defaultIdx={3}
-      versions={[
-        {
-          name: "v0",
-          when: "first batch",
-          text: "Generated the first videos with no constraints. Character inconsistency clip to clip. One tool's output sexualized a female patient's character and misrepresented her body type. No quality standard existed yet.",
-          note: "We found out what we'd get by getting it. The failures were specific enough to know exactly what to prevent."
-        },
-        {
-          name: "v1",
-          when: "second batch",
-          text: "Added manual review after each generation run. Caught problems batch by batch. No systematic way to prevent them before they happened.",
-          note: "Better than nothing. Not a standard."
-        },
-        {
-          name: "v2",
-          when: "third batch",
-          text: "Benchmarked available tools. Ruled out Veo and Sora: budget and latency. Chose Pika and Flikki with a fixed prompt template for character consistency. Same inputs, comparable outputs.",
-          note: "Consistency became possible once the tool and template were locked."
-        },
-        {
-          name: "v3",
-          when: "shipped",
-          text: "ChatGPT Projects with explicit guidelines and 'do not' instructions for every known failure type. Human reviewer on every image before it went to a patient. Character consistency maintained across the full story.",
-          note: "The standard isn't just what to make. It's what not to make, written down."
-        }
-      ]}
-    />
-
-    <!-- 07 what happened -->
-    <SectionRow num="07" label="what happened" pb="104px">
+    <!-- 06 -->
+    <SectionRow num="06" label="asking gently">
       <Fragment slot="main">
-        <OutcomeStats stats={[
-          { number: "+60%", label: "engagement (repeat views and voluntary sessions)" },
-          { number: "+40%", label: "new patients who signed up for the first time" },
-          { number: "[TODO]", label: "baseline and time window still needed before publishing" }
-        ]} />
+        <p class="body">
+          Personal videos need personal input, and asking people in recovery about their memories is
+          delicate. An open-ended form (what interests you? what do you want to see?) felt intimidating.
+        </p>
+        <p class="body">
+          So the form became a short set of guided questions for people who aren't sure what to say. It asks
+          for a good memory, or an interest they'd like to see. I wrote it with the psychology postdoc on our
+          team, who reviewed every question so none of them would lead someone back to their addiction or
+          trauma.
+        </p>
       </Fragment>
       <Fragment slot="margin">
-        <div style="transform:rotate(1deg);font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:18px;line-height:1.5">
-          Not a blind study. The same &ldquo;we made it for you&rdquo; effect that gave me the hunch could inflate engagement numbers. I&rsquo;m saying it here because it&rsquo;s true.
-        </div>
+        <p class="note" style="margin:0;transform:rotate(-0.6deg)">[TODO: one question that made it in, and one we cut]</p>
       </Fragment>
     </SectionRow>
 
-    <!-- 08 reflection -->
-    <Reflection num="08" label="if again">
-      I started something I knew I wouldn&rsquo;t finish. The personalized video system was too large for a 3-month internship. I started it anyway &mdash; so the team would have something worth finishing. I&rsquo;d do that again. What I&rsquo;d do differently: [TODO]
+    <!-- 07 -->
+    <SectionRow num="07" label="the standard">
+      <Fragment slot="main">
+        <p class="body">
+          Personal also meant new ways to get it wrong. Characters changed from one clip to the next.
+          Some ChatGPT-generated clips sexualized female characters, and one got a patient's body type wrong.
+          When the video is about your own memory, that isn't a small bug.
+        </p>
+        <p class="body" style="margin-bottom: 14px">So I set a standard for every video:</p>
+        <ol class="list">
+          <li>One tool and one fixed prompt template, picked after benchmarking the options.</li>
+          <li>Prompts written to keep characters consistent from clip to clip.</li>
+          <li>A ChatGPT Project with our guidelines and an explicit list of what not to generate.</li>
+          <li>A person reviews every generated image before a patient sees it.</li>
+        </ol>
+        <p class="body">
+          Veo and Sora were out: too expensive, too slow, and not close enough to the story.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          AI made personal videos possible. Someone still had to make sure they were kind.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 08 -->
+    <SectionRow num="08" label="the ticket" pb="48px">
+      <Fragment slot="main">
+        <p class="body">
+          And the UI fixes I was hired for? I still did them, as part of a rebuild. Our only engineer worked
+          offsite in JavaScript, and the personalized flow was a lot of new work. I proposed moving Peace to
+          FlutterFlow, a free drag-and-drop builder, so I could build the fixes and the new flow myself.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">[TODO: what we gave up by moving to FlutterFlow]</p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      wide
+      ratio="16 / 10"
+      caption="The Discover form, before and after. Redesigned in Figma, then built in FlutterFlow: real navigation, saved videos, one clear action."
+      images={[
+        { src: beforeDiscover, alt: "Before: a single long form with a study-participant question, a video picker, a full-screen button and a 1–100 rating field.", label: "before" },
+        { src: afterDiscover, alt: "After: the same form inside a navigation sidebar with Discover, Emotional Resilience Sessions, Internet Positive Videos and My Saved Videos.", label: "after" },
+      ]}
+    />
+
+    <!-- 09 -->
+    <SectionRow num="09" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "+60%", label: "engagement: more sessions and more repeat views" },
+          { number: "+40%", label: "patients signing up for the first time" },
+        ]} />
+        <p class="mono" style="margin: 24px 0 40px">Baseline and time window: [TODO]</p>
+        <p class="body">
+          The full feature was never going to be finished in my three months, and I knew that going in.
+          I left the team with a working flow, a standard for making the videos, and early proof that
+          personal works better than more.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(1deg)">
+          Not a blind study. The same “we made it for you” feeling that gave me the hunch could be inflating
+          these numbers. I'd rather say that than have you wonder.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 10 -->
+    <Reflection num="10" label="what stuck">
+      Pick the problem that matters over the deliverable that's safe, even if you won't be there to see it finished.
     </Reflection>
 
-    <!-- footer -->
-    <footer class="cs-row" style="align-items:end;padding-top:40px">
+    <footer class="cs-row" style="align-items: end; padding-top: 24px">
       <div></div>
-      <a href="/work/workbench-hr" style="text-decoration:none;color:var(--ink);display:block">
-        <div class="mono" style="margin-bottom:10px">Next entry &rarr;</div>
-        <div style="font-size:30px;line-height:1.2;font-family:var(--font-serif)">WorkBench HR: deciding what to build when you can build anything</div>
+      <a href="/work/workbench-hr" class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry →</div>
+        <div class="next-q">What's the smallest thing we can build that proves the whole idea?</div>
       </a>
-      <p class="note sw-note" style="margin:0;font-size:16px;color:#66625A">p.s. This was written in a coffee shop on Forbes Ave, two blocks from where the sessions happened.</p>
+      <div></div>
     </footer>
 
   </div>
 </Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+
+  .list {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.55;
+    margin: 0 0 22px;
+    padding-left: 1.4em;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+  }
+  .list li { margin-bottom: 8px; padding-left: 4px; }
+  .list li::marker { font-family: var(--font-mono); font-size: 13px; color: var(--ink-60); }
+
+  .quote {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 36, 'wght' 300;
+    max-width: none;
+  }
+
+  .next { text-decoration: none; color: var(--ink); display: block; }
+  .next-q {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .next:hover .next-q { text-decoration: underline; text-decoration-color: var(--pencil); text-underline-offset: 6px; }
+
+  @media (max-width: 1000px) {
+    .body, .list { font-size: 19px; }
+    .quote { font-size: 28px; }
+  }
+</style>

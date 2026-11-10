@@ -168,13 +168,16 @@ src/
 
 All project content lives in `notes/` (git-ignored; some intakes hold confidential details). Read the relevant intake before writing any case study or entry, and never publish anything an intake marks confidential.
 
+- `notes/handoff.md`: where the last session left off. Read it first.
 - `notes/content-map.md`: site sections, which projects are case studies vs. short entries, throughlines. Start here.
 - `notes/intake-<project>.md`: one per project (biomotivate, us-bank, workbench-hr, halo, dfa-gotr, sous, depop-popups, dsc, women-in-product, echos). `[TODO]` = missing from me; `(inferred)` = not confirmed. Keep both as visible placeholders, don't fill them in.
+- `notes/voice-guide.md`: how I write. Follow it for all copy.
 - `notes/creative-direction.md`: design decisions log. Where it conflicts with this file on visual tokens (e.g. paper color), this file wins.
 - Raw images and decks: `case study raw contents/<project>/` (also git-ignored).
 
 Decisions from Nov 9, 2026 that override older text in this file:
 - **"Your call" is dropped.** Decisions are shown, not quizzed: a static `<Fork>` component lays the options side by side, the chosen one circled in pencil ("what I chose"), the others struck through with a handwritten "path not taken: when I'd pick it" note, then the reasoning; margin lists "What I knew at the time" with confidence markers. Ignore "Your call candidate" fields in the intakes.
+- **Case study hero is traditional:** use `<CaseHero>` (eyebrow, title, one-line lede, Role / Timeline / Team / Focus / Results row, wide cover image). The reframe ("handed: … / turned out: …") lives only as its handwritten margin note. `<HeroReframe>` is no longer used on case studies. See `src/pages/work/biomotivate.astro` as the reference page.
 - **Nav is Work · Projects · Design · About** (not Work, Play, About). Play pieces live under Design.
 
 ## Working with me

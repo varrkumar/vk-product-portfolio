@@ -209,14 +209,15 @@ const { num, label, context, options, rationale, knew } = Astro.props;
     display: inline-block;
   }
 
+  /* The reasoning is the point of a fork: full ink, body size, upright. */
   .fork-rationale {
     font-family: var(--font-serif);
-    font-size: 19px;
-    line-height: 1.65;
-    color: var(--ink-60);
+    font-size: 21px;
+    line-height: 1.62;
+    color: var(--ink);
     margin: 0;
-    font-style: italic;
-    font-variation-settings: 'opsz' 18, 'wght' 300;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
   }
 
   /* Knew margin */
