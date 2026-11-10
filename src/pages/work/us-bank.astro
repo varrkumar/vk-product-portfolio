@@ -1,0 +1,444 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import InsightLine from '../../components/notebook/InsightLine.astro';
+import Fork from '../../components/notebook/Fork.astro';
+import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
+import Reflection from '../../components/notebook/Reflection.astro';
+import { nextCaseStudy } from '../../data/entries';
+
+const next = nextCaseStudy('us-bank');
+
+/*
+ * CONFIDENTIAL. This page is noindex and not linked from the landing page.
+ * Rules (see notes/intake-us-bank.md):
+ * - No screenshots, internal tool names, team names, people names, roadmap dates,
+ *   or asset names from the internal decks.
+ * - All visuals are generic redraws: request journey, chatbot mock, blocker chart,
+ *   roadmap shape. No real data visible.
+ * - Remove draft status only after manager approval.
+ */
+---
+
+<Base title="U.S. Bank: AI Center of Excellence · VK" noindex={true}>
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="01" />
+
+    <CaseHero
+      entryNum="01"
+      eyebrow="U.S. Bank · AI Center of Excellence"
+      title="Making it easy to ask the AI team for help"
+      lede="As a product management intern on U.S. Bank's AI Center of Excellence, I redesigned how business teams request AI work, ran a workshop that mapped what was worth reusing, and built the roadmap that came out of it."
+      meta={[
+        { label: "Role", value: "Product Management Intern" },
+        { label: "Timeline", value: "Summer 2026" },
+        { label: "Team", value: "AI Center of Excellence" },
+        { label: "Focus", value: "Product, AI/ML, responsible AI, facilitation" },
+        { label: "Output", value: "Platform prototype approved by senior leadership; reusability roadmap" },
+      ]}
+      note="handed: make it easy for teams to request AI work.<br><br>turned out: reuse was a documentation problem, not a search problem."
+    />
+
+    <!-- 01 -->
+    <SectionRow num="01" label="the brief">
+      <Fragment slot="main">
+        <p class="body">
+          The AI Center of Excellence partners with business teams across U.S. Bank to scope,
+          build, and deploy AI. Getting that process started required teams to fill out a long
+          intake form. Many of them aren't technical, and the form assumed familiarity with the AI
+          development process that most requesters didn't have.
+        </p>
+        <p class="body">
+          My summer started with one project: redesign the intake experience so non-technical teams
+          could get started without knowing the right questions in advance. It ended with two: a
+          centralized platform prototype that senior leadership approved, and a reusability roadmap
+          that came out of a workshop I ran with four AI teams.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the two projects are connected. a requester asking "can you build this?" and a team asking
+          "has someone built this already?" are the same friction from opposite sides.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 02 -->
+    <SectionRow num="02" label="listening">
+      <Fragment slot="main">
+        <p class="body">
+          I ran 20+ interviews across the groups that touched the intake: AI champions, risk
+          management, and teams that had recently submitted requests. I also reviewed the existing
+          guidance and communications.
+        </p>
+        <p class="body">
+          The pattern was consistent. This wasn't a form problem; it was a knowledge problem.
+          Requesters were confused about which path their request should take. Answers to common
+          questions were spread across multiple sources and hard to find. The same questions came
+          back repeatedly, adding overhead to the AICoE team. And almost everyone wanted to know
+          what would happen next. The form asked people to fill in the right answers before anyone
+          had given them the right questions.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 03 -->
+    <InsightLine
+      num="03"
+      label="the turn"
+      observed="Fragmented guidance and unclear request paths were the top pain points across 20+ interviews"
+      assumed="That removing the knowledge barrier would reduce overhead on both sides"
+    >
+      Requesters shouldn't have to know which questions to answer. The system should ask them.
+    </InsightLine>
+
+    <!-- 04 -->
+    <Fork
+      num="04"
+      label="guide first, chatbot second, platform third"
+      context="The end goal was a conversational intake agent: someone describes what they need in plain language, and the system works out the rest. The question was how to get there credibly, without building on knowledge sources that hadn't been vetted yet."
+      options={[
+        { label: "Build the platform first.", pathNotTaken: "A conversational agent needs trusted content to draw on. Building it first meant either an agent that hallucinated or one that said nothing useful." },
+        { label: "Build in sequence: guide → chatbot → platform, each step creating the content the next one needs.", chosen: true },
+      ]}
+      rationale="The Request Guide centralizes the fragmented information and establishes what's authoritative. The FAQ chatbot tests whether people can find answers in that content through natural-language questions. The platform's intake agent then uses the same vetted sources to run a conversation instead of a form. Each step earned the right to build the next one."
+      knew={[
+        { text: "No single authoritative source for the AICoE's intake process existed", confidence: "observed" },
+        { text: "An agent that hallucinated would create more friction in a risk-aware environment, not less", confidence: "assumed" },
+        { text: "That the guide would be the first time the process information existed in one place", confidence: "observed" },
+      ]}
+    />
+
+    <!-- Request journey diagram -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono" style="color: var(--ink-60); font-size: 11px">fig. 1</div>
+      </div>
+      <figure class="cs-wide" style="margin: 0">
+        <div class="journey-diagram">
+          <div class="journey-col">
+            <div class="journey-label mono">before</div>
+            <div class="journey-box journey-box--muted">
+              <span>long intake form</span>
+            </div>
+            <div class="journey-arrow" aria-hidden="true">↓</div>
+            <div class="journey-box journey-box--muted">
+              <span>AI Center of Excellence</span>
+            </div>
+          </div>
+          <div class="journey-sep" aria-hidden="true">→</div>
+          <div class="journey-col">
+            <div class="journey-label mono">after (built in sequence)</div>
+            <div class="journey-steps">
+              <div class="journey-box">Request Guide</div>
+              <div class="journey-arrow" aria-hidden="true">↓</div>
+              <div class="journey-box">FAQ Chatbot <span class="journey-tag mono">cited answers + escalation</span></div>
+              <div class="journey-arrow" aria-hidden="true">↓</div>
+              <div class="journey-box journey-box--accent">Platform with Intake Agent <span class="journey-tag mono">approved by senior leadership</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="mono" style="margin-top: 16px; font-size: 12px; color: var(--ink-60); line-height: 1.6; max-width: 640px">The request journey: each step builds on the last, using the previous step's vetted content as the next one's knowledge source.</figcaption>
+        <p class="note sw-note" style="margin: 18px 0 0; max-width: 560px; transform: rotate(-0.6deg)">the platform also has a portfolio dashboard for senior leadership and a collaborative workspace for risk and AI champion teams. one platform, three views.</p>
+      </figure>
+    </section>
+
+    <!-- 05 -->
+    <Fork
+      num="05"
+      label="trust over coverage"
+      context="The FAQ chatbot could maximize coverage (answer more, more loosely) or maximize trust (answer less, with citations, with escalation when it can't). In a regulated financial institution, a confident wrong answer is worse than no answer."
+      options={[
+        { label: "Maximize coverage: answer as many questions as possible from available sources.", pathNotTaken: "If the answer is wrong and there's no citation, there's no way to catch it. In a risk governance context, that's not an acceptable trade." },
+        { label: "Cite every answer. Escalate when uncertain.", chosen: true },
+      ]}
+      rationale="Every answer cites its source. When confidence is low or the question is out of scope, the chatbot routes to a person instead of guessing. The design questions I worked through before building: which sources are authoritative? How do we stay accurate as content changes? What happens when the answer isn't there? Who owns the knowledge sources long term? Those questions shaped the platform more than any technical choice."
+      knew={[
+        { text: "In a regulated environment, a wrong answer with no citation is harder to catch than no answer", confidence: "assumed" },
+        { text: "The chatbot's reliability depended entirely on the quality and maintenance of its knowledge sources", confidence: "observed" },
+        { text: "Content ownership and governance would be the long-term constraint, not the model", confidence: "assumed" },
+      ]}
+    />
+
+    <!-- Chatbot mock -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono" style="color: var(--ink-60); font-size: 11px">fig. 2</div>
+      </div>
+      <figure style="margin: 0">
+        <div class="chat-mock">
+          <div class="chat-bubble chat-bubble--user">
+            <span class="mono chat-label">requester</span>
+            <p>What information does the AICoE need from me to process a request?</p>
+          </div>
+          <div class="chat-bubble chat-bubble--bot">
+            <span class="mono chat-label">AI Center</span>
+            <p>The intake process has three stages. Stage one is a business need summary — a plain-language description of what you're trying to do and who it affects. Stage two is scoping, run with an AI champion. Stage three is formal intake, which requires a completed risk and feasibility checklist.</p>
+            <div class="chat-citation mono">↗ Source: Request Guide §3 — Intake Process</div>
+            <div class="chat-escalation mono">Not answered? → Contact your AI champion or the AICoE intake team.</div>
+          </div>
+        </div>
+        <figcaption class="mono" style="margin-top: 16px; font-size: 12px; color: var(--ink-60); line-height: 1.6; max-width: 640px">Generic chatbot interaction: every answer cites its source. When the question is out of scope or confidence is low, the chatbot routes to a person.</figcaption>
+      </figure>
+      <aside class="cs-margin sw-note" style="padding-top: 28px">
+        <p class="note" style="margin: 0; transform: rotate(-0.8deg)">the escalation path was the design decision I kept coming back to. what happens when it doesn't know? the answer is: someone who does.</p>
+      </aside>
+    </section>
+
+    <!-- 06 -->
+    <SectionRow num="06" label="making research a game" pb="104px">
+      <Fragment slot="main">
+        <p class="body">
+          The second project: AI teams across the AICoE had built components that other teams were
+          rebuilding from scratch. Reusable assets existed but weren't consistently documented or
+          discoverable. With my mentor, I designed a workshop to find out what was worth reusing and
+          why reuse wasn't happening.
+        </p>
+        <p class="body">
+          We ran it as a game: rounds, points, a live leaderboard. Four teams analyzed 44+
+          assets and cast 427+ votes on the most valuable ones. The competition got teams to surface
+          blockers honestly instead of diplomatically, and the vote totals turned opinions into data.
+          The results told a clearer story than any survey would have.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.8deg)">a workshop about documentation and reuse sounds like a chore. the leaderboard made it a competition. same information, different energy.</p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- Blocker chart -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono" style="color: var(--ink-60); font-size: 11px">fig. 3</div>
+      </div>
+      <figure style="margin: 0">
+        <div class="mono" style="font-size: 11px; color: var(--ink-60); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.06em">Reuse blockers — share of feedback across 4 teams</div>
+        <div class="blocker-chart" role="list">
+          <div class="blocker-row" role="listitem">
+            <div class="blocker-label">documentation &amp; asset quality</div>
+            <div class="blocker-bar-wrap"><div class="blocker-bar" style="width: 67%"></div></div>
+            <div class="blocker-pct mono">67%</div>
+          </div>
+          <div class="blocker-row" role="listitem">
+            <div class="blocker-label">discoverability &amp; visibility</div>
+            <div class="blocker-bar-wrap"><div class="blocker-bar" style="width: 55%"></div></div>
+            <div class="blocker-pct mono">55%</div>
+          </div>
+          <div class="blocker-row" role="listitem">
+            <div class="blocker-label">no central repository or ownership</div>
+            <div class="blocker-bar-wrap"><div class="blocker-bar" style="width: 44%"></div></div>
+            <div class="blocker-pct mono">44%</div>
+          </div>
+          <div class="blocker-row" role="listitem">
+            <div class="blocker-label">environment &amp; access constraints</div>
+            <div class="blocker-bar-wrap"><div class="blocker-bar" style="width: 33%"></div></div>
+            <div class="blocker-pct mono">33%</div>
+          </div>
+          <div class="blocker-row" role="listitem">
+            <div class="blocker-label">customization &amp; rebuild culture</div>
+            <div class="blocker-bar-wrap"><div class="blocker-bar" style="width: 28%"></div></div>
+            <div class="blocker-pct mono">28%</div>
+          </div>
+        </div>
+        <figcaption class="mono" style="margin-top: 20px; font-size: 12px; color: var(--ink-60); line-height: 1.6; max-width: 640px">Workshop findings: reuse blockers by share of feedback across all teams. Documentation quality led by a wide margin.</figcaption>
+      </figure>
+      <aside class="cs-margin sw-note" style="padding-top: 28px">
+        <p class="note" style="margin: 0; transform: rotate(-0.8deg)">67% documentation. the problem everyone assumed was search was actually writing.</p>
+      </aside>
+    </section>
+
+    <!-- 07 -->
+    <Fork
+      num="07"
+      label="fix the documentation before building the catalog"
+      context="The workshop showed that reuse wasn't a search problem. 67% of feedback pointed to documentation and asset quality as the main blocker. Teams couldn't find assets they knew existed, but they also couldn't use assets they found because the documentation wasn't there."
+      options={[
+        { label: "Build the portal first, then fill it with assets.", pathNotTaken: "A catalog of undocumented assets doesn't get used. The portal would have surfaced the same problem in a more visible place." },
+        { label: "Package 3 assets to a documentation standard first. Validate that people can find and use them. Then expand.", chosen: true },
+      ]}
+      rationale="Phase 1 is three assets, fully packaged: spec and flow diagram, canonical use case, usage patterns, inputs and outputs, limitations, named owner, support path. The goal isn't scale — it's validating the standard. If teams can find and consume the first three, the portal makes sense. If they can't, the standard needs to change first."
+      knew={[
+        { text: "Documentation quality was the top blocker (67%), ahead of discoverability (55%)", confidence: "observed" },
+        { text: "Teams had voted 17+, 11+, 10+ times on the top three assets — the demand was clear", confidence: "observed" },
+        { text: "That a portal without a documentation standard would surface the existing problem rather than solve it", confidence: "assumed" },
+      ]}
+    />
+
+    <!-- Roadmap shape -->
+    <section class="cs-row" style="padding-bottom: 96px">
+      <div class="cs-gutter" style="padding-top: 4px">
+        <div class="mono" style="color: var(--ink-60); font-size: 11px">fig. 4</div>
+      </div>
+      <figure class="cs-wide" style="margin: 0">
+        <div class="roadmap">
+          <div class="roadmap-grid">
+            <div class="roadmap-corner"></div>
+            <div class="roadmap-phase mono">Now</div>
+            <div class="roadmap-phase mono">Next</div>
+            <div class="roadmap-phase mono">Later</div>
+            <div class="roadmap-phase mono">Future</div>
+
+            <div class="roadmap-track mono">product &amp; packaging</div>
+            <div class="roadmap-cell roadmap-cell--active">package &amp; document first 3 assets; registry metadata</div>
+            <div class="roadmap-cell">onboarding &amp; adoption flows</div>
+            <div class="roadmap-cell">contribution intake; curation &amp; QA</div>
+            <div class="roadmap-cell">reuse planning as default for new projects</div>
+
+            <div class="roadmap-track mono">UX / UI</div>
+            <div class="roadmap-cell roadmap-cell--active">validate find &amp; consume</div>
+            <div class="roadmap-cell">portal UI; search</div>
+            <div class="roadmap-cell">capability taxonomy</div>
+            <div class="roadmap-cell">semantic search &amp; recommendations</div>
+
+            <div class="roadmap-track mono">engineering</div>
+            <div class="roadmap-cell roadmap-cell--active">hand off to portal team</div>
+            <div class="roadmap-cell">portal build; integration</div>
+            <div class="roadmap-cell">contribution pipeline</div>
+            <div class="roadmap-cell">full AI-assisted reuse planning</div>
+          </div>
+        </div>
+        <figcaption class="mono" style="margin-top: 16px; font-size: 12px; color: var(--ink-60); line-height: 1.6; max-width: 640px">Reusability roadmap shape: 4 phases × 3 workstreams. Phase 1 (highlighted) focuses on packaging and validating the documentation standard before building the portal.</figcaption>
+        <p class="note sw-note" style="margin: 18px 0 0; max-width: 560px; transform: rotate(-0.6deg)">"documentation standard" sounds boring. what it means: someone can pick up an asset they've never seen and use it without asking anyone.</p>
+      </figure>
+    </section>
+
+    <!-- 08 -->
+    <SectionRow num="08" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "Approved", label: "centralized platform prototype, including the intake agent, by senior leadership" },
+          { number: "427+", label: "votes cast across 44+ assets in the reusability workshop" },
+          { number: "Roadmap", label: "presented to senior leadership; portal MVP planned for a later phase" },
+        ]} />
+        <p class="body" style="margin-top: 32px">
+          The handbook was delivered, the chatbot was prototyped, the workshop ran, and the roadmap
+          was built. What I took away was less about the outputs and more about where AI products
+          actually break: not at the model, but at information, ownership, governance, and
+          implementation. The model is the last piece of the puzzle, not the first.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(1deg)">
+          "frame questions in a way that is easiest to say yes." a risk partner's advice that stuck.
+          i used it in every conversation for the rest of the summer.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 09 -->
+    <Reflection num="09" label="what stuck">
+      I went into every conversation expecting to find answers and kept finding better questions instead.
+    </Reflection>
+
+    <footer class="cs-row" style="align-items: end; padding-top: 24px">
+      <div></div>
+      <a href={`/${next.section}/${next.slug}`} class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
+        <div class="next-q">{next.footerQ}</div>
+      </a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+
+  /* ── Request journey diagram ───────────────────── */
+  .journey-diagram {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 32px;
+    border: 1px solid rgba(28,27,24,0.1);
+    background: #fafaf8;
+  }
+  .journey-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+  .journey-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-60); margin-bottom: 4px; }
+  .journey-box {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(28,27,24,0.2);
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+    background: var(--paper);
+  }
+  .journey-box--muted { color: var(--ink-60); border-style: dashed; }
+  .journey-box--accent { border-color: var(--pencil); color: var(--pencil); font-weight: 500; }
+  .journey-tag { display: block; font-size: 10px; margin-top: 4px; opacity: 0.7; }
+  .journey-steps { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+  .journey-arrow { font-family: var(--font-mono); font-size: 16px; color: var(--ink-60); line-height: 1; }
+  .journey-sep { font-family: var(--font-mono); font-size: 24px; color: var(--ink-40); align-self: center; padding-top: 24px; }
+
+  /* ── Chatbot mock ──────────────────────────────── */
+  .chat-mock { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+  .chat-bubble {
+    padding: 16px 20px;
+    border: 1px solid rgba(28,27,24,0.15);
+  }
+  .chat-bubble--user { background: #f4f4f2; }
+  .chat-bubble--bot { background: var(--paper); }
+  .chat-bubble p { margin: 6px 0 0; font-family: var(--font-serif); font-size: 15px; line-height: 1.5; }
+  .chat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-60); }
+  .chat-citation { margin-top: 12px; font-size: 11px; color: var(--pencil); }
+  .chat-escalation { margin-top: 6px; font-size: 11px; color: var(--ink-60); }
+
+  /* ── Blocker chart ─────────────────────────────── */
+  .blocker-chart { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+  .blocker-row { display: grid; grid-template-columns: 220px 1fr 36px; gap: 12px; align-items: center; }
+  .blocker-label { font-family: var(--font-serif); font-size: 15px; line-height: 1.3; }
+  .blocker-bar-wrap { height: 6px; background: rgba(28,27,24,0.08); }
+  .blocker-bar { height: 100%; background: var(--ink); }
+  .blocker-pct { font-size: 11px; color: var(--ink-60); text-align: right; }
+
+  /* ── Roadmap ───────────────────────────────────── */
+  .roadmap { overflow-x: auto; }
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: 160px repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(28,27,24,0.1);
+    border: 1px solid rgba(28,27,24,0.1);
+    min-width: 640px;
+  }
+  .roadmap-corner,
+  .roadmap-phase,
+  .roadmap-track,
+  .roadmap-cell { background: var(--paper); padding: 10px 12px; }
+  .roadmap-phase { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-60); text-align: center; }
+  .roadmap-track { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-60); display: flex; align-items: center; }
+  .roadmap-cell { font-family: var(--font-serif); font-size: 13px; line-height: 1.4; color: var(--ink-60); }
+  .roadmap-cell--active { background: #f4f4f2; color: var(--ink); border-left: 2px solid var(--pencil); }
+
+  /* ── Shared ────────────────────────────────────── */
+  .next { text-decoration: none; color: var(--ink); display: block; }
+  .next-q {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .next:hover .next-q { text-decoration: underline; text-decoration-color: var(--pencil); text-underline-offset: 6px; }
+
+  @media (max-width: 1000px) {
+    .body { font-size: 19px; }
+    .journey-diagram { flex-direction: column; }
+    .journey-sep { transform: rotate(90deg); align-self: center; }
+    .blocker-row { grid-template-columns: 1fr 80px 32px; }
+    .blocker-label { grid-column: 1 / -1; margin-bottom: -4px; }
+  }
+</style>
