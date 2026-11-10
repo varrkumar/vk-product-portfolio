@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+---
+
+<Base title="Sous · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <CaseHero
+      eyebrow="Sous · CMU Human-AI Interaction"
+      title="Your second set of eyes in the kitchen"
+      lede="A hands-free AI cooking companion that watches your pan through a camera, tracks where you are in the recipe, and speaks up only when it's useful. In progress — final presentation early December 2026."
+      meta={[
+        { label: "Status", value: "In progress — final due Dec 2026" },
+        { label: "Team", value: "Andrea, Rachit, Varrshitha, Dora" },
+        { label: "Context", value: "CMU Human-AI Interaction, Fall 2026" },
+        { label: "Stack", value: "Python, Amazon Bedrock, vision-language model, voice controls" },
+      ]}
+      note="the brief: help home cooks follow recipes hands-free.<br><br>the hard part: knowing when to advance and when to stay quiet."
+    />
+
+    <SectionRow num="01" label="the problem">
+      <Fragment slot="main">
+        <p class="body">
+          Timers tell you when time is up, not whether the onion is actually translucent. Recipe
+          apps show the next step, but they don't know you're still on the last one. When something
+          goes differently than the recipe expects, you're on your own.
+        </p>
+        <p class="body">
+          Sous watches the pan. A camera sends snapshots to a vision-language model every few
+          seconds, the model compares what it sees to the expected state of the current step, and
+          Sous either advances, waits, or asks. Voice controls keep your hands free. Manual override
+          keeps you in charge.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          we started with local vision models (Qwen3-VL 8B). they took 10–30 seconds per response.
+          moved to Amazon Bedrock. cloud is faster; latency is still the constraint.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <SectionRow num="02" label="the core design problem">
+      <Fragment slot="main">
+        <p class="body">
+          When should Sous move on? Too early and it's wrong; too late and it's useless. The answer
+          we landed on: two consecutive confident observations at 85% or above before auto-advancing.
+          One confident look could be a fluke. Two in a row is a pattern.
+        </p>
+        <p class="body">
+          Sous also shows you its current belief: what it thinks it sees, what it's waiting for.
+          If it's wrong, you correct it and move on. The design principle it comes from is the same
+          as WorkBench HR: AI makes a suggestion, the person decides. "Wrong call? You're still
+          the chef."
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">
+          the question the class asked that stuck: when the model is unsure, should Sous ask, wait
+          silently, or make a best guess? we chose to wait and show the uncertainty. a wrong guess
+          in a kitchen is worse than a pause.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <SectionRow num="03" label="where it is now" pb="104px">
+      <Fragment slot="main">
+        <p class="body">
+          The MVP checkpoint covered recipe selection, step tracking with manual override, timer
+          controls, and the camera panel. Action detection works for simple actions; more complex
+          state recognition is the next problem. User testing in a real kitchen is mid-November.
+          This page will update after the final presentation in December.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-0.6deg)">
+          same question as Halo: when does the AI interrupt, and when does staying quiet serve the
+          user better? different domain, same design tension.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <footer class="cs-row" style="padding-top: 24px; align-items: end">
+      <div></div>
+      <a href="/projects" class="back mono">← Projects</a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+  @media (max-width: 1000px) { .body { font-size: 19px; } }
+</style>

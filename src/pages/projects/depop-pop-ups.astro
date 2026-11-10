@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import Figure from '../../components/notebook/Figure.astro';
+
+import cover from '../../assets/depop-pop-ups/cover.png';
+import features from '../../assets/depop-pop-ups/features.png';
+import flowSignup from '../../assets/depop-pop-ups/flow-signup.png';
+import flowNav from '../../assets/depop-pop-ups/flow-navigation.png';
+
+/*
+ * Team: Jonathan Gong, Tate Suarez, Varrshitha Kumar.
+ * Context: BTG Product Management Academy at CMU, Spring 2026.
+ * Presented to PNC leaders, CMU Tepper faculty, and the PMA cohort.
+ */
+---
+
+<Base title="Depop Pop-Ups · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <CaseHero
+      eyebrow="Depop · BTG Product Management Academy"
+      title="The real risk wasn't pop-ups cannibalizing the app"
+      lede="A product strategy pitch for Depop: bring the in-person thrifting experience into the app through physical pop-ups, using an existing partnership, with all transactions staying on-platform."
+      meta={[
+        { label: "Role", value: "App mockups, trade-offs and risks, success metrics" },
+        { label: "Team", value: "Jonathan Gong, Tate Suarez, Varrshitha Kumar" },
+        { label: "Context", value: "BTG Product Management Academy at CMU, Spring 2026" },
+        { label: "Audience", value: "PNC leaders, CMU Tepper faculty" },
+      ]}
+      cover={cover}
+      coverAlt="Depop Pop-Ups presentation title slide with market photos and team names."
+      note="handed: pitch a product strategy for Depop.<br><br>turned out: the real risk was sales leaving the app, not pop-ups replacing it."
+    />
+
+    <SectionRow num="01" label="the gap">
+      <Fragment slot="main">
+        <p class="body">
+          Half of U.S. consumers still prefer to buy secondhand in person. The feeling of the
+          fabric, the unexpected find, the social experience of going with a friend — none of that
+          exists in an infinite scroll. Depop already had an asset that pointed at a solution:
+          a partnership with SOOK UK, which runs physical vintage markets. The connection between
+          that partnership and the Depop app wasn't built. We built it.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          building on what already exists instead of inventing something new was the strategic
+          move. a new physical market business from scratch is a different pitch.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <SectionRow num="02" label="three features">
+      <Fragment slot="main">
+        <p class="body">
+          Depop Pop-Ups adds three things to the app. A discovery page surfaces nearby pop-up
+          events matched to your clothing interests, so you find out about a market the same way
+          you find a listing. An interactive map shows the event live, with vendor information
+          cards, inventory, ratings, and price range, navigable by GPS. A digital passport collects
+          a stamp for every pop-up attended, turning a one-time visit into something social and
+          collectible.
+        </p>
+        <p class="body">
+          My role was the app mockups, the trade-offs and risks section, and the success metrics.
+          The mockups were designed with AI tools but grounded in real Depop UI patterns so the
+          features read as part of the existing app, not a separate one.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 1"
+      wide
+      caption="Feature overview: Discovery page, interactive pop-up map with seller info cards and vendor filtering, and digital passport with collectible stamps."
+      images={[
+        { src: features, alt: "Three-column slide: Discovery Page (find pop-ups near you or by interest), Interactive Pop-up Map (live event map with seller cards, GPS, vendor filtering), Digital Passport Card (collect a stamp for every pop-up attended)." },
+      ]}
+    />
+
+    <SectionRow num="03" label="the question that mattered">
+      <Fragment slot="main">
+        <p class="body">
+          The first question from the PNC leaders in the Q&A wasn't about the features. It was
+          about where the money goes. Physical markets invite cash. Cash sales would take
+          transactions off Depop entirely — no revenue, no reviews, no data.
+        </p>
+        <p class="body">
+          Our answer: all pop-up purchases go through the Depop app, discouraging cash and keeping
+          every sale tied to a seller profile. The event becomes a channel that feeds the platform
+          rather than a competitor. The second concern raised was whether we were converting
+          online shoppers into offline ones. Our position was that the audiences are largely
+          distinct, and that in-app purchases and reviews after a pop-up keep attendees engaged
+          online. The honest answer is that the first rollout would need to test that claim directly.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.8deg)">
+          i'd design the metrics around the riskiest assumption from the start next time, not after
+          the Q&A. the cannibalization question was predictable.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      caption="User flows: sign-up (discover → event details → RSVP) and navigation (collect stamp → live vendor map → post-purchase review)."
+      note="the passport stamp comes before the map, not after. you commit to the event, then navigate it."
+      images={[
+        { src: flowSignup, alt: "Sign-up flow: Pop-up Discovery Page showing nearby events on map, Pop-up Event Details with seller list and schedule, RSVP Confirmation screen.", label: "sign-up flow" },
+        { src: flowNav, alt: "Navigation flow: Collect Pop-up Passport Stamp screen, Live Vendor Map with active vendors and GPS navigation, Post-Purchase Review screen.", label: "navigation flow" },
+      ]}
+    />
+
+    <footer class="cs-row" style="padding-top: 24px; align-items: end">
+      <div></div>
+      <a href="/projects" class="back mono">← Projects</a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+  @media (max-width: 1000px) { .body { font-size: 19px; } }
+</style>

@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import Figure from '../../components/notebook/Figure.astro';
+
+import logoBrand from '../../assets/women-in-product/logo-brand.png';
+import graphic2 from '../../assets/women-in-product/graphic-2.png';
+import graphic3 from '../../assets/women-in-product/graphic-3.png';
+import graphic4 from '../../assets/women-in-product/graphic-4.png';
+---
+
+<Base title="Women in Product at CMU · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <CaseHero
+      eyebrow="Women in Product · CMU"
+      title="Brand identity, social, and a website for WiP at CMU"
+      lede="As Director of Publicity I created the org's visual identity, ran social media and campus marketing, and built a temporary website — with a logo designed so anyone interested in product feels welcome."
+      meta={[
+        { label: "Role", value: "Director of Publicity" },
+        { label: "Timeline", value: "Apr 2025 – May 2026" },
+        { label: "Tools", value: "Figma, Canva" },
+        { label: "Output", value: "Logo, brand system, social media, campus marketing, website" },
+      ]}
+      note="handed: run publicity for Women in Product at CMU.<br><br>turned out: design an identity that makes the name feel like an invitation, not a gate."
+    />
+
+    <SectionRow num="01" label="the logo">
+      <Fragment slot="main">
+        <p class="body">
+          The brief for the logo was inclusivity. That meant not defaulting to the visual shorthand
+          that most women-in-tech organizations reach for: no pink, no single silhouette that reads
+          as one kind of person. The goal was a mark that anyone interested in product could see
+          themselves in.
+        </p>
+        <p class="body">
+          The result is a circular badge with a rounded "WiP" ligature at the center and "Carnegie
+          Mellon · Women in Product" around the edge. The palette is a deep purple (#574F7D) with a
+          soft off-white, chosen to feel considered without being gendered. Type is Poppins for
+          headings and Hanuman for body, both rounded and approachable.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the circular badge format came from wanting something that could sit on a t-shirt, a
+          sticker, or a slide deck header without changing shape.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 1"
+      wide
+      caption="WiP logo on purple, with the brand guide: logo on dark, palette (#574F7D, #E3D6F5, #F6F4F5), and type system (Poppins titles, Hanuman body)."
+      note="the rounded letterforms in 'WiP' were the main constraint. it had to feel warm, not corporate."
+      images={[
+        { src: logoBrand, alt: "WiP circular badge logo on purple background (left), with logo on white, brand colors, and type specimens for Poppins and Hanuman (right)." },
+      ]}
+    />
+
+    <SectionRow num="02" label="the work">
+      <Fragment slot="main">
+        <p class="body">
+          Beyond the identity, I ran the org's social media and on-campus marketing for the year:
+          event graphics, tabling materials, and flyers for every speaker event and workshop.
+          The temporary website gave the org a home online before a permanent one was built.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">
+          [TODO: follower or engagement numbers, best-performing post, one event that worked]
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      caption="Event and social graphics using the WiP brand system."
+      images={[
+        { src: graphic2, alt: "WiP event graphic 2." },
+        { src: graphic3, alt: "WiP event graphic 3." },
+        { src: graphic4, alt: "WiP event graphic 4." },
+      ]}
+    />
+
+    <footer class="cs-row" style="padding-top: 24px; align-items: end">
+      <div></div>
+      <a href="/design" class="back mono">← Design</a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+  @media (max-width: 1000px) { .body { font-size: 19px; } }
+</style>

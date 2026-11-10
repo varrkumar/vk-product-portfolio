@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import Figure from '../../components/notebook/Figure.astro';
+
+import gbm1 from '../../assets/data-science-club/gbm-llms.png';
+import gbm2 from '../../assets/data-science-club/gbm-pytorch.png';
+import gbm3 from '../../assets/data-science-club/gbm-3.png';
+import gbm4 from '../../assets/data-science-club/gbm-4.png';
+import gbm5 from '../../assets/data-science-club/gbm-5.png';
+import gbm6 from '../../assets/data-science-club/gbm-6.png';
+import mascot from '../../assets/data-science-club/mascot-agents.png';
+---
+
+<Base title="CMU Data Science Club · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <CaseHero
+      eyebrow="CMU Data Science Club"
+      title="Design something the next board can reuse"
+      lede="Two years as Design Director: brand identity, event graphics, mascots, and the website for the first Poker AI competition at CMU, which the next board built on the following year."
+      meta={[
+        { label: "Role", value: "Design Director" },
+        { label: "Timeline", value: "Dec 2023 – Dec 2025" },
+        { label: "Tools", value: "Figma, Canva, HTML / CSS / JS" },
+        { label: "Output", value: "DSC brand system, Poker AI 2024 site, event graphics" },
+      ]}
+      note="handed: design the club identity and the competition site.<br><br>turned out: design something the next board can reuse."
+    />
+
+    <SectionRow num="01" label="the role">
+      <Fragment slot="main">
+        <p class="body">
+          CMU's Data Science Club runs workshops, speaker events, and competitions across the year.
+          As Design Director I owned everything visual: the logo, the mascots, GBM and workshop
+          graphics, speaker cards, and the website for the club's first Poker AI competition,
+          co-hosted with the Poker Club and backed by Jane Street, HRT, Jump Trading, SIG, IMC,
+          and Trexquant.
+        </p>
+        <p class="body">
+          The event ran over 24 hours. Teams of up to four built bots to play a poker variant
+          that wasn't revealed until the start. No poker knowledge required, workshops provided,
+          $8,000+ prize pool.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the brief for every individual event: make it look like this event is worth showing up
+          for, and make it easy for the next person to update.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <SectionRow num="02" label="the system">
+      <Fragment slot="main">
+        <p class="body">
+          Consistency is what makes a student org look credible to sponsors. The DSC logo is a
+          tree-of-data mark, branches ending in nodes, designed to work in navy on white and white
+          on dark. It sits in the same corner of every graphic. Type hierarchy and proportions stay
+          fixed. Inside that frame, each event type gets its own mood: workshops use playful
+          line-drawn people; speaker cards use soft gradient portraits; competitions go bold on black
+          with a mascot.
+        </p>
+        <p class="body">
+          The Poker AI 2024 site was built in HTML, CSS, and JS, specifically so the next board
+          could update it without a designer. They did. The 2025 splash page was built directly
+          on mine.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">
+          monospace type throughout the site: the audience is programmers. it says "this is a
+          coding event" before you read a word.
+          <br><br>
+          <a href="https://cmudsc.com/archive/pokerai-2024" class="note-link" target="_blank" rel="noopener">Poker AI 2024 site →</a>
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 1"
+      wide
+      caption="GBM and workshop event graphics. Each event gets its own mood inside a consistent frame: corner logo, fixed type hierarchy, event-specific illustration style."
+      note="six events, six different vibes, same system underneath."
+      images={[
+        { src: gbm1, alt: "Intro to LLMs Workshop poster: blue gradient with DSC logo, monospace type, phone graphic.", label: "" },
+        { src: gbm2, alt: "PyTorch Workshop poster: orange serif italic heading, hand-drawn stick figures at laptops.", label: "" },
+        { src: gbm3, alt: "DSC event graphic 3.", label: "" },
+        { src: gbm4, alt: "DSC event graphic 4.", label: "" },
+        { src: gbm5, alt: "DSC event graphic 5.", label: "" },
+        { src: gbm6, alt: "DSC event graphic 6.", label: "" },
+      ]}
+      ratio="1 / 1"
+    />
+
+    <SectionRow num="03" label="the mascots">
+      <Fragment slot="main">
+        <p class="body">
+          Each competition got its own robot character. The AI Agents Weekend mascot is a blue
+          sprout-robot: rounded, friendly, clearly a bot. The Poker AI mascot has card suits for
+          eyes. They're designed to make a technical event feel approachable, the same way the
+          Poker AI site answered "no poker knowledge needed" in the first scroll.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-0.6deg)">
+          same "can I do this?" problem as Girls on the Run. different audience, same design answer:
+          say it plainly and put a friendly face on it.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      caption="AI Agents Weekend mascot. Blue sprout-robot, designed to make a DeepMind-and-Google-Cloud event feel like something a first-year could walk into."
+      note="i drew these. the sprout is a nod to the DSC tree-of-data logo."
+      images={[
+        { src: mascot, alt: "Blue sprout-robot mascot: rounded body with a smiling screen face and two leaves sprouting from the top." },
+      ]}
+      ratio="4 / 5"
+    />
+
+    <footer class="cs-row" style="padding-top: 24px; align-items: end">
+      <div></div>
+      <a href="/design" class="back mono">← Design</a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+  .note-link { color: var(--pencil); text-decoration: underline; text-underline-offset: 3px; }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+  @media (max-width: 1000px) { .body { font-size: 19px; } }
+</style>

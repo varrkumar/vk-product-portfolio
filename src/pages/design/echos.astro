@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import Figure from '../../components/notebook/Figure.astro';
+
+import hackathon from '../../assets/echos/hackathon-prototype.png';
+import researchIdeation from '../../assets/echos/research-ideation.png';
+import researchClusters from '../../assets/echos/research-clusters.png';
+---
+
+<Base title="echos · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="" />
+
+    <CaseHero
+      eyebrow="echos · XHacks → independent"
+      title="Leave a voice note pinned to a place"
+      lede="A voice-based, location-based social app: leave short voice notes pinned to places for friends, strangers, or your future self to find. Started at XHacks, now being redesigned solo."
+      meta={[
+        { label: "Status", value: "In progress — hi-fi prototype unfinished" },
+        { label: "Origin", value: "XHacks hackathon → independent redesign" },
+        { label: "Role", value: "Design, research" },
+        { label: "Tools", value: "Figma" },
+      ]}
+      note="the idea: a city full of voice notes only you can hear, left by people who were here before you.<br><br>the problem: when should it play, and when should it stay quiet?"
+    />
+
+    <SectionRow num="01" label="the idea">
+      <Fragment slot="main">
+        <p class="body">
+          Digital memories don't attach to places. You can photograph a spot, geotag it, pin it on a
+          map, but the experience of being there doesn't carry through. echos is an attempt at
+          something different: short voice notes left at a location, findable by anyone who comes
+          close enough to hear them.
+        </p>
+        <p class="body">
+          The medium is voice specifically because it carries what a photo doesn't: hesitation,
+          excitement, an accent, a laugh. And because it lowers the barrier — no polishing, no
+          composition, no posting anxiety. You speak, and someone nearby finds it later.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the trail feature is based on real places. "Italy": Sorrento, Cortona, a gelato place.
+          the capsule feature is based on real events. a birthday. it works best when it's true.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <SectionRow num="02" label="the research">
+      <Fragment slot="main">
+        <p class="body">
+          Research covered three age groups — adolescents, young adults, adults — looking at how
+          each shares places and keeps memories. The common thread: no good way to leave something
+          at a place that another person will find. Photos get buried in camera rolls. Text is too
+          low-stakes for the moment. Voice fills the gap: intimate enough to feel personal,
+          low-effort enough to actually happen.
+        </p>
+        <p class="body">
+          The design values that came out of research: authenticity, the vulnerability of voice,
+          discovery and serendipity, no pressure to perform for an audience. No feed, no likes,
+          no follower count.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 1"
+      wide
+      caption="Research clusters by age group (left) and pain points and solution values (right). The overlap across all three groups: no meaningful way to leave and revisit memories tied to a physical place."
+      note="the values map (right) became the design guardrails. anything that added pressure or polish violated them."
+      images={[
+        { src: researchClusters, alt: "Research affinity clusters organized by three participant age groups: adolescents, young adults, adults." },
+        { src: researchIdeation, alt: "Pain points and user needs on the left; solution values for echos on the right: personalization, authenticity, vulnerability of voice, commitment, discovery, no pressure." },
+      ]}
+    />
+
+    <SectionRow num="03" label="where it is now">
+      <Fragment slot="main">
+        <p class="body">
+          The XHacks prototype covers the core loop: map view, echos nearby, record and post, four
+          listening modes (notify, playlist, proximity, proximity ensemble). The redesign adds
+          structure: trails (a path of echos through a place), capsules (echos that open at a future
+          date), and a friend layer. The hi-fi prototype is unfinished. This page will update when
+          it is.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.8deg)">
+          the listening modes are the most interesting design problem: how much control should you
+          have over what plays? proximity ensemble (echos overlapping by distance) is the most
+          surprising, and probably the most annoying.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <Figure
+      fig="fig. 2"
+      wide
+      caption="XHacks hackathon prototype: splash, map view, echos nearby, record screen, and four listening modes. Warm peach palette, stacked 'echoes' logotype."
+      note="the visual identity shifted in the redesign — softer purple, 'echos' (dropped the e). why: the name felt more like a thing than an action."
+      images={[
+        { src: hackathon, alt: "XHacks hackathon prototype overview showing 10 screens: splash screen with stacked 'echoes' type, map view with green pins, echoes list, record screen, and four listening mode screens (notify, playlist, proximity, proximity ensemble)." },
+      ]}
+    />
+
+    <footer class="cs-row" style="padding-top: 24px; align-items: end">
+      <div></div>
+      <a href="/design" class="back mono">← Design</a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+  .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
+  .back:hover { color: var(--ink); }
+  @media (max-width: 1000px) { .body { font-size: 19px; } }
+</style>
