@@ -1,39 +1,55 @@
 ---
 /*
- * <Tally count={6} /> — SVG tally marks, groups of 5.
- * Drawn in the hand-font color. Used in PullQuote margins
- * to show evidence counts (n of N said this).
+ * <Tally count={3} /> — hand-drawn wavy SVG tally marks, groups of 5.
+ * Drawn in --pencil color. Used in pull-quote margins.
  */
 interface Props {
   count: number;
 }
 const { count } = Astro.props;
 
-const H = 22;        // mark height
-const S = 8;         // spacing between marks in a group
-const G = 14;        // extra gap between groups
+// Each wavy mark is a cubic bezier vertical, height 46, spaced 14px
+// Groups of 5: 4 verticals + 1 diagonal through them
+const H = 46;
+const spacing = 14;
+const groupGap = 20; // extra gap between groups
 
-type Segment = { d: string };
+interface Segment {
+  d: string;
+  isDiag?: boolean;
+}
+
 const segs: Segment[] = [];
-let x = 2;
+let x = 10;
 
 const full = Math.floor(count / 5);
-const rem  = count % 5;
+const rem = count % 5;
+
+function wavyVertical(cx: number, idx: number): string {
+  // Alternate the wobble direction slightly based on idx
+  const a = idx % 2 === 0 ? 1 : -1;
+  return `M${cx},4 C ${cx + a},16 ${cx - a},30 ${cx + a},42`;
+}
 
 for (let g = 0; g < full; g++) {
-  const gx = x;
+  const groupStartX = x;
+  const marks: number[] = [];
   for (let i = 0; i < 4; i++) {
-    segs.push({ d: `M ${x} 2 L ${x} ${H}` });
-    if (i < 3) x += S;
+    segs.push({ d: wavyVertical(x, i) });
+    marks.push(x);
+    x += spacing;
   }
-  // diagonal across the group
-  segs.push({ d: `M ${gx - 3} ${H - 3} L ${x + 4} 4` });
-  x += G;
+  // Last mark of the group
+  segs.push({ d: wavyVertical(x, 4) });
+  marks.push(x);
+  // Diagonal strikethrough across all 5
+  segs.push({ isDiag: true, d: `M${groupStartX - 4},${H - 4} C ${groupStartX + 10},${H / 2} ${x - 10},${H / 2} ${x + 4},4` });
+  x += groupGap;
 }
 
 for (let i = 0; i < rem; i++) {
-  segs.push({ d: `M ${x} 2 L ${x} ${H}` });
-  x += S;
+  segs.push({ d: wavyVertical(x, i) });
+  x += spacing;
 }
 
 const viewW = x + 4;
@@ -50,10 +66,10 @@ const viewW = x + 4;
   {segs.map(seg => (
     <path
       d={seg.d}
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
       fill="none"
+      stroke="#2D45B8"
+      stroke-width="2"
+      stroke-linecap="round"
     />
   ))}
 </svg>
@@ -61,7 +77,5 @@ const viewW = x + 4;
 <style>
   .tally {
     display: block;
-    color: var(--pencil);
-    opacity: 0.75;
   }
 </style>

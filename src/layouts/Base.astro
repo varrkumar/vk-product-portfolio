@@ -24,43 +24,7 @@ const { title, description = 'Product portfolio — Varrshitha Kumar' } = Astro.
     <slot />
     <script>
       /* -------------------------------------------------------
-       * Sidenote positioning
-       * Sidenotes are position:absolute inside .notebook-main.
-       * We set top= to match the anchor span or section heading.
-       * Re-runs after fonts load (layout shift) and on resize.
-       * ------------------------------------------------------- */
-      function positionSidenotes() {
-        const main = document.querySelector<HTMLElement>('.notebook-main');
-        if (!main || window.innerWidth < 900) return;
-
-        const mainTop = main.getBoundingClientRect().top;
-
-        document.querySelectorAll<HTMLElement>('.sidenote[id]').forEach(note => {
-          let ref: Element | null = null;
-
-          if (note.dataset.sectionRef) {
-            ref = document.getElementById(note.dataset.sectionRef);
-          } else {
-            ref = document.querySelector(`.note-anchor[data-note="${note.id}"]`);
-          }
-
-          if (!ref) return;
-          const refTop = ref.getBoundingClientRect().top;
-          note.style.top = `${refTop - mainTop}px`;
-        });
-      }
-
-      positionSidenotes();
-      document.fonts.ready.then(positionSidenotes);
-
-      let raf = 0;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(positionSidenotes);
-      });
-
-      /* -------------------------------------------------------
-       * Mobile sidenote toggles
+       * Mobile sidenote toggles (legacy notebook layout)
        * ------------------------------------------------------- */
       document.querySelectorAll<HTMLButtonElement>('.sidenote-toggle').forEach(btn => {
         btn.addEventListener('click', () => {

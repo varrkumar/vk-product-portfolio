@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw portfolio material (may include confidential files)
+case study raw contents/
+
+# portfolio notes: intakes, content map, creative direction (contain confidential details)
+notes/

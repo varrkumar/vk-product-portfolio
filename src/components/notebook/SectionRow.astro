@@ -1,0 +1,32 @@
+---
+interface Props {
+  num?: string;
+  label?: string;
+  wide?: boolean;
+  pb?: string;
+}
+const { num, label, wide = false, pb = '88px' } = Astro.props;
+---
+
+<section class="cs-row" style={`padding-bottom: ${pb}`}>
+  <div class="cs-gutter" style="padding-top: 6px">
+    <slot name="gutter">
+      {num && <div class="mono">{num}</div>}
+      {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
+    </slot>
+  </div>
+  {wide ? (
+    <div class="cs-wide">
+      <slot name="main" />
+    </div>
+  ) : (
+    <>
+      <div class="cs-main">
+        <slot name="main" />
+      </div>
+      <aside class="cs-margin sw-note">
+        <slot name="margin" />
+      </aside>
+    </>
+  )}
+</section>

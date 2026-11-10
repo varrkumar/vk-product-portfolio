@@ -1,0 +1,89 @@
+---
+interface Props {
+  entryNum?: string;
+}
+const { entryNum = '' } = Astro.props;
+---
+
+<header class="cs-row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
+  <a href="/" style="font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink); text-decoration: none">vk.</a>
+  <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
+    <a class="mono" href="/work" style="color: var(--ink); text-decoration: none">Work</a>
+    <a class="mono" href="/play" style="text-decoration: none">Play</a>
+    <a class="mono" href="/about" style="text-decoration: none">About</a>
+  </nav>
+  <div style="display: flex; justify-content: flex-start">
+    <button
+      class="cs-toggle"
+      id="show-work-toggle"
+      aria-pressed="true"
+      aria-label="Show your work"
+    >
+      <span class="cs-toggle-pill" aria-hidden="true">
+        <span class="cs-toggle-knob"></span>
+      </span>
+      <span class="hand" style="font-size: 19px; color: var(--pencil)">show your work</span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .cs-toggle {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+  }
+  .cs-toggle:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .cs-toggle-pill {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    border: 1.5px solid var(--pencil);
+    border-radius: 12px;
+    box-sizing: border-box;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .cs-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--pencil);
+    transition: left .25s ease;
+  }
+  /* When toggle is off (aria-pressed="false"), knob moves left */
+  .cs-toggle[aria-pressed="false"] .cs-toggle-knob {
+    left: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-toggle-knob {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('show-work-toggle');
+    if (!btn) return;
+
+    // Default ON: add class and set aria-pressed true
+    document.documentElement.classList.add('show-work');
+    btn.setAttribute('aria-pressed', 'true');
+
+    btn.addEventListener('click', function () {
+      const isOn = document.documentElement.classList.toggle('show-work');
+      btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+    });
+  })();
+</script>

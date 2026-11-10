@@ -1,272 +1,124 @@
 ---
 import Base from '../layouts/Base.astro';
-import Reframe from '../components/notebook/Reframe.astro';
-import PullQuote from '../components/notebook/PullQuote.astro';
-import Options from '../components/notebook/Options.astro';
+import CaseStudyHeader from '../components/notebook/CaseStudyHeader.astro';
+import HeroReframe from '../components/notebook/HeroReframe.astro';
+import SectionRow from '../components/notebook/SectionRow.astro';
+import InsightLine from '../components/notebook/InsightLine.astro';
+import Versions from '../components/notebook/Versions.astro';
+import OutcomeStats from '../components/notebook/OutcomeStats.astro';
+import Reflection from '../components/notebook/Reflection.astro';
+import Tally from '../components/notebook/Tally.astro';
 import Annotate from '../components/notebook/Annotate.astro';
 ---
 
-<Base title="Layout test — VK">
-  <div class="page-body">
-    <div class="notebook-grid">
-      <article class="notebook-main">
+<Base title="Case study — Lab Notebook sharing · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
 
-        <!-- ══════════════════════════════════════════════════
-             OPENING — Reframe
-        ══════════════════════════════════════════════════ -->
+    <CaseStudyHeader entryNum="03" />
 
-        <Reframe
-          original="What's wrong with the sharing UI?"
-          reframed="Why do researchers hide work they're proud of?"
-        />
+    <HeroReframe
+      original="Why is the sharing interface confusing?"
+      reframed="Why won't scientists share an idea before it's finished?"
+      entryNum="03"
+      marginNote="Lead product designer. 14 weeks, spring 2024. Two engineers, one researcher, & a very patient PM."
+      marginSub="(this reframe is the whole story. everything below is how I got here.)"
+    />
 
-        <!-- Margin note: role / timeline / team -->
-        <aside id="note-meta" class="sidenote" data-type="note" data-section-ref="s-brief">
-          Lead product designer<br />
-          14 weeks · 2024<br />
-          2 engineers, 1 researcher
-        </aside>
+    <!-- 01 brief -->
+    <SectionRow num="01" label="the brief" pb="88px">
+      <Fragment slot="main">
+        <p style="font-size:21px;line-height:1.62;margin:0 0 22px;font-family:var(--font-serif)">
+          Lab Notebook is a research tool used by about 400 scientists. Its sharing feature was barely used: people opened the share dialog
+          <Annotate type="circle">1.2 times</Annotate>
+          on average, then closed it without sending anything.
+        </p>
+        <p style="font-size:21px;line-height:1.62;margin:0;font-family:var(--font-serif)">The hypothesis I was given: the interface is confusing. Fix the dialog.</p>
+      </Fragment>
+      <Fragment slot="margin">
+        <div style="display:flex;gap:8px;align-items:flex-start;transform:rotate(-0.8deg)">
+          <svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="flex:none;margin-top:8px">
+            <path d="M25,8 C 18,9 10,7 3,8 M8,3 C 6,5 4,7 2,8 C 4,9 6,11 8,13" fill="none" stroke="#2D45B8" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          <span style="font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:19px;line-height:1.45">Opening it and closing it isn't confusion. Confused people file tickets. We had almost none.</span>
+        </div>
+      </Fragment>
+    </SectionRow>
 
+    <!-- 02 research -->
+    <SectionRow num="02" label="listening" pb="40px">
+      <Fragment slot="main">
+        <p style="font-size:21px;line-height:1.62;margin:0;font-family:var(--font-serif)">I ran six contextual interviews, sitting beside researchers while they worked. Nobody struggled with the dialog. They understood it fine. They just didn't want to press the button.</p>
+      </Fragment>
+      <Fragment slot="margin">
+        <div style="transform:rotate(1deg);font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:19px;line-height:1.45">Six is small. I knew it. But it was enough to show the question was wrong.</div>
+      </Fragment>
+    </SectionRow>
 
-        <!-- ══════════════════════════════════════════════════
-             01 — BRIEF
-        ══════════════════════════════════════════════════ -->
+    <!-- pull quote row: empty gutter -->
+    <section class="cs-row" style="padding-bottom:96px">
+      <div></div>
+      <figure style="margin:0;padding:24px 0">
+        <blockquote style="margin:0;font-size:40px;line-height:1.22;font-style:italic;font-weight:300;letter-spacing:-0.01em;border:none;padding:0;color:var(--ink);font-family:var(--font-serif);font-variation-settings:'opsz' 40,'wght' 300">&ldquo;I know how to click the button. I just don&rsquo;t want what&rsquo;s in here to look like my final opinion.&rdquo;</blockquote>
+        <figcaption class="mono" style="margin-top:22px">Postdoc, structural biology</figcaption>
+      </figure>
+      <aside class="sw-note" style="padding-top:30px">
+        <Tally count={3} />
+        <div class="note" style="margin-top:6px">3 of 6 said &ldquo;it&rsquo;s not ready yet&rdquo; without being asked.</div>
+      </aside>
+    </section>
 
-        <section id="s-brief">
-          <aside id="sm-01" class="sidenote section-mark" data-section-ref="s-brief">
-            <span class="section-mark-num">01</span>
-            <span class="section-mark-label">brief</span>
-          </aside>
+    <!-- 03 insight -->
+    <InsightLine
+      num="03"
+      label="the turn"
+      validated="Validated in 6 of 6 interviews"
+      observed="Observed in usage logs"
+      assumed="Assumed: true outside this lab"
+    >
+      The interface wasn&rsquo;t the barrier. <em style="font-weight:300">The social contract was.</em> Sharing meant committing to an opinion in front of colleagues.
+    </InsightLine>
 
-          <p>
-            Usage data: researchers opened the sharing modal an average of 1.2 times
-            before closing it without sending anything.{' '}
-            <span class="note-anchor" data-note="note-pm" data-rn-type="underline">The PM hypothesis was UI confusion.</span>
-            <button class="sidenote-toggle" aria-controls="note-pm" aria-expanded="false" aria-label="Toggle note">◦</button>
-          </p>
-          <aside id="note-pm" class="sidenote" data-type="annotation">
-            This was the hypothesis I inherited — not one I formed. Worth naming whose
-            assumptions are in the room.
-          </aside>
+    <!-- 04 versions -->
+    <Versions
+      num="04"
+      label="versions"
+      defaultIdx={3}
+      versions={[
+        { name: 'v0', when: 'week 3', text: "The obvious fix: a cleaner dialog. Tested with two people, and both said ‘it’s fine, I just wouldn’t send it.’", note: 'Built this to prove myself wrong. It worked.' },
+        { name: 'v1', when: 'week 5', text: "A ‘draft’ toggle in the dialog. Nobody noticed it.", note: "Too quiet. A safety net nobody can see doesn’t help." },
+        { name: 'v2', when: 'week 8', text: "‘Share as draft’ becomes the default button, with ‘Share final’ secondary.", note: 'Flipping the default did more than any copy change.' },
+        { name: 'v3', when: 'week 12', text: 'Drafts carry a visible tag and invite comments rather than approval.', note: 'Shipped. The tag says “thinking out loud.”' }
+      ]}
+    />
 
-          <p>
-            I wasn't convinced. Confusion shows up as errors and support tickets.
-            We had almost none. Something else was happening.
-          </p>
-        </section>
+    <!-- 05 outcome -->
+    <SectionRow num="05" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "2.8×", label: "more ideas shared in the first month" },
+          { number: "61%", label: "of shares went out as drafts" },
+          { number: "0", label: "changes to the share dialog itself" }
+        ]} />
+      </Fragment>
+      <Fragment slot="margin">
+        <div style="transform:rotate(1.2deg);font-family:var(--font-hand);font-weight:300;color:var(--pencil);font-size:19px;line-height:1.45">The honest part: senior researchers barely changed. Drafts worked for people who felt they had something to lose. I hadn&rsquo;t planned for the people who didn&rsquo;t.</div>
+      </Fragment>
+    </SectionRow>
 
+    <!-- 06 reflection -->
+    <Reflection num="06" label="if again">
+      Next time I&rsquo;d interview the people who already share, not just the ones who don&rsquo;t. The answer was hiding with them.
+    </Reflection>
 
-        <!-- ══════════════════════════════════════════════════
-             02 — RESEARCH
-        ══════════════════════════════════════════════════ -->
+    <!-- footer -->
+    <footer class="cs-row" style="align-items:end;padding-top:40px">
+      <div></div>
+      <a href="#" style="text-decoration:none;color:var(--ink);display:block">
+        <div class="mono" style="margin-bottom:10px">Next entry &rarr;</div>
+        <div style="font-size:30px;line-height:1.2;font-family:var(--font-serif)">[Next case study: the question it turned out to be]</div>
+      </a>
+      <p class="note sw-note" style="margin:0;font-size:16px;color:#66625A">p.s. [a true aside: what you were listening to, or the mug this was written over]</p>
+    </footer>
 
-        <section id="s-research">
-          <aside id="sm-02" class="sidenote section-mark" data-section-ref="s-research">
-            <span class="section-mark-num">02</span>
-            <span class="section-mark-label">found</span>
-          </aside>
-
-          <p>
-            Six contextual interviews, 90 minutes each.
-            I went in asking about the sharing flow.{' '}
-            <span class="note-anchor" data-note="note-reframe-moment" data-rn-type="underline">I left asking about professional identity.</span>
-            <button class="sidenote-toggle" aria-controls="note-reframe-moment" aria-expanded="false" aria-label="Toggle note">◦</button>
-          </p>
-          <aside id="note-reframe-moment" class="sidenote" data-type="annotation">
-            Session 3 is when I stopped taking the brief at face value. Someone
-            said "it's not ready yet" and I wrote it in caps.
-          </aside>
-
-          <PullQuote tally={3} tallyLabel="of 6, unprompted" tallyId="pq-tally">
-            I know how to click the button. I just don't want what's in here to look
-            like my final opinion on something I haven't decided yet.
-          </PullQuote>
-
-          <p>
-            The same phrase came up in three of six sessions without prompting:
-            <em>"it's not ready yet."</em> Not "I can't find the button." Not "it's
-            broken." Ready-ness. That's not a UI problem.
-          </p>
-        </section>
-
-
-        <!-- ══════════════════════════════════════════════════
-             03 — INSIGHT
-        ══════════════════════════════════════════════════ -->
-
-        <section id="s-insight">
-          <aside id="sm-03" class="sidenote section-mark" data-section-ref="s-insight">
-            <span class="section-mark-num">03</span>
-            <span class="section-mark-label">the thing</span>
-          </aside>
-
-          <p class="insight-line">
-            The UI wasn't the barrier.<br />
-            <Annotate type="circle">The social contract was.</Annotate>
-          </p>
-
-          <p>
-            Researchers understood the sharing flow perfectly. They stopped because
-            sharing unfinished work carries a professional cost — it signals
-            uncertainty in an environment that rewards confidence. No amount of
-            better button placement fixes that.
-          </p>
-        </section>
-
-
-        <!-- ══════════════════════════════════════════════════
-             04 — DECISION
-        ══════════════════════════════════════════════════ -->
-
-        <section id="s-decision">
-          <aside id="sm-04" class="sidenote section-mark" data-section-ref="s-decision">
-            <span class="section-mark-num">04</span>
-            <span class="section-mark-label">chose</span>
-          </aside>
-
-          <p>Three options on the table:</p>
-
-          <Options
-            chosen={2}
-            items={[
-              "Redesign the sharing UI",
-              "Add a 'draft' label to shared items",
-              "Reframe the action as a feedback request",
-            ]}
-          />
-
-          <p>
-            We discarded A immediately — it assumes the problem is usability.
-            B and C went to a concept test with 12 researchers.{' '}
-            <span class="note-anchor" data-note="note-why-c" data-rn-type="underline">C recast the social dynamic, not just the label.</span>
-            <button class="sidenote-toggle" aria-controls="note-why-c" aria-expanded="false" aria-label="Toggle note">◦</button>
-          </p>
-          <aside id="note-why-c" class="sidenote" data-type="annotation">
-            B still positioned the researcher as the author of a finished thing.
-            C said: you are asking for help, not publishing. Completely different
-            posture.
-          </aside>
-        </section>
-
-
-        <!-- ══════════════════════════════════════════════════
-             05 — OUTCOME
-        ══════════════════════════════════════════════════ -->
-
-        <section id="s-outcome">
-          <aside id="sm-05" class="sidenote section-mark" data-section-ref="s-outcome">
-            <span class="section-mark-num">05</span>
-            <span class="section-mark-label">result</span>
-          </aside>
-
-          <div class="outcome-metrics span-to-margin">
-            <div class="metric">
-              <span class="metric-number">3.1<span class="metric-unit">×</span></span>
-              <span class="metric-label">sharing events<br /><span class="label">first 30 days</span></span>
-            </div>
-            <div class="metric-divider" aria-hidden="true">—</div>
-            <div class="metric">
-              <span class="metric-number">2.4</span>
-              <span class="metric-label">avg recipients<br /><span class="label">up from 1.0</span></span>
-            </div>
-          </div>
-
-          <aside id="note-outcome-honest" class="sidenote" data-type="annotation" data-section-ref="s-outcome">
-            Shipped but not done. These are 30-day numbers. I'd want to see
-            90-day retention before I'd call this validated.
-          </aside>
-
-          <p>
-            Researchers were sharing with <em>networks</em>, not just one safe colleague.
-            The median recipient count going from 1.0 to 2.4 was the more interesting
-            signal — it suggests the reframe changed not just willingness to share,
-            but willingness to share widely.
-          </p>
-        </section>
-
-
-        <!-- ══════════════════════════════════════════════════
-             CODA — Reflection
-        ══════════════════════════════════════════════════ -->
-
-        <section id="s-reflection">
-          <p class="reflection-line">
-            I spent two weeks trying to fix the UI before I questioned the brief.
-          </p>
-        </section>
-
-      </article>
-    </div>
   </div>
 </Base>
-
-<style>
-  /* Sections — white space, no rules */
-  section {
-    padding-top: var(--space-16);
-  }
-
-  section p + p {
-    margin-top: var(--space-4);
-  }
-
-  /* Insight moment — large type */
-  .insight-line {
-    font-size: var(--text-xl);
-    font-variation-settings: 'opsz' 32, 'wght' 400;
-    line-height: var(--leading-snug);
-    margin-bottom: var(--space-6);
-    max-width: none;
-  }
-
-  /* Outcome metrics */
-  .outcome-metrics {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-8);
-    padding-block: var(--space-8);
-  }
-
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .metric-number {
-    font-size: var(--text-3xl);
-    font-variation-settings: 'opsz' 60, 'wght' 300;
-    line-height: 1;
-    letter-spacing: var(--tracking-tight);
-    color: var(--ink);
-  }
-
-  .metric-unit {
-    font-size: var(--text-xl);
-    font-variation-settings: 'opsz' 32, 'wght' 300;
-  }
-
-  .metric-label {
-    font-size: var(--text-base);
-    font-variation-settings: 'opsz' 17, 'wght' 400;
-    color: var(--ink-60);
-    line-height: var(--leading-snug);
-  }
-
-  .metric-divider {
-    font-size: var(--text-xl);
-    color: var(--ink-20);
-    align-self: center;
-  }
-
-  /* Reflection coda */
-  .reflection-line {
-    font-size: var(--text-md);
-    font-variation-settings: 'opsz' 20, 'wght' 400;
-    font-style: italic;
-    color: var(--ink-60);
-    padding-top: var(--space-16);
-    max-width: 42ch;
-    padding-bottom: var(--space-24);
-  }
-</style>

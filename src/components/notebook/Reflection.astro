@@ -1,0 +1,19 @@
+---
+interface Props {
+  num?: string;
+  label?: string;
+}
+const { num, label } = Astro.props;
+---
+
+<section class="cs-row" style="padding-bottom: 120px">
+  <div class="cs-gutter" style="padding-top: 6px">
+    {num && <div class="mono">{num}</div>}
+    {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
+  </div>
+  <div class="cs-wide">
+    <p class="hand" style="margin:0;font-size:34px;line-height:1.4;color:var(--pencil);max-width:860px;transform:rotate(-0.6deg)">
+      <slot />
+    </p>
+  </div>
+</section>

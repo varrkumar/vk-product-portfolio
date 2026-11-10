@@ -18,7 +18,7 @@ Avoid: SaaS landing-page aesthetics, glassmorphism, gradients, glows, generic ca
 ## Visual system
 
 Colors (this is the whole palette, add nothing without asking):
-- `--paper: #F3F0E8` (background — **temporary, will be revisited**; too close to Claude's UI cream)
+- `--paper: #ffffff` (background — white for now; revisit if a tinted paper feel is wanted later)
 - `--ink: #1C1B18` (text)
 - `--pencil: #2D45B8` (annotations, the only accent; used sparingly)
 - Derived greys only from ink at reduced opacity.
@@ -39,24 +39,68 @@ Motion:
 
 ## Case study anatomy
 
-Each case study follows this section order. Sections are separated by white space only — no horizontal rules. Each section has a small mono number + short handwritten label positioned in the margin beside it.
+Every case study page uses the 3-column grid: **120px gutter | max-640px main | max-270px margin**. Sections are separated by padding only — no horizontal rules. The "show your work" toggle controls two CSS classes: `.sw-note` (margin notes) and `.sw-mark` (inline pencil marks); both transition opacity 0↔1.
 
-| # | Name | Form |
-|---|------|------|
-| — | **Opening** | `<Reframe original="…" reframed="…" />`. Role/timeline/team in a margin note beside it. No eyebrow, no title, no grey summary. |
-| 01 | **Brief** | 2–3 sentences of plain prose. What I was asked to do. |
-| 02 | **Research / Found** | A `<PullQuote>` spanning main+margin, with `tally` count in the margin. Then plain prose. |
-| 03 | **Insight** | One large-type moment (`font-size: var(--text-xl)` or larger). The turn. Use `<Annotate type="circle">` on the key phrase. |
-| 04 | **Decision** | `<Options items={[…]} chosen={n} />`. Rejected options struck through, chosen circled by Rough Notation. Brief prose explaining why. |
-| 05 | **Outcome** | Large numbers in `.outcome-metrics.span-to-margin`. An honest margin note. |
-| — | **Coda** | One italic sentence. What I'd do differently or what I learned. |
+### Section order
 
-Component palette:
-- `<Reframe original="…" reframed="…" />` — animated strikethrough + new question
-- `<PullQuote tally={n} tallyLabel="of N said this" tallyId="…">` — wide quote with tally marks
-- `<Options items={[…]} chosen={n} />` — decision option list
-- `<Annotate type="underline|circle|box|bracket|strike-through">` — Rough Notation in --pencil
-- `<Margin id="…" type="note|annotation|question">` — sidenote beside prose
+| # | Label | Component | Notes |
+|---|-------|-----------|-------|
+| — | — | `<CaseStudyHeader entryNum="03" />` | Logo + nav + toggle |
+| — | — | `<HeroReframe original="…" reframed="…" entryNum marginNote marginSub />` | Wavy SVG strikethrough in .sw-mark; handwritten margin note in .sw-note |
+| 01 | the brief | `<SectionRow num label>` with `<Fragment slot="main">` and `<Fragment slot="margin">` | Plain prose. Margin note in .sw-note. Inline SVG annotations via `<Annotate>`. |
+| 02 | listening | `<SectionRow>` | Research context. |
+| — | — | Pull quote row: bare `<section class="cs-row">` with empty gutter, blockquote in col 2, `<Tally>` + note in col 3 as `.sw-note` | |
+| 03 | the turn | `<InsightLine num label validated observed assumed>` | 50px wide text spanning col 2+3. Confidence markers below. |
+| 04 | versions | `<Versions num label versions defaultIdx />` | Tabs + range scrubber. Wide (col 2+3). Version panels with sketch placeholder. Handwritten note per version in .sw-note. |
+| 05 | what happened | `<SectionRow>` wrapping `<OutcomeStats stats />` | 3 large numbers. Honest margin note. |
+| 06 | if again | `<Reflection num label>` | Handwritten (Kalam) wide text in pencil. |
+| — | — | `<footer class="cs-row">` | Next entry link + p.s. note |
+
+### Component signatures
+
+```astro
+<CaseStudyHeader entryNum="03" />
+
+<HeroReframe
+  original="Why is the sharing interface confusing?"
+  reframed="Why won't scientists share an idea before it's finished?"
+  marginNote="Lead product designer. 14 weeks…"
+  marginSub="(this reframe is the whole story…)"
+/>
+
+<SectionRow num="01" label="the brief" pb="88px">
+  <Fragment slot="main">…</Fragment>
+  <Fragment slot="margin">…</Fragment>
+</SectionRow>
+
+<SectionRow num="03" label="the turn" wide>
+  <Fragment slot="main">…wide content…</Fragment>
+</SectionRow>
+
+<InsightLine num="03" label="the turn"
+  validated="Validated in 6 of 6 interviews"
+  observed="Observed in usage logs"
+  assumed="Assumed: true outside this lab">
+  The interface wasn't the barrier. <em>The social contract was.</em>
+</InsightLine>
+
+<Versions
+  num="05" label="versions" defaultIdx={3}
+  versions={[{ name, when, text, note }]}
+/>
+
+<OutcomeStats stats={[{ number: "2.8×", label: "more ideas shared" }]} />
+
+<Reflection num="07" label="if again">
+  Next time I'd…
+</Reflection>
+
+<Annotate type="circle|underline|box|bracket|strike-through">phrase</Annotate>
+```
+
+### show your work system
+
+Add `.sw-note` to any margin aside that should toggle. Add `.sw-mark` to any inline SVG pencil annotation. The toggle in `CaseStudyHeader` sets/unsets `html.show-work`. The default is ON (the class is added on page load in the header script).
 
 ## Signature interactions
 
@@ -74,7 +118,7 @@ Rule: every hidden detail must be true about me, and none may block content. Max
 
 - **Astro** (TypeScript, strict), static output, deployed on Vercel with a custom domain. Check the current Astro docs before using an API; don't rely on memory for version-specific details.
 - **Content collections** with a typed schema for case studies, so every case study has structured frontmatter: problem, role, timeline, constraints, decisions (options, chosen, rationale, confidence: assumed/observed/validated), outcome, reflection. Interactions render from this data.
-- **MDX** for case study bodies, with custom components: `<Margin>`, `<Reframe>`, `<PullQuote>`, `<Options>`, `<Annotate>`, `<Evidence>`, `<Versions>`, `<ShowYourWork>`, later `<YourCall>`.
+- **MDX** for case study bodies, with custom components: `<Margin>`, `<HeroReframe>`, `<SectionRow>`, `<InsightLine>`, `<YourCall>`, `<Versions>`, `<OutcomeStats>`, `<Reflection>`, `<Tally>`, `<Annotate>`, `<CaseStudyHeader>`.
 - **Rough Notation** (`rough-notation`) is installed and wired via `Base.astro`. It draws in on scroll (IntersectionObserver), static under `prefers-reduced-motion`. Use it only via the `<Annotate>` component or by adding `data-rn-type` + `data-rn-color` attributes.
 - **No UI framework by default.** Astro components render static HTML; interactive pieces are small vanilla TypeScript scripts or web components. Add a framework (Svelte or Preact) only if an interaction truly needs it, and ask first.
 - **Page transitions:** native cross-document View Transitions in CSS (`@view-transition { navigation: auto; }`), no client-side router.
@@ -104,6 +148,19 @@ src/
 3. Homepage.
 4. Work, Play, About.
 5. Hidden personal layer.
+
+## Content and notes
+
+All project content lives in `notes/` (git-ignored; some intakes hold confidential details). Read the relevant intake before writing any case study or entry, and never publish anything an intake marks confidential.
+
+- `notes/content-map.md`: site sections, which projects are case studies vs. short entries, throughlines. Start here.
+- `notes/intake-<project>.md`: one per project (biomotivate, us-bank, workbench-hr, halo, dfa-gotr, sous, depop-popups, dsc, women-in-product, echos). `[TODO]` = missing from me; `(inferred)` = not confirmed. Keep both as visible placeholders, don't fill them in.
+- `notes/creative-direction.md`: design decisions log. Where it conflicts with this file on visual tokens (e.g. paper color), this file wins.
+- Raw images and decks: `case study raw contents/<project>/` (also git-ignored).
+
+Decisions from Nov 9, 2026 that override older text in this file:
+- **"Your call" is dropped.** Decisions are shown, not quizzed: a static `<Fork>` component lays the options side by side, the chosen one circled in pencil ("what I chose"), the others struck through with a handwritten "path not taken: when I'd pick it" note, then the reasoning; margin lists "What I knew at the time" with confidence markers. Ignore "Your call candidate" fields in the intakes.
+- **Nav is Work · Projects · Design · About** (not Work, Play, About). Play pieces live under Design.
 
 ## Working with me
 

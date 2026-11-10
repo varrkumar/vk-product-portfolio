@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Case study — Margins</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Kalam:wght@300;400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2D45B8}a:hover{color:#1C1B18}
+.row{display:grid;grid-template-columns:120px minmax(0,640px) minmax(0,270px);column-gap:56px;max-width:1240px;margin:0 auto;padding:0 56px;box-sizing:border-box}
+.wide{grid-column:2 / 4}
+.gut{padding-top:6px}
+.note{font-family:'Kalam',cursive;font-weight:300;color:#2D45B8;font-size:19px;line-height:1.45}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#66625A}
+.hand{font-family:'Kalam',cursive;font-weight:300}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.opt{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;padding:18px 22px;border:1px solid rgba(28,27,24,.25);border-radius:2px;font-family:'Newsreader',serif;font-size:21px;line-height:1.4;color:#1C1B18;transition:border-color .2s,background .2s}
+.opt:hover{border-color:#2D45B8;background:rgba(45,69,184,.04)}
+.opt:focus-visible{outline:2px solid #2D45B8;outline-offset:3px}
+.tab{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;padding:8px 2px;min-height:28px}
+.tab:focus-visible,.toggle:focus-visible{outline:2px solid #2D45B8;outline-offset:3px}
+.toggle{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:12px;min-height:44px}
+input[type=range]{accent-color:#2D45B8}
+@media (max-width:1000px){
+.row{grid-template-columns:minmax(0,1fr);row-gap:14px;padding:0 24px}
+.wide{grid-column:auto}
+.gut{display:flex;gap:14px;align-items:baseline}
+.side{padding-left:16px;border-left:1.5px solid #2D45B8}
+.stats{grid-template-columns:minmax(0,1fr);gap:28px}
+.hero-q{font-size:44px !important}
+}
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background-color: {{paperColor}}; background-image: {{paperImage}}; background-size: 24px 24px; color: #1C1B18; font-family: 'Newsreader', Georgia, serif; padding-bottom: 120px">
+
+<!-- top bar -->
+<header class="row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
+  <a href="#" style="font-family: 'Newsreader', serif; font-style: italic; font-size: 26px; color: #1C1B18; text-decoration: none">vk.</a>
+  <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
+    <a class="mono" href="#" style="color: #1C1B18; text-decoration: none">Work</a>
+    <a class="mono" href="#" style="text-decoration: none">Play</a>
+    <a class="mono" href="#" style="text-decoration: none">About</a>
+  </nav>
+  <div style="display: flex; justify-content: flex-start">
+    <button class="toggle" onClick="{{toggle}}" aria-pressed="{{pressed}}">
+      <span style="position: relative; width: 38px; height: 20px; border: 1.5px solid #2D45B8; border-radius: 12px; box-sizing: border-box; display: inline-block">
+        <span style="position: absolute; top: 2px; left: {{knobLeft}}; width: 13px; height: 13px; border-radius: 50%; background: #2D45B8; transition: left .25s ease"></span>
+      </span>
+      <span class="hand" style="font-size: 19px; color: #2D45B8">show your work</span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO: the reframe -->
+<section class="row" style="padding-top: 64px; padding-bottom: 96px">
+  <div class="gut">
+    <div class="mono">Entry 03</div>
+  </div>
+  <div>
+    <p class="mono" style="margin: 0 0 28px">The question I was handed</p>
+    <h1 style="margin: 0; font-weight: 400; font-size: 34px; line-height: 1.25; color: #66625A">
+      <span style="position: relative; display: inline">Why is the sharing interface confusing?
+        <svg aria-hidden="true" viewBox="0 0 400 16" preserveAspectRatio="none" style="position: absolute; left: -4px; top: 42%; width: calc(100% + 8px); height: 14px; overflow: visible; opacity: {{markOpacity}}; transition: opacity .5s">
+          <path d="M2,9 C 60,4 140,13 220,7 S 360,4 398,9" fill="none" stroke="#2D45B8" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+        </svg>
+      </span>
+    </h1>
+    <p class="mono" style="margin: 56px 0 20px">The question it turned out to be</p>
+    <h2 class="hero-q" style="margin: 0; font-weight: 400; font-size: 62px; line-height: 1.06; letter-spacing: -0.015em">Why won’t scientists share an idea before it’s finished?</h2>
+  </div>
+  <aside class="side note" style="padding-top: 6px; opacity: {{noteOpacity}}; transition: opacity .5s">
+    <div style="transform: rotate(-1.2deg)">
+      Lead product designer.<br>14 weeks, spring 2024.<br>Two engineers, one researcher, &amp; a very patient PM.
+    </div>
+    <div style="margin-top: 26px; transform: rotate(0.6deg); color: #66625A; font-size: 17px">(this reframe is the whole story. everything below is how I got here.)</div>
+  </aside>
+</section>
+
+<!-- 01 brief -->
+<section class="row" style="padding-bottom: 88px">
+  <div class="gut">
+    <div class="mono">01</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">the brief</div>
+  </div>
+  <div style="font-size: 21px; line-height: 1.62">
+    <p style="margin: 0 0 22px">Lab Notebook is a research tool used by about 400 scientists. Its sharing feature was barely used: people opened the share dialog
+      <span style="position: relative; display: inline-block; white-space: nowrap">1.2 times
+        <svg aria-hidden="true" viewBox="0 0 120 44" preserveAspectRatio="none" style="position: absolute; left: -12px; top: -9px; width: calc(100% + 24px); height: calc(100% + 18px); overflow: visible; opacity: {{markOpacity}}; transition: opacity .5s">
+          <path d="M10,20 C 8,7 42,2 70,4 C 99,6 114,14 111,25 C 107,37 70,41 40,38 C 15,35 3,28 12,15" fill="none" stroke="#2D45B8" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+        </svg>
+      </span>
+      on average, then closed it without sending anything.</p>
+    <p style="margin: 0">The hypothesis I was given: the interface is confusing. Fix the dialog.</p>
+  </div>
+  <aside class="side note" style="opacity: {{noteOpacity}}; transition: opacity .5s">
+    <div style="display: flex; gap: 8px; align-items: flex-start; transform: rotate(-0.8deg)">
+      <svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="flex: none; margin-top: 8px"><path d="M25,8 C 18,9 10,7 3,8 M8,3 C 6,5 4,7 2,8 C 4,9 6,11 8,13" fill="none" stroke="#2D45B8" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      <span>Opening it and closing it isn’t confusion. Confused people file tickets. We had almost none.</span>
+    </div>
+  </aside>
+</section>
+
+<!-- 02 research -->
+<section class="row" style="padding-bottom: 40px">
+  <div class="gut">
+    <div class="mono">02</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">listening</div>
+  </div>
+  <div style="font-size: 21px; line-height: 1.62">
+    <p style="margin: 0">I ran six contextual interviews, sitting beside researchers while they worked. Nobody struggled with the dialog. They understood it fine. They just didn’t want to press the button.</p>
+  </div>
+  <aside class="side note" style="opacity: {{noteOpacity}}; transition: opacity .5s">
+    <div style="transform: rotate(1deg)">Six is small. I knew it. But it was enough to show the question was wrong.</div>
+  </aside>
+</section>
+
+<section class="row" style="padding-bottom: 96px">
+  <div></div>
+  <figure style="margin: 0; padding: 24px 0">
+    <blockquote style="margin: 0; font-size: 40px; line-height: 1.22; font-style: italic; font-weight: 300; letter-spacing: -0.01em">“I know how to click the button. I just don’t want what’s in here to look like my final opinion.”</blockquote>
+    <figcaption class="mono" style="margin-top: 22px">Postdoc, structural biology</figcaption>
+  </figure>
+  <aside class="side" style="opacity: {{noteOpacity}}; transition: opacity .5s; padding-top: 30px">
+    <svg role="img" aria-label="Three tally marks" width="70" height="46" viewBox="0 0 70 46">
+      <path d="M10,4 C 11,16 9,30 11,42" fill="none" stroke="#2D45B8" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M24,3 C 23,16 25,29 23,43" fill="none" stroke="#2D45B8" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M38,5 C 39,17 37,30 39,41" fill="none" stroke="#2D45B8" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <div class="note" style="margin-top: 6px">3 of 6 said “it’s not ready yet” without being asked.</div>
+  </aside>
+</section>
+
+<!-- 03 insight -->
+<section class="row" style="padding-bottom: 104px">
+  <div class="gut">
+    <div class="mono">03</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">the turn</div>
+  </div>
+  <div class="wide">
+    <p style="margin: 0; font-size: 50px; line-height: 1.12; letter-spacing: -0.012em; max-width: 880px">The interface wasn’t the barrier. <em style="font-weight: 300">The social contract was.</em> Sharing meant committing to an opinion in front of colleagues.</p>
+    <div style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 30px">
+      <span class="mono" style="display: inline-flex; gap: 8px; align-items: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#1C1B18"></circle></svg>Validated in 6 of 6 interviews</span>
+      <span class="mono" style="display: inline-flex; gap: 8px; align-items: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle><path d="M6,1 A5,5 0 0 1 6,11 Z" fill="#1C1B18"></path></svg>Observed in usage logs</span>
+      <span class="mono" style="display: inline-flex; gap: 8px; align-items: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle></svg>Assumed: true outside this lab</span>
+    </div>
+  </div>
+</section>
+
+<!-- 04 your call -->
+<section class="row" style="padding-bottom: 104px">
+  <div class="gut">
+    <div class="mono">04</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">the fork</div>
+  </div>
+  <div>
+    <p style="margin: 0 0 18px; font-size: 21px; line-height: 1.62">Three weeks in, we had the insight and three ways to act on it. Six weeks of engineering time. Here’s what I knew:</p>
+    <p class="hand" style="margin: 26px 0 18px; font-size: 26px; color: #2D45B8; transform: rotate(-1deg)">your call: what would you build?</p>
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{options}}" as="o" hint-placeholder-count="3">
+        <sc-if value="{{o.open}}" hint-placeholder-val="{{true}}">
+          <button class="opt" onClick="{{o.pickIt}}"><span class="mono" style="margin-right: 14px">{{o.letter}}</span>{{o.label}}</button>
+        </sc-if>
+        <sc-if value="{{o.chosen}}" hint-placeholder-val="{{false}}">
+          <div style="position: relative; padding: 18px 22px">
+            <svg aria-hidden="true" viewBox="0 0 600 80" preserveAspectRatio="none" style="position: absolute; inset: -6px -10px; width: calc(100% + 20px); height: calc(100% + 12px); overflow: visible">
+              <path d="M30,8 C 200,-2 470,2 578,12 C 604,26 600,60 570,72 C 420,82 160,80 26,72 C 2,62 0,24 40,6" fill="none" stroke="#2D45B8" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+            </svg>
+            <div style="font-size: 21px; line-height: 1.4"><span class="mono" style="margin-right: 14px">{{o.letter}}</span>{{o.label}}</div>
+            <div class="mono" style="margin-top: 10px; color: #2D45B8">What I chose {{o.yoursTag}}</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{o.rejected}}" hint-placeholder-val="{{false}}">
+          <div style="padding: 14px 22px">
+            <div style="font-size: 21px; line-height: 1.4; color: #66625A; text-decoration: line-through; text-decoration-color: #2D45B8; text-decoration-thickness: 1.5px"><span class="mono" style="margin-right: 14px">{{o.letter}}</span>{{o.label}}</div>
+            <div class="note" style="font-size: 17px; margin-top: 6px">path not taken {{o.yoursTag}}: {{o.whyNot}}</div>
+          </div>
+        </sc-if>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{picked}}" hint-placeholder-val="{{false}}">
+      <div style="margin-top: 34px; font-size: 21px; line-height: 1.62">
+        <p style="margin: 0 0 16px"><strong style="font-weight: 600">{{verdict}}</strong> I chose B because it changed the meaning of sharing without asking anyone to change their habits. A draft label says “this is thinking, not a conclusion” on the sharer’s behalf. It was also the only option we could test in two weeks.</p>
+        <button class="tab" onClick="{{reset}}" style="color: #2D45B8; text-decoration: underline">↺ choose again</button>
+      </div>
+    </sc-if>
+  </div>
+  <aside class="side" style="opacity: {{noteOpacity}}; transition: opacity .5s">
+    <div class="mono" style="margin-bottom: 14px">What I knew at the time</div>
+    <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 16px; line-height: 1.45">
+      <li style="display: flex; gap: 10px"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex: none; margin-top: 5px"><circle cx="6" cy="6" r="5" fill="#1C1B18"></circle></svg>People understand the dialog fine</li>
+      <li style="display: flex; gap: 10px"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex: none; margin-top: 5px"><circle cx="6" cy="6" r="5" fill="#1C1B18"></circle></svg>Fear of looking wrong, not friction</li>
+      <li style="display: flex; gap: 10px"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex: none; margin-top: 5px"><circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle><path d="M6,1 A5,5 0 0 1 6,11 Z" fill="#1C1B18"></path></svg>Juniors share less than seniors</li>
+      <li style="display: flex; gap: 10px"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" style="flex: none; margin-top: 5px"><circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle></svg>PIs would tolerate a new label</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- 05 versions -->
+<section class="row" style="padding-bottom: 104px">
+  <div class="gut">
+    <div class="mono">05</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">versions</div>
+  </div>
+  <div class="wide">
+    <div style="display: flex; gap: 22px; align-items: center; flex-wrap: wrap; margin-bottom: 18px">
+      <sc-for list="{{versions}}" as="v" hint-placeholder-count="4">
+        <button class="tab" onClick="{{v.go}}" style="color: {{v.color}}; border-bottom: 1.5px solid {{v.line}}">{{v.name}}</button>
+      </sc-for>
+      <label style="display: inline-flex; align-items: center; gap: 12px; margin-left: auto">
+        <span class="mono">Scrub</span>
+        <input type="range" min="0" max="3" step="1" value="{{vIndex}}" onChange="{{scrub}}" style="width: 200px">
+      </label>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; align-items: start">
+      <div style="aspect-ratio: 16 / 10; border: 1.5px dashed rgba(28,27,24,.35); border-radius: 3px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px; padding: 32px; box-sizing: border-box; background: rgba(255,255,255,.25)">
+        <div style="width: 58%; display: flex; flex-direction: column; gap: 10px">
+          <div style="height: 10px; width: 45%; background: rgba(28,27,24,.18)"></div>
+          <div style="height: 8px; width: 90%; background: rgba(28,27,24,.1)"></div>
+          <div style="height: 8px; width: 75%; background: rgba(28,27,24,.1)"></div>
+          <div style="display: flex; gap: 10px; margin-top: 8px">
+            <div style="height: 26px; width: 90px; border: 1.5px solid rgba(28,27,24,.3)"></div>
+            <div style="height: 26px; width: 110px; background: {{vButton}}"></div>
+          </div>
+        </div>
+        <div class="mono" style="margin-top: 14px">[ Your sketch / screenshot · {{vName}} ]</div>
+      </div>
+      <div>
+        <div class="mono" style="margin-bottom: 10px">{{vName}} · {{vWhen}}</div>
+        <p style="margin: 0; font-size: 19px; line-height: 1.55">{{vText}}</p>
+        <p class="note" style="margin: 18px 0 0; transform: rotate(-0.8deg); opacity: {{noteOpacity}}; transition: opacity .5s">{{vNote}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 outcome -->
+<section class="row" style="padding-bottom: 104px">
+  <div class="gut">
+    <div class="mono">06</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">what happened</div>
+  </div>
+  <div class="stats">
+    <div>
+      <div style="font-size: 72px; line-height: 1; font-weight: 300">2.8×</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.45">more ideas shared in the first month</p>
+    </div>
+    <div>
+      <div style="font-size: 72px; line-height: 1; font-weight: 300">61%</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.45">of shares went out as drafts</p>
+    </div>
+    <div>
+      <div style="font-size: 72px; line-height: 1; font-weight: 300">0</div>
+      <p style="margin: 12px 0 0; font-size: 17px; line-height: 1.45">changes to the share dialog itself</p>
+    </div>
+  </div>
+  <aside class="side note" style="opacity: {{noteOpacity}}; transition: opacity .5s">
+    <div style="transform: rotate(1.2deg)">The honest part: senior researchers barely changed. Drafts worked for people who felt they had something to lose. I hadn’t planned for the people who didn’t.</div>
+  </aside>
+</section>
+
+<!-- 07 reflection -->
+<section class="row" style="padding-bottom: 120px">
+  <div class="gut">
+    <div class="mono">07</div>
+    <div class="hand" style="font-size: 20px; color: #66625A; transform: rotate(-2deg); margin-top: 4px">if again</div>
+  </div>
+  <div class="wide">
+    <p class="hand" style="margin: 0; font-size: 34px; line-height: 1.4; color: #2D45B8; max-width: 860px; transform: rotate(-0.6deg)">Next time I’d interview the people who already share, not just the ones who don’t. The answer was hiding with them.</p>
+  </div>
+</section>
+
+<!-- footer -->
+<footer class="row" style="align-items: end">
+  <div></div>
+  <a href="#" style="text-decoration: none; color: #1C1B18; display: block">
+    <div class="mono" style="margin-bottom: 10px">Next entry →</div>
+    <div style="font-size: 30px; line-height: 1.2">[Next case study: the question it turned out to be]</div>
+  </a>
+  <p class="note" style="margin: 0; font-size: 16px; color: #66625A">p.s. [a true aside: what you were listening to, or the mug this was written over]</p>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"paper":{"editor":"enum","options":["plain","bone","dot grid"],"default":"plain"},"startWithNotes":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":4600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const show = s.show === undefined ? (this.props.startWithNotes ?? true) : s.show;
+    const paper = this.props.paper ?? 'plain';
+    const paperColor = paper === 'bone' ? '#ECEAE3' : '#F3F0E8';
+    const paperImage = paper === 'dot grid' ? 'radial-gradient(circle, rgba(28,27,24,0.14) 1px, transparent 1.3px)' : 'none';
+
+    const pick = s.pick || null;
+    const raw = [
+      { id: 'a', letter: 'A', label: 'Redesign the share dialog, as originally planned.', whyNot: 'it fixes a problem nobody had. I’d pick it if tickets had told a different story.' },
+      { id: 'b', letter: 'B', label: 'Add a “draft” state, so shared work is visibly unfinished.', whyNot: '' },
+      { id: 'c', letter: 'C', label: 'Share privately with one trusted colleague first.', whyNot: 'right instinct, but it hides ideas instead of making it safe to show them. Good for a v2.' }
+    ];
+    const options = raw.map((o) => ({
+      ...o,
+      open: !pick,
+      chosen: !!pick && o.id === 'b',
+      rejected: !!pick && o.id !== 'b',
+      yoursTag: pick === o.id ? '(your pick)' : '',
+      pickIt: () => this.setState({ pick: o.id })
+    }));
+    const verdict = pick === 'b' ? 'Same call I made.' : (pick ? 'A fair call, and one I weighed.' : '');
+
+    const vs = [
+      { name: 'v0', when: 'week 3', text: 'The obvious fix: a cleaner dialog. Tested with two people, and both said “it’s fine, I just wouldn’t send it.”', note: 'Built this to prove myself wrong. It worked.', btn: 'rgba(28,27,24,.25)' },
+      { name: 'v1', when: 'week 5', text: 'A “draft” toggle in the dialog. Nobody noticed it.', note: 'Too quiet. A safety net nobody can see doesn’t help.', btn: 'rgba(45,69,184,.35)' },
+      { name: 'v2', when: 'week 8', text: '“Share as draft” becomes the default button, with “Share final” secondary.', note: 'Flipping the default did more than any copy change.', btn: 'rgba(45,69,184,.65)' },
+      { name: 'v3', when: 'week 12', text: 'Drafts carry a visible tag and invite comments rather than approval.', note: 'Shipped. The tag says “thinking out loud.”', btn: '#2D45B8' }
+    ];
+    const vi = s.v ?? 3;
+    const versions = vs.map((v, i) => ({
+      name: v.name,
+      color: i === vi ? '#2D45B8' : '#66625A',
+      line: i === vi ? '#2D45B8' : 'transparent',
+      go: () => this.setState({ v: i })
+    }));
+    const cur = vs[vi];
+
+    return {
+      paperColor, paperImage,
+      noteOpacity: show ? 1 : 0,
+      markOpacity: show ? 1 : 0,
+      knobLeft: show ? '20px' : '2px',
+      pressed: show ? 'true' : 'false',
+      toggle: () => this.setState({ show: !show }),
+      options, picked: !!pick, verdict,
+      reset: () => this.setState({ pick: null }),
+      versions, vIndex: vi,
+      scrub: (e) => this.setState({ v: Number(e.target.value) }),
+      vName: cur.name, vWhen: cur.when, vText: cur.text, vNote: cur.note, vButton: cur.btn
+    };
+  }
+}
+</script>
+</body>
+</html>

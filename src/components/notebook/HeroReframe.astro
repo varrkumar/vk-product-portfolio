@@ -1,0 +1,98 @@
+---
+interface Props {
+  original: string;
+  reframed: string;
+  entryNum?: string;
+  marginNote?: string;
+  marginSub?: string;
+}
+const { original, reframed, entryNum = '', marginNote = '', marginSub = '' } = Astro.props;
+---
+
+<section class="cs-row" style="padding-top: 64px; padding-bottom: 96px">
+  <div class="cs-gutter" style="padding-top: 6px">
+    {entryNum && <div class="mono">Entry {entryNum}</div>}
+  </div>
+
+  <div>
+    <p class="mono" style="margin: 0 0 28px">The question I was handed</p>
+    <h1 style="margin: 0; font-weight: 400; font-size: 34px; line-height: 1.25; color: var(--ink-60); font-family: var(--font-serif); font-variation-settings: 'opsz' 34, 'wght' 400">
+      <span style="position: relative; display: inline">
+        {original}
+        <svg
+          aria-hidden="true"
+          class="sw-mark hero-strike"
+          viewBox="0 0 400 16"
+          preserveAspectRatio="none"
+          style="position: absolute; left: -4px; top: 42%; width: calc(100% + 8px); height: 14px; overflow: visible"
+          vector-effect="non-scaling-stroke"
+        >
+          <path
+            class="strike-path"
+            d="M2,9 C 60,4 140,13 220,7 S 360,4 398,9"
+            fill="none"
+            stroke="#2D45B8"
+            stroke-width="2"
+            stroke-linecap="round"
+            vector-effect="non-scaling-stroke"
+          ></path>
+        </svg>
+      </span>
+    </h1>
+
+    <p class="mono" style="margin: 56px 0 20px">The question it turned out to be</p>
+    <h2
+      class="hero-q"
+      style="margin: 0; font-weight: 400; font-size: 62px; line-height: 1.06; letter-spacing: -0.015em; font-family: var(--font-serif); font-variation-settings: 'opsz' 62, 'wght' 400"
+    >
+      {reframed}
+    </h2>
+  </div>
+
+  {(marginNote || marginSub) && (
+    <aside class="cs-margin sw-note" style="padding-top: 6px; padding-left: 0">
+      {marginNote && (
+        <div class="note" style="transform: rotate(-1.2deg)">
+          <span set:html={marginNote.replace(/\. /g, '.<br>')} />
+        </div>
+      )}
+      {marginSub && (
+        <div class="hand" style="margin-top: 26px; transform: rotate(0.6deg); color: #66625A; font-size: 17px">{marginSub}</div>
+      )}
+    </aside>
+  )}
+</section>
+
+<style>
+  /* SVG strike animation */
+  .strike-path {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw-strike 0.8s ease-out 0.4s forwards;
+  }
+
+  @keyframes draw-strike {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* When toggle is off, the .sw-mark hides the SVG via opacity (from global.css).
+     We still want the animation ready if it becomes visible again. */
+  html.show-work .strike-path {
+    animation: draw-strike 0.8s ease-out 0.4s forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .strike-path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .hero-q {
+      font-size: 44px !important;
+    }
+  }
+</style>

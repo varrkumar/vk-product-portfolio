@@ -1,0 +1,214 @@
+---
+interface Option {
+  id: string;
+  letter: string;
+  label: string;
+  whyNot?: string;
+}
+
+interface Props {
+  chosen: string;
+  options: Option[];
+  verdictMatch?: string;
+  verdictOther?: string;
+  rationale?: string;
+}
+
+const {
+  chosen,
+  options,
+  verdictMatch = 'Same call I made.',
+  verdictOther = 'A fair call, and one I weighed.',
+  rationale = '',
+} = Astro.props;
+
+const ycId = `yc-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="yourcall" id={ycId} data-chosen={chosen}>
+  <!-- Pre-pick state -->
+  <div class="yc-pre">
+    <p class="hand" style="margin: 26px 0 18px; font-size: 26px; color: var(--pencil); transform: rotate(-1deg); display: inline-block">
+      your call: what would you build?
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      {options.map(opt => (
+        <button
+          class="yc-btn"
+          data-id={opt.id}
+          aria-label={`Option ${opt.letter}: ${opt.label}`}
+        >
+          <span class="mono" style="margin-right: 14px; flex-shrink: 0">{opt.letter}</span>
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Post-pick state (hidden by default) -->
+  <div class="yc-post" hidden>
+    <div style="display: flex; flex-direction: column; gap: 0">
+      {options.map(opt => (
+        <div class="yc-result-item" data-id={opt.id}>
+          <div class="yc-item-content" style="padding: 14px 22px">
+            <div class="yc-item-text" style="font-family: var(--font-serif); font-size: 21px; line-height: 1.4">
+              <span class="mono" style="margin-right: 14px">{opt.letter}</span>
+              {opt.id === chosen ? (
+                <span class="yc-chosen-text">{opt.label}</span>
+              ) : (
+                <span>{opt.label}</span>
+              )}
+            </div>
+            {opt.id === chosen && (
+              <div class="mono yc-chosen-label" style="margin-top: 10px; color: var(--pencil)">What I chose</div>
+            )}
+            {opt.id !== chosen && opt.whyNot && (
+              <div class="note yc-why-not" style="font-size: 17px; margin-top: 6px; display: none">
+                path not taken: {opt.whyNot}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="yc-verdict" style="margin-top: 34px; font-size: 21px; line-height: 1.62; font-family: var(--font-serif)">
+      <p style="margin: 0 0 16px">
+        <span class="yc-verdict-match" hidden style="font-weight: 600">{verdictMatch} </span>
+        <span class="yc-verdict-other" hidden style="font-weight: 600">{verdictOther} </span>
+        {rationale}
+      </p>
+      <button class="yc-reset mono" style="color: var(--pencil); text-decoration: underline; cursor: pointer; background: none; border: none; padding: 4px 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase">
+        ↺ choose again
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .yc-btn {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    cursor: pointer;
+    padding: 18px 22px;
+    border: 1px solid rgba(28, 27, 24, 0.25);
+    border-radius: 2px;
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.4;
+    color: var(--ink);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .yc-btn:hover {
+    border-color: var(--pencil);
+    background: rgba(45, 69, 184, 0.04);
+  }
+  .yc-btn:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 3px;
+  }
+
+  /* Post-pick states */
+  .yc-result-item[data-state="chosen"] .yc-item-content {
+    position: relative;
+    padding: 18px 22px;
+  }
+  .yc-result-item[data-state="chosen"] .yc-chosen-label {
+    display: block;
+  }
+  .yc-result-item:not([data-state="chosen"]) .yc-chosen-label {
+    display: none;
+  }
+
+  /* Rejected: strikethrough on the text */
+  .yc-result-item[data-state="rejected"] .yc-item-text,
+  .yc-result-item[data-state="rejected-pick"] .yc-item-text {
+    color: #66625A;
+    text-decoration: line-through;
+    text-decoration-color: var(--pencil);
+    text-decoration-thickness: 1.5px;
+  }
+  .yc-result-item[data-state="rejected"] .yc-why-not,
+  .yc-result-item[data-state="rejected-pick"] .yc-why-not {
+    display: block !important;
+  }
+
+  .yc-reset:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 3px;
+  }
+</style>
+
+<script is:inline>
+  document.querySelectorAll('.yourcall').forEach(function(ycEl) {
+    var chosen = ycEl.dataset.chosen;
+    var preEl = ycEl.querySelector('.yc-pre');
+    var postEl = ycEl.querySelector('.yc-post');
+    var verdictMatch = ycEl.querySelector('.yc-verdict-match');
+    var verdictOther = ycEl.querySelector('.yc-verdict-other');
+
+    ycEl.querySelectorAll('.yc-btn').forEach(function(btn) {
+      btn.addEventListener('click', async function() {
+        var pick = btn.dataset.id;
+        preEl.hidden = true;
+        postEl.hidden = false;
+
+        // Mark each option
+        postEl.querySelectorAll('.yc-result-item').forEach(function(item) {
+          if (item.dataset.id === chosen) {
+            item.dataset.state = 'chosen';
+          } else if (item.dataset.id === pick) {
+            item.dataset.state = 'rejected-pick';
+          } else {
+            item.dataset.state = 'rejected';
+          }
+        });
+
+        // Verdict
+        if (pick === chosen) {
+          if (verdictMatch) verdictMatch.hidden = false;
+        } else {
+          if (verdictOther) verdictOther.hidden = false;
+        }
+
+        // Focus management
+        var firstPost = postEl.querySelector('.yc-result-item');
+        if (firstPost) firstPost.focus();
+
+        // Rough Notation circle on chosen
+        var chosenEl = postEl.querySelector('.yc-chosen-text');
+        if (chosenEl) {
+          try {
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var rn = await import('rough-notation');
+            rn.annotate(chosenEl, {
+              type: 'circle',
+              color: '#2D45B8',
+              strokeWidth: 1.8,
+              padding: 8,
+              animate: !reduced
+            }).show();
+          } catch(e) {
+            // Rough Notation not available, skip annotation
+          }
+        }
+      });
+    });
+
+    var resetBtn = ycEl.querySelector('.yc-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function() {
+        preEl.hidden = false;
+        postEl.hidden = true;
+        if (verdictMatch) verdictMatch.hidden = true;
+        if (verdictOther) verdictOther.hidden = true;
+        postEl.querySelectorAll('.yc-result-item').forEach(function(item) {
+          delete item.dataset.state;
+        });
+      });
+    }
+  });
+</script>

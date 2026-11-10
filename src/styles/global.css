@@ -334,3 +334,38 @@ html.rn-ready .note-anchor {
   white-space: nowrap;
   border: 0;
 }
+
+/* ============================================================
+   Case Study 3-column grid
+   ============================================================ */
+.cs-row { display: grid; grid-template-columns: 120px minmax(0,640px) minmax(0,270px); column-gap: 56px; max-width: 1240px; margin-inline: auto; padding-inline: 56px; box-sizing: border-box; }
+.cs-wide { grid-column: 2 / 4; }
+/* show-your-work toggle */
+.sw-note, .sw-mark { opacity: 0; transition: opacity .5s; pointer-events: none; }
+html.show-work .sw-note, html.show-work .sw-mark { opacity: 1; pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .sw-note, .sw-mark { transition: none; } }
+@media (max-width: 1000px) {
+  .cs-row { grid-template-columns: minmax(0,1fr); padding-inline: 24px; row-gap: 14px; }
+  .cs-wide { grid-column: auto; }
+  .cs-margin.sw-note { padding-left: 16px; border-left: 1.5px solid var(--pencil); }
+}
+
+/* Case study utility classes */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #66625A;
+}
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 300;
+}
+.note {
+  font-family: var(--font-hand);
+  font-weight: 300;
+  color: var(--pencil);
+  font-size: 19px;
+  line-height: 1.45;
+}

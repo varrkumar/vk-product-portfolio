@@ -1,0 +1,156 @@
+---
+interface Version {
+  name: string;
+  when: string;
+  text: string;
+  note: string;
+}
+
+interface Props {
+  num?: string;
+  label?: string;
+  versions: Version[];
+  defaultIdx?: number;
+}
+
+const { num, label, versions, defaultIdx = 0 } = Astro.props;
+
+// Button colors per version index (opacity increases)
+const btnColors = [
+  'rgba(28,27,24,.25)',
+  'rgba(45,69,184,.35)',
+  'rgba(45,69,184,.65)',
+  '#2D45B8',
+];
+
+const versionsId = `versions-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class="cs-row" style="padding-bottom: 104px" id={versionsId}>
+  <div class="cs-gutter" style="padding-top: 6px">
+    {num && <div class="mono">{num}</div>}
+    {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
+  </div>
+  <div class="cs-wide">
+    <!-- Tab row -->
+    <div class="versions-tabs" style="display: flex; gap: 22px; align-items: center; flex-wrap: wrap; margin-bottom: 18px">
+      {versions.map((v, i) => (
+        <button
+          class="v-tab"
+          data-idx={i}
+          aria-selected={i === defaultIdx ? 'true' : 'false'}
+          style={i === defaultIdx
+            ? `color: var(--pencil); border-bottom: 1.5px solid var(--pencil);`
+            : `color: #66625A; border-bottom: 1.5px solid transparent;`
+          }
+        >
+          {v.name}
+        </button>
+      ))}
+      <label style="display: inline-flex; align-items: center; gap: 12px; margin-left: auto">
+        <span class="mono">Scrub</span>
+        <input
+          type="range"
+          class="v-scrubber"
+          min="0"
+          max={versions.length - 1}
+          step="1"
+          value={defaultIdx}
+          style="width: 200px; accent-color: var(--pencil)"
+          aria-label="Scrub through versions"
+        />
+      </label>
+    </div>
+
+    <!-- Version panels -->
+    {versions.map((v, i) => (
+      <div
+        class="v-panel"
+        data-idx={i}
+        hidden={i !== defaultIdx}
+      >
+        <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; align-items: start">
+          <!-- Sketch placeholder -->
+          <div style="aspect-ratio: 16 / 10; border: 1.5px dashed rgba(28,27,24,.35); border-radius: 3px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px; padding: 32px; box-sizing: border-box; background: rgba(255,255,255,.25)">
+            <div style="width: 58%; display: flex; flex-direction: column; gap: 10px">
+              <div style="height: 10px; width: 45%; background: rgba(28,27,24,.18)"></div>
+              <div style="height: 8px; width: 90%; background: rgba(28,27,24,.1)"></div>
+              <div style="height: 8px; width: 75%; background: rgba(28,27,24,.1)"></div>
+              <div style="display: flex; gap: 10px; margin-top: 8px">
+                <div style="height: 26px; width: 90px; border: 1.5px solid rgba(28,27,24,.3)"></div>
+                <div style={`height: 26px; width: 110px; background: ${btnColors[i] ?? '#2D45B8'}`}></div>
+              </div>
+            </div>
+            <div class="mono" style="margin-top: 14px">[ Your sketch / screenshot · {v.name} ]</div>
+          </div>
+          <!-- Text panel -->
+          <div>
+            <div class="mono" style="margin-bottom: 10px">{v.name} · {v.when}</div>
+            <p style="margin: 0; font-size: 19px; line-height: 1.55; font-family: var(--font-serif)">{v.text}</p>
+            <p class="note sw-note" style="margin: 18px 0 0; transform: rotate(-0.8deg)">{v.note}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .v-tab {
+    all: unset;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: .06em;
+    padding: 8px 2px;
+    min-height: 28px;
+    text-transform: uppercase;
+  }
+  .v-tab:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 1000px) {
+    .v-panel > div {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    document.querySelectorAll('.cs-row').forEach(function(section) {
+      var tabs = section.querySelectorAll('.v-tab');
+      if (!tabs.length) return;
+      var panels = section.querySelectorAll('.v-panel');
+      var scrubber = section.querySelector('.v-scrubber');
+
+      function activate(idx) {
+        var i = parseInt(idx, 10);
+        tabs.forEach(function(tab, ti) {
+          var active = ti === i;
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          tab.style.color = active ? '#2D45B8' : '#66625A';
+          tab.style.borderBottom = active ? '1.5px solid #2D45B8' : '1.5px solid transparent';
+        });
+        panels.forEach(function(panel, pi) {
+          panel.hidden = pi !== i;
+        });
+        if (scrubber) scrubber.value = i;
+      }
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          activate(tab.dataset.idx);
+        });
+      });
+
+      if (scrubber) {
+        scrubber.addEventListener('input', function() {
+          activate(scrubber.value);
+        });
+      }
+    });
+  })();
+</script>

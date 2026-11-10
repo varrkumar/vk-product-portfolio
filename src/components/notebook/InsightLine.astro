@@ -1,0 +1,51 @@
+---
+interface Props {
+  num?: string;
+  label?: string;
+  validated?: string;
+  observed?: string;
+  assumed?: string;
+}
+const { num, label, validated, observed, assumed } = Astro.props;
+---
+
+<section class="cs-row" style="padding-bottom: 104px">
+  <div class="cs-gutter" style="padding-top: 6px">
+    {num && <div class="mono">{num}</div>}
+    {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
+  </div>
+  <div class="cs-wide">
+    <p style="margin: 0; font-size: 50px; line-height: 1.12; letter-spacing: -0.012em; max-width: 880px; font-family: var(--font-serif); font-variation-settings: 'opsz' 50, 'wght' 400">
+      <slot />
+    </p>
+    {(validated || observed || assumed) && (
+      <div style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 30px">
+        {validated && (
+          <span class="mono" style="display: inline-flex; gap: 8px; align-items: center">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12">
+              <circle cx="6" cy="6" r="5" fill="#1C1B18"></circle>
+            </svg>
+            {validated}
+          </span>
+        )}
+        {observed && (
+          <span class="mono" style="display: inline-flex; gap: 8px; align-items: center">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12">
+              <circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle>
+              <path d="M6,1 A5,5 0 0 1 6,11 Z" fill="#1C1B18"></path>
+            </svg>
+            {observed}
+          </span>
+        )}
+        {assumed && (
+          <span class="mono" style="display: inline-flex; gap: 8px; align-items: center">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12">
+              <circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2"></circle>
+            </svg>
+            {assumed}
+          </span>
+        )}
+      </div>
+    )}
+  </div>
+</section>
