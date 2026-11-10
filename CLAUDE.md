@@ -51,9 +51,10 @@ Every case study page uses the 3-column grid: **120px gutter | max-640px main | 
 | 02 | listening | `<SectionRow>` | Research context. |
 | — | — | Pull quote row: bare `<section class="cs-row">` with empty gutter, blockquote in col 2, `<Tally>` + note in col 3 as `.sw-note` | |
 | 03 | the turn | `<InsightLine num label validated observed assumed>` | 50px wide text spanning col 2+3. Confidence markers below. |
-| 04 | versions | `<Versions num label versions defaultIdx />` | Tabs + range scrubber. Wide (col 2+3). Version panels with sketch placeholder. Handwritten note per version in .sw-note. |
-| 05 | what happened | `<SectionRow>` wrapping `<OutcomeStats stats />` | 3 large numbers. Honest margin note. |
-| 06 | if again | `<Reflection num label>` | Handwritten (Kalam) wide text in pencil. |
+| 04 | the decision | `<Fork num label context options rationale knew />` | Chosen option: hand-drawn circle SVG (.sw-mark) + "what I chose" label (.sw-note). Rejected: pencil strikethrough + "path not taken" note (.sw-note). Margin: "What I knew at the time" list (.sw-note). |
+| 05 | versions | `<Versions num label versions defaultIdx />` | Tabs + range scrubber. Wide (col 2+3). Version panels with sketch placeholder. Handwritten note per version in .sw-note. |
+| 06 | what happened | `<SectionRow>` wrapping `<OutcomeStats stats />` | 3 large numbers. Honest margin note. |
+| 07 | if again | `<Reflection num label>` | Handwritten (Kalam) wide text in pencil. |
 | — | — | `<footer class="cs-row">` | Next entry link + p.s. note |
 
 ### Component signatures
@@ -84,6 +85,20 @@ Every case study page uses the 3-column grid: **120px gutter | max-640px main | 
   The interface wasn't the barrier. <em>The social contract was.</em>
 </InsightLine>
 
+<Fork
+  num="04" label="the decision"
+  context="Prose framing of the choice."
+  options={[
+    { label: "Option A — the path not taken.", pathNotTaken: "Why I'd pick it in another situation." },
+    { label: "Option B — what I actually did.", chosen: true },
+  ]}
+  rationale="Why I chose B, written in past tense."
+  knew={[
+    { text: "Evidence that pointed here.", confidence: "observed" },
+    { text: "Something I had to assume.", confidence: "assumed" },
+  ]}
+/>
+
 <Versions
   num="05" label="versions" defaultIdx={3}
   versions={[{ name, when, text, note }]}
@@ -106,9 +121,9 @@ Add `.sw-note` to any margin aside that should toggle. Add `.sw-mark` to any inl
 
 - **Show your work** toggle on every case study. Off: clean, skimmable narrative. On: margins fill with the messy middle (assumptions, what changed my mind, what I cut).
 - **Reframes**: key sentences show an earlier belief struck through, followed by the new one.
+- **Forks**: decisions shown statically — options side by side, chosen one circled in pencil, rejected ones struck through with "path not taken" notes, margin column lists what I knew at the time with confidence markers.
 - **Versions**: a scrubber through design iterations (v0 → final) with a margin note at each step.
 - **Evidence markers**: insights tagged `assumed` / `observed` / `validated`.
-- **Your call** (planned, build later): a blue-pencil margin question gives the reader the same options and evidence I had; they choose, then see my actual decision, reasoning and outcome. Leave room for it in the case study component system.
 
 ## Personal layer
 
@@ -118,7 +133,7 @@ Rule: every hidden detail must be true about me, and none may block content. Max
 
 - **Astro** (TypeScript, strict), static output, deployed on Vercel with a custom domain. Check the current Astro docs before using an API; don't rely on memory for version-specific details.
 - **Content collections** with a typed schema for case studies, so every case study has structured frontmatter: problem, role, timeline, constraints, decisions (options, chosen, rationale, confidence: assumed/observed/validated), outcome, reflection. Interactions render from this data.
-- **MDX** for case study bodies, with custom components: `<Margin>`, `<HeroReframe>`, `<SectionRow>`, `<InsightLine>`, `<YourCall>`, `<Versions>`, `<OutcomeStats>`, `<Reflection>`, `<Tally>`, `<Annotate>`, `<CaseStudyHeader>`.
+- **MDX** for case study bodies, with custom components: `<CaseStudyHeader>`, `<HeroReframe>`, `<SectionRow>`, `<InsightLine>`, `<Fork>`, `<Versions>`, `<OutcomeStats>`, `<Reflection>`, `<Tally>`, `<Annotate>`.
 - **Rough Notation** (`rough-notation`) is installed and wired via `Base.astro`. It draws in on scroll (IntersectionObserver), static under `prefers-reduced-motion`. Use it only via the `<Annotate>` component or by adding `data-rn-type` + `data-rn-color` attributes.
 - **No UI framework by default.** Astro components render static HTML; interactive pieces are small vanilla TypeScript scripts or web components. Add a framework (Svelte or Preact) only if an interaction truly needs it, and ask first.
 - **Page transitions:** native cross-document View Transitions in CSS (`@view-transition { navigation: auto; }`), no client-side router.

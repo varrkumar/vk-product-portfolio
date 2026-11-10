@@ -9,6 +9,7 @@ import OutcomeStats from '../components/notebook/OutcomeStats.astro';
 import Reflection from '../components/notebook/Reflection.astro';
 import Tally from '../components/notebook/Tally.astro';
 import Annotate from '../components/notebook/Annotate.astro';
+import Fork from '../components/notebook/Fork.astro';
 ---
 
 <Base title="Case study — Lab Notebook sharing · VK">
@@ -78,21 +79,41 @@ import Annotate from '../components/notebook/Annotate.astro';
       The interface wasn&rsquo;t the barrier. <em style="font-weight:300">The social contract was.</em> Sharing meant committing to an opinion in front of colleagues.
     </InsightLine>
 
-    <!-- 04 versions -->
-    <Versions
+    <!-- 04 fork -->
+    <Fork
       num="04"
+      label="the decision"
+      context="The dialog barely changed. I had four explanations for why sharing was low, and I needed to pick one."
+      options={[
+        { label: "Fix the sharing dialog — it's confusing.", pathNotTaken: "Nobody filed tickets. Confused users usually do." },
+        { label: "Reframe the action: request feedback instead of share.", pathNotTaken: "Softer framing, same social risk." },
+        { label: "Add a draft mode — share before it's final.", chosen: true },
+        { label: "Interview people who already share.", pathNotTaken: "I should have done this. I didn't. See below." },
+      ]}
+      rationale="The behavior wasn't confusion — it was a social contract problem. Opening the dialog 1.2 times and closing it isn't confusion; confused people file tickets. The real block was committing to an opinion in public before it felt finished."
+      knew={[
+        { text: "1.2 dialog opens per user, almost no sends. Observed in usage logs.", confidence: "observed" },
+        { text: "No support tickets about the dialog. Observed.", confidence: "observed" },
+        { text: "Researchers understood the UI when asked. Validated in 6 of 6 interviews.", confidence: "validated" },
+        { text: "Draft framing would change the social meaning. Assumed, not yet tested.", confidence: "assumed" },
+      ]}
+        />
+
+    <!-- 05 versions -->
+    <Versions
+      num="05"
       label="versions"
       defaultIdx={3}
       versions={[
-        { name: 'v0', when: 'week 3', text: "The obvious fix: a cleaner dialog. Tested with two people, and both said ‘it’s fine, I just wouldn’t send it.’", note: 'Built this to prove myself wrong. It worked.' },
-        { name: 'v1', when: 'week 5', text: "A ‘draft’ toggle in the dialog. Nobody noticed it.", note: "Too quiet. A safety net nobody can see doesn’t help." },
-        { name: 'v2', when: 'week 8', text: "‘Share as draft’ becomes the default button, with ‘Share final’ secondary.", note: 'Flipping the default did more than any copy change.' },
-        { name: 'v3', when: 'week 12', text: 'Drafts carry a visible tag and invite comments rather than approval.', note: 'Shipped. The tag says “thinking out loud.”' }
+        { name: 'v0', when: 'week 3', text: "The obvious fix: a cleaner dialog. Tested with two people, and both said 'it's fine, I just wouldn't send it.'", note: 'Built this to prove myself wrong. It worked.' },
+        { name: 'v1', when: 'week 5', text: "A 'draft' toggle in the dialog. Nobody noticed it.", note: "Too quiet. A safety net nobody can see doesn't help." },
+        { name: 'v2', when: 'week 8', text: "'Share as draft' becomes the default button, with 'Share final' secondary.", note: 'Flipping the default did more than any copy change.' },
+        { name: 'v3', when: 'week 12', text: 'Drafts carry a visible tag and invite comments rather than approval.', note: 'Shipped. The tag says "thinking out loud."' }
       ]}
     />
 
-    <!-- 05 outcome -->
-    <SectionRow num="05" label="what happened" pb="104px">
+    <!-- 06 outcome -->
+    <SectionRow num="06" label="what happened" pb="104px">
       <Fragment slot="main">
         <OutcomeStats stats={[
           { number: "2.8×", label: "more ideas shared in the first month" },
@@ -105,8 +126,8 @@ import Annotate from '../components/notebook/Annotate.astro';
       </Fragment>
     </SectionRow>
 
-    <!-- 06 reflection -->
-    <Reflection num="06" label="if again">
+    <!-- 07 reflection -->
+    <Reflection num="07" label="if again">
       Next time I&rsquo;d interview the people who already share, not just the ones who don&rsquo;t. The answer was hiding with them.
     </Reflection>
 

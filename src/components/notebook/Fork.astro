@@ -1,0 +1,281 @@
+---
+/*
+ * <Fork> — static decision display.
+ * Chosen option: hand-drawn circle overlay (sw-mark) + "what I chose" label (sw-note).
+ * Rejected options: pencil strikethrough (via html.show-work CSS) + "path not taken" note (sw-note).
+ * Margin: "What I knew at the time" list with ●◐○ confidence markers (sw-note).
+ * Everything has a complete static fallback; chosen is identifiable by weight alone.
+ */
+interface ForkOption {
+  label: string;
+  chosen?: boolean;
+  pathNotTaken?: string;
+}
+
+interface KnewItem {
+  text: string;
+  confidence: 'validated' | 'observed' | 'assumed';
+}
+
+interface Props {
+  num?: string;
+  label?: string;
+  context?: string;
+  options: ForkOption[];
+  rationale?: string;
+  knew?: KnewItem[];
+}
+
+const { num, label, context, options, rationale, knew } = Astro.props;
+---
+
+<section class="cs-row fork" style="padding-bottom: 88px">
+  <div class="cs-gutter" style="padding-top: 6px">
+    {num && <div class="mono">{num}</div>}
+    {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
+  </div>
+
+  <div>
+    {context && (
+      <p class="fork-context">{context}</p>
+    )}
+
+    <ul class="fork-options" role="list">
+      {options.map((opt, i) => (
+        <li class={`fork-option ${opt.chosen ? 'fork-option--chosen' : 'fork-option--rejected'}`}>
+          <span class="fork-letter mono">{String.fromCharCode(65 + i)}</span>
+          <div class="fork-main">
+            <span class={`fork-text-wrap${opt.chosen ? ' fork-chosen-wrap' : ''}`}>
+              <span class="fork-text">{opt.label}</span>
+              {opt.chosen && (
+                <svg
+                  class="fork-circle sw-mark"
+                  viewBox="0 0 220 60"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    class="fork-circle-path"
+                    d="M 12,30 C 14,12 42,5 110,5 C 178,5 208,12 208,30 C 208,48 178,55 110,55 C 42,55 14,48 12,30"
+                    stroke="#2D45B8"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke-dasharray="420"
+                    stroke-dashoffset="420"
+                  />
+                </svg>
+              )}
+            </span>
+            {opt.chosen && (
+              <span class="fork-chosen-label sw-note hand">what I chose</span>
+            )}
+            {!opt.chosen && opt.pathNotTaken && (
+              <div class="fork-path sw-note">{`path not taken: ${opt.pathNotTaken}`}</div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    {rationale && (
+      <p class="fork-rationale">{rationale}</p>
+    )}
+  </div>
+
+  {knew && knew.length > 0 && (
+    <aside class="cs-margin sw-note fork-knew">
+      <div class="fork-knew-label mono">What I knew at the time</div>
+      <ul class="fork-knew-list" role="list">
+        {knew.map(item => (
+          <li class="fork-knew-item">
+            {item.confidence === 'validated' && (
+              <svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" class="fork-marker" style="flex-shrink:0;margin-top:3px">
+                <circle cx="6" cy="6" r="5" fill="#1C1B18" />
+              </svg>
+            )}
+            {item.confidence === 'observed' && (
+              <svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" class="fork-marker" style="flex-shrink:0;margin-top:3px">
+                <circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2" />
+                <path d="M6,1 A5,5 0 0 1 6,11 Z" fill="#1C1B18" />
+              </svg>
+            )}
+            {item.confidence === 'assumed' && (
+              <svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" class="fork-marker" style="flex-shrink:0;margin-top:3px">
+                <circle cx="6" cy="6" r="5" fill="none" stroke="#1C1B18" stroke-width="1.2" />
+              </svg>
+            )}
+            <span>{item.text}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )}
+</section>
+
+<style>
+  .fork-context {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 32px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+  }
+
+  .fork-options {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+  }
+
+  .fork-option {
+    display: grid;
+    grid-template-columns: 2.2em 1fr;
+    padding: 16px 0;
+    border-top: var(--border-hairline);
+    align-items: start;
+  }
+
+  .fork-option:last-child {
+    border-bottom: var(--border-hairline);
+  }
+
+  .fork-letter {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--ink-40);
+    padding-top: 0.25em;
+  }
+
+  .fork-main {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .fork-text-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .fork-text {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.4;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+  }
+
+  .fork-option--chosen .fork-text {
+    font-variation-settings: 'opsz' 20, 'wght' 500;
+    color: var(--ink);
+  }
+
+  .fork-option--rejected .fork-text {
+    color: var(--ink-60);
+  }
+
+  /* Show-work: strikethrough on rejected text */
+  html.show-work .fork-option--rejected .fork-text {
+    text-decoration: line-through;
+    text-decoration-color: var(--pencil);
+    text-decoration-thickness: 1.5px;
+    color: var(--ink-40);
+  }
+
+  /* Circle SVG: absolute overlay on chosen text */
+  .fork-circle {
+    position: absolute;
+    inset: -10px -14px;
+    width: calc(100% + 28px);
+    height: calc(100% + 20px);
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .fork-chosen-label {
+    font-family: var(--font-hand);
+    font-size: 15px;
+    color: var(--pencil);
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  .fork-path {
+    font-family: var(--font-hand);
+    font-size: 15px;
+    color: var(--pencil);
+    transform: rotate(-0.5deg);
+    display: inline-block;
+  }
+
+  .fork-rationale {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink-60);
+    margin: 0;
+    font-style: italic;
+    font-variation-settings: 'opsz' 18, 'wght' 300;
+  }
+
+  /* Knew margin */
+  .fork-knew {
+    padding-top: 6px;
+  }
+
+  .fork-knew-label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--ink-60);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .fork-knew-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fork-knew-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink-60);
+  }
+
+  @media (max-width: 1000px) {
+    .fork-knew {
+      padding-left: 16px;
+      border-left: 1.5px solid var(--pencil);
+    }
+  }
+</style>
+
+<script>
+  /* Draw hand-drawn circles on chosen options when they enter view */
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const path = entry.target.querySelector<SVGPathElement>('.fork-circle-path');
+      if (path) {
+        if (!reduced) {
+          path.style.transition = 'stroke-dashoffset 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s';
+        }
+        path.style.strokeDashoffset = '0';
+      }
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll<HTMLElement>('.fork-option--chosen').forEach(el => obs.observe(el));
+</script>

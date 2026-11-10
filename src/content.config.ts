@@ -1,10 +1,21 @@
 import { defineCollection, z } from 'astro:content';
 
-const decisionSchema = z.object({
-  options: z.array(z.string()),
-  chosen: z.string(),
-  rationale: z.string(),
+const forkOptionSchema = z.object({
+  label: z.string(),
+  chosen: z.boolean().optional(),
+  pathNotTaken: z.string().optional(),
+});
+
+const knewItemSchema = z.object({
+  text: z.string(),
   confidence: z.enum(['assumed', 'observed', 'validated']),
+});
+
+const decisionSchema = z.object({
+  context: z.string().optional(),
+  options: z.array(forkOptionSchema),
+  rationale: z.string().optional(),
+  knew: z.array(knewItemSchema).optional(),
 });
 
 const caseStudies = defineCollection({
