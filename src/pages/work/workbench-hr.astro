@@ -1,0 +1,250 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
+import CaseHero from '../../components/notebook/CaseHero.astro';
+import SectionRow from '../../components/notebook/SectionRow.astro';
+import InsightLine from '../../components/notebook/InsightLine.astro';
+import Fork from '../../components/notebook/Fork.astro';
+import Figure from '../../components/notebook/Figure.astro';
+import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
+import Reflection from '../../components/notebook/Reflection.astro';
+import { nextCaseStudy } from '../../data/entries';
+
+const next = nextCaseStudy('workbench-hr');
+
+import onboardingFlow from '../../assets/workbench-hr/onboarding-flow.png';
+import lofiLetterFlow from '../../assets/workbench-hr/lofi-letter-flow.png';
+import onboardingDna from '../../assets/workbench-hr/onboarding-company-dna.png';
+import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
+
+/*
+ * Copy rules for this page (see notes/intake-workbench-hr.md):
+ * - Every fact comes from the intake, the process book, or the matchmaking sheet.
+ * - CONFIDENTIAL: no financials, pricing, projections, or funding data from the pitch deck.
+ * - Credit teammates by role only.
+ * - [TODO: ...] marks what only Varrshitha can fill in.
+ */
+---
+
+<Base title="WorkBench HR: AI HR for Small Businesses · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
+
+    <CaseStudyHeader entryNum="02" />
+
+    <CaseHero
+      entryNum="02"
+      eyebrow="WorkBench HR"
+      title="Design the whole vision, build only what proves it"
+      lede="A startup founder came to us with only an idea: AI HR for small businesses. I ran feature prioritization, designed the core screens, built the front end, and assembled the pitch."
+      meta={[
+        { label: "Role", value: "Product and UX" },
+        { label: "Timeline", value: "Spring 2026, one semester" },
+        { label: "Team", value: "5 students (design, PM, engineering) + founder + HCI faculty mentor" },
+        { label: "Focus", value: "Product, UX, prototyping, pitch" },
+        { label: "Output", value: "Live site, working MVP, investor pitch deck" },
+      ]}
+      cover={dashboardFlow}
+      coverAlt="WorkBench HR home dashboard: hiring pipeline, document creation, upcoming tasks, and employee management."
+      note="handed: take an AI HR idea from zero to something real.<br><br>turned out: design the whole vision, build only what proves it."
+    />
+
+    <!-- 01 -->
+    <SectionRow num="01" label="the brief">
+      <Fragment slot="main">
+        <p class="body">
+          A startup founder came to five CMU students with one sentence: AI-powered HR for small
+          businesses. No feature set, no existing screens, no prior product. We had one semester to take
+          it from that sentence to something pitchable to investors.
+        </p>
+        <p class="body">
+          Small businesses with fewer than 50 employees rarely have a dedicated HR team. Hiring,
+          onboarding, compliance, and performance documentation all fall to whoever has time, usually the
+          owner. The tools they use were built for one job: payroll software handles payroll, records
+          systems handle records, and nothing connects them.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-1deg)">
+          the founder's one sentence was actually a good starting point. it told us the audience and the
+          category. everything else we had to find.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 02 -->
+    <SectionRow num="02" label="finding the problem">
+      <Fragment slot="main">
+        <p class="body">
+          We mapped the seven core HR processes: recruiting, hiring, onboarding, compliance, performance,
+          documentation, and offboarding. Then we did a competitive analysis and a literature review.
+          Two things kept coming up: data re-entered over and over (the same hire's name in email, then a
+          spreadsheet, then Slack), and missed compliance deadlines that the owner found out about only
+          after the fact.
+        </p>
+        <p class="body">
+          The surprise was what payroll wasn't. Gusto and QuickBooks already owned it. What they didn't
+          own was the coordination work around a hire: the offer letters, the state-specific compliance
+          steps, the documentation that had to exist if someone was ever terminated. That was the gap.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(0.6deg)">
+          most of this was secondary research and the founder's knowledge. we had limited access to
+          real small-business owners. i'd test with them much earlier next time.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 03 -->
+    <InsightLine
+      num="03"
+      label="the turn"
+      observed="Payroll tools already existed and were well-adopted"
+      assumed="That showing off AI was the point of the MVP"
+    >
+      The unserved problem was not payroll. It was everything that happened before and after it.
+    </InsightLine>
+
+    <!-- 04 -->
+    <Fork
+      num="04"
+      label="what to build"
+      context="The founder had a vision, not a feature list. I ran a matchmaking exercise: each of us brainstormed applications across four categories (automation, generative AI, reasoning/analytics, general tools), then scored each of 17 candidates on financial viability, technical feasibility, and user desirability."
+      options={[
+        { label: "AI chatbot / HR assistant. Scored 14 of 15, the highest on the board.", pathNotTaken: "It's the most demo-friendly AI feature, and it's the one most investors will ask about first. I'd choose it if the core infrastructure already existed." },
+        { label: "Document auto-population, lifecycle tracking, compliance dashboard, trigger notifications.", chosen: true },
+      ]}
+      rationale="The chatbot scored highest, but it depends on the data infrastructure the other four features create. Without documents, there's nothing for it to draft from. Without lifecycle tracking, it doesn't know where a hire is. We designed it into every flow so the full vision is visible in every mockup, and labeled it as the next milestone in the pitch. The MVP proves we can fix fragmented HR work. The chatbot proves we can make it conversational, and that comes second."
+      knew={[
+        { text: "Payroll tools already owned that problem; the gap was coordination", confidence: "observed" },
+        { text: "High automation potential in data collection (64%) and processing (69%)", confidence: "observed" },
+        { text: "That investors would ask about the AI features first", confidence: "assumed" },
+        { text: "That the chatbot needed the other four to function well", confidence: "assumed" },
+      ]}
+    />
+
+    <Figure
+      fig="fig. 1"
+      caption="Lo-fi letter generation flow: candidate profile, review, fill in fields, generated offer letter. The AI drafts; the HR admin reviews and signs off."
+      note="this flow went through two rounds of feedback before the hi-fi. the generate button moved twice."
+      images={[
+        { src: lofiLetterFlow, alt: "Four lo-fi wireframe screens showing the letter generation flow: candidate info panel with process tracker, more detail added, fill-in form asking letter type and candidate details, final generated letter with discard/edit/export options." },
+      ]}
+    />
+
+    <!-- 05 -->
+    <Fork
+      num="05"
+      label="AI as a drafting layer"
+      context="The team's first instinct was to make the AI as capable as possible: auto-fill, auto-decide, auto-notify. The faculty mentor flagged that for small-business owners, AI making HR decisions without clear sign-off is a legal and trust problem."
+      options={[
+        { label: "AI takes action: auto-fills, auto-completes, auto-sends.", pathNotTaken: "If the error rate were near zero and the user had time to build trust in the system. Neither was true in a first version." },
+        { label: "AI drafts; the HR admin reviews and signs off. All outputs editable.", chosen: true },
+      ]}
+      rationale="Every AI output in WorkBench HR is a suggestion that a person approves before it goes anywhere. Auto-population pre-fills a form; the admin edits and submits. Notifications are triggered; a person confirms before they send. We ran a F.A.T.E. analysis to check for fairness, accountability, transparency, and explainability, and logged every AI action so there was a record if something went wrong. The onboarding flow was the most visible place to put this into practice."
+      knew={[
+        { text: "HR decisions have legal consequences; errors aren't just inconvenient", confidence: "observed" },
+        { text: "First-time users had no prior basis for trusting the AI", confidence: "assumed" },
+        { text: "That making every output editable would slow down the pitch demo", confidence: "assumed" },
+      ]}
+    />
+
+    <Figure
+      fig="fig. 2"
+      wide
+      ratio="16 / 9"
+      caption="The onboarding flow: intent step, data and privacy overview with real opt-out consequences, Company DNA sync, review, and confirmation. Designed to be honest about what AI does and what it can't."
+      note="the privacy screen tells you plainly what you lose by opting out. it was the mentor's note that became the best screen in the flow."
+      images={[
+        { src: onboardingFlow, alt: "WorkBench HR onboarding flow diagram: welcome screen, what's your goal today intent step, trigger notification setup, data and privacy overview, Company DNA sync upload, document review, and got it confirmation." },
+        { src: onboardingDna, alt: "Three hi-fi onboarding screens: Sync Your Company DNA with document browser and upload, Let's Review Your Documents showing uploaded policy files, and Got It confirmation listing company tone, key documents scanned, and AI training status." },
+      ]}
+    />
+
+    <!-- 06 -->
+    <SectionRow num="06" label="the screens I owned" pb="104px">
+      <Fragment slot="main">
+        <p class="body">
+          My screens were the Home Dashboard and the Employee Portal. The dashboard question from mentor
+          feedback was which view to show first: processes, people, timeline, or tasks. I went with
+          action-focused: hiring pipeline progress, document creation queue, upcoming tasks, and employee
+          management. The goal was that someone who had never used the tool could open it and immediately
+          see one thing to do.
+        </p>
+        <p class="body">
+          I designed in Figma through lo-fi, two rounds of feedback and iteration, and hi-fi, then
+          vibe-coded the MVP front end so we had a working build to demo. The engineering side ran a
+          FastAPI back end with Pinecone and OpenAI embeddings for the RAG layer.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(-0.6deg)">
+          [TODO: list the Figma frames to export: home dashboard lo-fi, home dashboard hi-fi, employee
+          portal, one chatbot screen labeled MMP]
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 07 -->
+    <SectionRow num="07" label="what happened" pb="104px">
+      <Fragment slot="main">
+        <OutcomeStats stats={[
+          { number: "Live", label: "marketing site with waitlist and demo request form" },
+          { number: "MVP", label: "working build: onboarding, dashboard, and settings flows" },
+          { number: "Pitch", label: "investor deck and upcoming pitch [TODO: update after pitch]" },
+        ]} />
+        <p class="body" style="margin-top: 32px">
+          We left the semester with a site, a working front end, and a pitch. What we did not have was
+          real small-business owners in a testing session. The persona, Mark, was secondary research
+          and the founder's knowledge, not interviews. That gap is real, and the first version of the
+          product will find out what it misses when it hits actual users.
+        </p>
+      </Fragment>
+      <Fragment slot="margin">
+        <p class="note" style="margin:0;transform:rotate(1deg)">
+          the chatbot is in every mockup and none of the code. that's the whole decision in one sentence.
+        </p>
+      </Fragment>
+    </SectionRow>
+
+    <!-- 08 -->
+    <Reflection num="08" label="what stuck">
+      Product decisions come from repeated operational problems, not from a feature list. If you pick the problem, the features follow. If you pick the features, you're guessing.
+    </Reflection>
+
+    <footer class="cs-row" style="align-items: end; padding-top: 24px">
+      <div></div>
+      <a href={`/${next.section}/${next.slug}`} class="next">
+        <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
+        <div class="next-q">{next.footerQ}</div>
+      </a>
+      <div></div>
+    </footer>
+
+  </div>
+</Base>
+
+<style>
+  .body {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.62;
+    margin: 0 0 22px;
+    font-variation-settings: 'opsz' 20, 'wght' 400;
+    max-width: none;
+  }
+  .body:last-child { margin-bottom: 0; }
+
+  .next { text-decoration: none; color: var(--ink); display: block; }
+  .next-q {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .next:hover .next-q { text-decoration: underline; text-decoration-color: var(--pencil); text-underline-offset: 6px; }
+
+  @media (max-width: 1000px) {
+    .body { font-size: 19px; }
+  }
+</style>
