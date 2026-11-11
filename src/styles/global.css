@@ -369,3 +369,61 @@ html.show-work .sw-note, html.show-work .sw-mark { opacity: 1; pointer-events: a
   font-size: 19px;
   line-height: 1.45;
 }
+
+/* ============================================================
+   Image frame system
+   Toggle FRAME_STYLE in src/config.ts — set on <html data-frame>
+   .frame-wrap wraps every figure image and hero cover.
+   ============================================================ */
+.frame-wrap {
+  position: relative;
+  display: block;
+  line-height: 0;
+}
+
+/* Hairline: clean 1px border */
+html[data-frame="hairline"] .frame-wrap img {
+  border: var(--border-hairline);
+}
+
+/* Taped: two tape strips across top corners, no border */
+html[data-frame="taped"] .frame-wrap::before,
+html[data-frame="taped"] .frame-wrap::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 8px;
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+  border-radius: 1px;
+  z-index: 1;
+  pointer-events: none;
+}
+html[data-frame="taped"] .frame-wrap::before {
+  top: -3px;
+  left: 15%;
+  transform: rotate(-5deg);
+}
+html[data-frame="taped"] .frame-wrap::after {
+  top: -3px;
+  right: 15%;
+  transform: rotate(5deg);
+}
+
+/* Dev-only placeholder boxes (shown in both frame modes) */
+.img-placeholder {
+  background: #f4f4f2;
+  border: 1px dashed var(--ink-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.img-placeholder-inner {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-40);
+  text-align: center;
+  padding: 24px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}

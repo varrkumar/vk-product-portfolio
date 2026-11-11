@@ -1,0 +1,31 @@
+---
+/*
+ * Wordmark — renders "vk." as italic serif text by default.
+ * To swap in your handwriting SVG:
+ *   1. Export the SVG to public/wordmark.svg
+ *   2. Set WORDMARK_SVG = true in src/config.ts
+ */
+import { WORDMARK_SVG } from '../config.ts';
+---
+
+{WORDMARK_SVG
+  ? <img src="/wordmark.svg" alt="vk." class="wordmark-svg" aria-label="vk." width="48" height="32" />
+  : <span class="wordmark-text" aria-label="vk.">vk.</span>
+}
+
+<style>
+  .wordmark-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1;
+    display: inline-block;
+  }
+  .wordmark-svg {
+    height: 32px;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>

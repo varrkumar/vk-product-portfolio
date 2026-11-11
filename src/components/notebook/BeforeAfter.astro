@@ -1,0 +1,277 @@
+---
+/*
+ * <BeforeAfter> — drag-to-reveal before/after image comparison.
+ *
+ * JS-on:  two images stacked, clipped at a draggable handle (mouse + touch + keyboard).
+ * JS-off: images stacked vertically with before/after labels.
+ * Keyboard: Tab to focus handle, Left/Right arrow to move by 5%, Home/End for 0/100%.
+ * Respects prefers-reduced-motion (handle still moves, no transition).
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  before: ImageMetadata;
+  beforeAlt: string;
+  after: ImageMetadata;
+  afterAlt: string;
+  fig?: string;
+  caption?: string;
+  note?: string;
+  wide?: boolean;
+  pb?: string;
+}
+const { before, after, beforeAlt, afterAlt, fig = '', caption = '', note = '', wide = false, pb = '96px' } = Astro.props;
+const id = `ba-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<section class="cs-row ba-row" style={`padding-bottom: ${pb}`}>
+  <div class="cs-gutter" style="padding-top: 4px">
+    {fig && <div class="mono ba-fig-num">{fig}</div>}
+  </div>
+
+  <figure class={`ba-figure ${wide ? 'cs-wide' : ''}`} style="margin: 0">
+
+    {/* JS-off fallback */}
+    <noscript>
+      <div class="ba-noscript">
+        <div class="mono ba-ns-label">before</div>
+        <img src={before.src} alt={beforeAlt} class="ba-ns-img" />
+        <div class="mono ba-ns-label" style="margin-top: 20px">after</div>
+        <img src={after.src} alt={afterAlt} class="ba-ns-img" />
+      </div>
+    </noscript>
+
+    {/* Interactive slider */}
+    <div class="ba-wrap frame-wrap" id={id} data-pct="50">
+      <div class="ba-layer ba-before-layer">
+        <Image
+          src={before}
+          alt={beforeAlt}
+          widths={[480, 960, 1440]}
+          sizes="(max-width: 1000px) 100vw, 640px"
+          class="ba-img"
+        />
+      </div>
+      <div class="ba-layer ba-after-layer" style="clip-path: inset(0 0 0 50%)">
+        <Image
+          src={after}
+          alt={afterAlt}
+          widths={[480, 960, 1440]}
+          sizes="(max-width: 1000px) 100vw, 640px"
+          class="ba-img"
+          aria-hidden="true"
+        />
+      </div>
+      <div
+        class="ba-handle"
+        role="slider"
+        aria-label="Before / after comparison — drag or use arrow keys"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="50"
+        tabindex="0"
+        style="left: 50%"
+      >
+        <div class="ba-line"></div>
+        <div class="ba-knob" aria-hidden="true">↔</div>
+      </div>
+      <div class="ba-labels" aria-hidden="true">
+        <span class="mono ba-label-b">before</span>
+        <span class="mono ba-label-a">after</span>
+      </div>
+    </div>
+
+    {caption && <figcaption class="mono ba-caption">{caption}</figcaption>}
+    {wide && note && <p class="note sw-note ba-note-wide">{note}</p>}
+  </figure>
+
+  {!wide && (
+    <aside class="cs-margin sw-note" style="padding-top: 28px">
+      {note && <p class="note" style="margin: 0; transform: rotate(-0.8deg)">{note}</p>}
+    </aside>
+  )}
+</section>
+
+<style>
+  .ba-wrap {
+    position: relative;
+    overflow: hidden;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: pan-y;
+    line-height: 0;
+  }
+  .ba-layer {
+    display: block;
+  }
+  .ba-before-layer {
+    position: relative;
+  }
+  .ba-after-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .ba-after-layer .ba-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .ba-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Handle */
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 44px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: col-resize;
+    z-index: 2;
+  }
+  .ba-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1.5px;
+    background: var(--paper);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .ba-knob {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--ink-40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-60);
+    position: relative;
+    z-index: 1;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+  .ba-handle:focus-visible { outline: none; }
+  .ba-handle:focus-visible .ba-knob {
+    border-color: var(--pencil);
+    color: var(--pencil);
+  }
+
+  /* Labels */
+  .ba-labels {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 12px;
+    pointer-events: none;
+  }
+  .ba-label-b, .ba-label-a {
+    background: rgba(255,255,255,0.85);
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 2px;
+  }
+
+  /* Caption */
+  .ba-caption {
+    margin-top: 16px;
+    max-width: 640px;
+    line-height: 1.6;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+  .ba-note-wide {
+    margin: 18px 0 0;
+    max-width: 560px;
+    transform: rotate(-0.6deg);
+  }
+  .ba-fig-num { color: var(--ink-60); }
+
+  /* JS-off */
+  .ba-noscript .ba-ns-label { margin-bottom: 8px; }
+  .ba-noscript .ba-ns-img { width: 100%; height: auto; display: block; }
+
+  /* JS hides noscript content; script un-hides the slider */
+  :global(html.js-on) .ba-noscript { display: none; }
+  :global(html:not(.js-on)) .ba-wrap { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ba-knob { transition: none; }
+  }
+</style>
+
+<script>
+  /* Mark JS available */
+  document.documentElement.classList.add('js-on');
+
+  document.querySelectorAll<HTMLElement>('[id^="ba-"]').forEach(wrap => {
+    const afterLayer = wrap.querySelector<HTMLElement>('.ba-after-layer');
+    const handle    = wrap.querySelector<HTMLElement>('.ba-handle');
+    if (!afterLayer || !handle) return;
+
+    let pct = 50;
+
+    function set(p: number) {
+      pct = Math.max(0, Math.min(100, p));
+      afterLayer!.style.clipPath = `inset(0 0 0 ${pct}%)`;
+      handle!.style.left = `${pct}%`;
+      handle!.setAttribute('aria-valuenow', String(Math.round(pct)));
+    }
+
+    /* Drag */
+    function onMove(clientX: number) {
+      const rect = wrap.getBoundingClientRect();
+      set(((clientX - rect.left) / rect.width) * 100);
+    }
+
+    handle.addEventListener('mousedown', e => {
+      e.preventDefault();
+      const mm = (e2: MouseEvent) => onMove(e2.clientX);
+      const mu = () => { window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); };
+      window.addEventListener('mousemove', mm);
+      window.addEventListener('mouseup', mu);
+    });
+
+    handle.addEventListener('touchstart', e => {
+      const tm = (e2: TouchEvent) => onMove(e2.touches[0].clientX);
+      const te = () => { window.removeEventListener('touchmove', tm); window.removeEventListener('touchend', te); };
+      window.addEventListener('touchmove', tm, { passive: true });
+      window.addEventListener('touchend', te);
+    }, { passive: true });
+
+    /* Keyboard */
+    handle.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); set(pct - 5); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); set(pct + 5); }
+      if (e.key === 'Home')       { e.preventDefault(); set(0); }
+      if (e.key === 'End')        { e.preventDefault(); set(100); }
+    });
+
+    /* Click anywhere on wrap also moves handle */
+    wrap.addEventListener('click', e => {
+      if (e.target === handle || handle.contains(e.target as Node)) return;
+      onMove((e as MouseEvent).clientX);
+    });
+  });
+</script>

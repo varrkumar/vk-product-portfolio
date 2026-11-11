@@ -1,0 +1,119 @@
+---
+/*
+ * /frame-demo — shows both frame styles side by side.
+ * Set FRAME_STYLE in src/config.ts to pick one for production.
+ * This page is not linked from the nav.
+ */
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import img from '../assets/girls-on-the-run/cover.jpg';
+---
+
+<Base title="Frame demo · VK">
+  <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding: 56px">
+
+    <p class="mono" style="margin-bottom: 48px; color: var(--ink-40)">
+      /frame-demo — set FRAME_STYLE in src/config.ts to pick one for production.
+    </p>
+
+    <div class="demo-grid">
+
+      <!-- Hairline -->
+      <div>
+        <p class="mono demo-label">hairline</p>
+        <p class="demo-desc">1px solid border in --ink-20. Clean, typographic, matches the grid lines.</p>
+        <div class="demo-frame-wrap" data-force-frame="hairline">
+          <div class="frame-wrap">
+            <Image src={img} alt="Girls on the Run cover, hairline frame demo." widths={[400, 800]} sizes="400px" class="demo-img" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Taped -->
+      <div>
+        <p class="mono demo-label">taped</p>
+        <p class="demo-desc">Two tape strips across the top corners. Notebook, tactile. No border on the image itself.</p>
+        <div class="demo-frame-wrap" data-force-frame="taped">
+          <div class="frame-wrap fw-taped">
+            <Image src={img} alt="Girls on the Run cover, taped frame demo." widths={[400, 800]} sizes="400px" class="demo-img" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="mono" style="margin-top: 48px; color: var(--ink-40); font-size: 11px">
+      Current setting: <strong style="color: var(--ink)">
+        {(await import('../config.ts')).FRAME_STYLE}
+      </strong>
+    </p>
+
+  </div>
+</Base>
+
+<style>
+  .demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    max-width: 900px;
+  }
+  .demo-label {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin: 0 0 8px;
+    max-width: none;
+  }
+  .demo-desc {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--ink-60);
+    margin: 0 0 20px;
+    line-height: 1.5;
+    font-variation-settings: 'opsz' 14, 'wght' 400;
+    max-width: 36ch;
+  }
+  .demo-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  /* Force hairline on the demo regardless of global setting */
+  [data-force-frame="hairline"] .frame-wrap img {
+    border: var(--border-hairline);
+  }
+
+  /* Force taped on the demo regardless of global setting */
+  [data-force-frame="taped"] .fw-taped {
+    position: relative;
+  }
+  [data-force-frame="taped"] .fw-taped::before,
+  [data-force-frame="taped"] .fw-taped::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 8px;
+    background: color-mix(in srgb, var(--ink) 16%, transparent);
+    border-radius: 1px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  [data-force-frame="taped"] .fw-taped::before {
+    top: -3px;
+    left: 15%;
+    transform: rotate(-5deg);
+  }
+  [data-force-frame="taped"] .fw-taped::after {
+    top: -3px;
+    right: 15%;
+    transform: rotate(5deg);
+  }
+
+  @media (max-width: 700px) {
+    .demo-grid { grid-template-columns: 1fr; }
+  }
+</style>

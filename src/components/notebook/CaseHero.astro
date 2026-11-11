@@ -18,8 +18,17 @@ interface Props {
   cover?: ImageMetadata;
   coverAlt?: string;
   note?: string;
+  /** Final product image, shown below the meta row. Provide src + alt, or just placeholder text. */
+  heroSlot?: ImageMetadata;
+  heroSlotAlt?: string;
+  /** Shown when heroSlot is not provided — describes what image should go here. */
+  heroSlotPlaceholder?: string;
 }
-const { title, lede, eyebrow = '', entryNum = '', meta = [], cover, coverAlt = '', note = '' } = Astro.props;
+const {
+  title, lede, eyebrow = '', entryNum = '', meta = [],
+  cover, coverAlt = '', note = '',
+  heroSlot, heroSlotAlt = '', heroSlotPlaceholder,
+} = Astro.props;
 ---
 
 <section class="cs-row hero" style="padding-top: 56px; padding-bottom: 40px">
@@ -53,9 +62,9 @@ const { title, lede, eyebrow = '', entryNum = '', meta = [], cover, coverAlt = '
 )}
 
 {cover && (
-  <section class="cs-row" style="padding-bottom: 112px">
+  <section class="cs-row" style="padding-bottom: 56px">
     <div></div>
-    <div class="cs-wide">
+    <div class="cs-wide frame-wrap">
       <Image
         src={cover}
         alt={coverAlt}
@@ -64,6 +73,36 @@ const { title, lede, eyebrow = '', entryNum = '', meta = [], cover, coverAlt = '
         loading="eager"
         class="hero-cover"
       />
+    </div>
+  </section>
+)}
+
+{/* Hero slot: final product screenshot, below the cover */}
+{(heroSlot || heroSlotPlaceholder) && (
+  <section class="cs-row" style="padding-bottom: 112px">
+    <div class="mono" style="padding-top: 4px; color: var(--ink-40); font-size: 11px">final</div>
+    <div class="cs-wide">
+      {heroSlot
+        ? (
+          <div class="frame-wrap">
+            <Image
+              src={heroSlot}
+              alt={heroSlotAlt}
+              widths={[640, 1280, 1920]}
+              sizes="(max-width: 1000px) 100vw, 990px"
+              loading="eager"
+              class="hero-slot-img"
+            />
+          </div>
+        )
+        : (
+          <div class="img-placeholder hero-slot-placeholder">
+            <div class="img-placeholder-inner">
+              {heroSlotPlaceholder}
+            </div>
+          </div>
+        )
+      }
     </div>
   </section>
 )}
@@ -112,7 +151,14 @@ const { title, lede, eyebrow = '', entryNum = '', meta = [], cover, coverAlt = '
     aspect-ratio: 21 / 9;
     object-fit: cover;
     object-position: center top;
-    border: var(--border-hairline);
+  }
+  .hero-slot-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hero-slot-placeholder {
+    aspect-ratio: 16 / 9;
   }
   @media (max-width: 1000px) {
     .hero-title { font-size: 42px; }

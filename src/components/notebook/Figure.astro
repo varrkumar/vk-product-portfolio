@@ -43,7 +43,7 @@ const cols = images.length;
       {images.map(img => (
         <div class="fig-item">
           {img.label && <div class="mono fig-label">{img.label}</div>}
-          <a href={img.src.src} class="fig-link" aria-label={`Open full size: ${img.alt}`}>
+          <a href={img.src.src} class="fig-link frame-wrap" aria-label={`Open full size: ${img.alt}`}>
             <Image
               src={img.src}
               alt={img.alt}
@@ -84,7 +84,6 @@ const cols = images.length;
     width: 100%;
     height: auto;
     display: block;
-    border: var(--border-hairline);
     background: #fff;
   }
   /* Equal frames: different screenshots sit in identical boxes, top-aligned. */

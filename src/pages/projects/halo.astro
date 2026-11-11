@@ -135,19 +135,19 @@ const next = nextCaseStudy('halo');
       ]}
     />
 
-    <!-- fig. 1 placeholder: export from Figma before shipping -->
-    <!-- Figma: "XRay Poster" file → "Final Poster" page → user flow section -->
-    <!-- Two side-by-side diagrams: current Canva AI flow / flow with Halo -->
+    <!-- fig. 1: export from Figma → replace img-placeholder with <Figure> -->
+    <!-- "XRay Poster" file → "Final Poster" page → user flow section        -->
+    <!-- Two panels side by side: current Canva AI flow / flow with Halo      -->
     <section class="cs-row" style="padding-bottom: 96px">
       <div class="cs-gutter" style="padding-top: 4px">
         <div class="mono fig-num">fig. 1</div>
       </div>
       <figure style="margin: 0">
-        <div class="fig-placeholder cs-wide">
-          <div class="fig-ph-inner">
-            <span class="mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px">Export from Figma</span>
-            <span>"XRay Poster" file → "Final Poster" page → user flow section</span>
-            <span style="display: block; margin-top: 4px; opacity: 0.6">Two panels: current Canva AI flow / flow with Halo</span>
+        <div class="img-placeholder cs-wide" style="aspect-ratio: 16 / 7">
+          <div class="img-placeholder-inner">
+            Export from Figma<br>
+            "XRay Poster" → "Final Poster" → user flow section<br>
+            <span style="opacity:0.6">Two panels: current Canva AI flow / flow with Halo</span>
           </div>
         </div>
         <figcaption class="mono fig-caption">Current Canva AI flow vs. the same flow with Halo. The generate button is the only step where something new happens: Setup before, Nudge at the prompt, Flag after.</figcaption>
@@ -176,20 +176,49 @@ const next = nextCaseStudy('halo');
       ]}
     />
 
-    <!-- fig. 2 placeholder: export from Figma before shipping -->
-    <!-- Figma: "XRay Poster" file → "Final Poster" page -->
-    <!-- Frames needed: Stage 1 Setup screen, Stage 2 Nudge question card + refined prompt, Stage 3 Flag insights panel, Halo mascot -->
+    <!-- fig. 2: export from Figma → replace img-placeholders with <Figure> -->
+    <!-- "XRay Poster" file → "Final Poster" page                            -->
     <section class="cs-row" style="padding-bottom: 96px">
       <div class="cs-gutter" style="padding-top: 4px">
         <div class="mono fig-num">fig. 2</div>
       </div>
       <figure class="cs-wide" style="margin: 0">
-        <div class="fig-placeholder" style="aspect-ratio: 16 / 7">
-          <div class="fig-ph-inner">
-            <span class="mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px">Export from Figma</span>
-            <span>"XRay Poster" file → "Final Poster" page → stages 1–3</span>
-            <span style="display: block; margin-top: 4px; opacity: 0.6">Setup · Nudge question card + refined prompt · Flag insights panel</span>
-            <span style="display: block; margin-top: 2px; opacity: 0.6">Halo mascot (separate export)</span>
+        <div class="halo-stage-grid">
+          <div>
+            <div class="mono fig-label" style="margin-bottom: 10px">stage 1 — setup</div>
+            <div class="img-placeholder" style="aspect-ratio: 9 / 16">
+              <div class="img-placeholder-inner">
+                Setup screen<br>priority ranking<br>
+                <span style="opacity:0.6">"XRay Poster" → "Final Poster"</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="mono fig-label" style="margin-bottom: 10px">stage 2 — nudge</div>
+            <div class="img-placeholder" style="aspect-ratio: 9 / 16">
+              <div class="img-placeholder-inner">
+                Nudge question card<br>+ refined prompt<br>
+                <span style="opacity:0.6">"XRay Poster" → "Final Poster"</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="mono fig-label" style="margin-bottom: 10px">stage 3 — flag</div>
+            <div class="img-placeholder" style="aspect-ratio: 9 / 16">
+              <div class="img-placeholder-inner">
+                Flag insights panel<br>bias breakdown<br>
+                <span style="opacity:0.6">"XRay Poster" → "Final Poster"</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="mono fig-label" style="margin-bottom: 10px">mascot</div>
+            <div class="img-placeholder" style="aspect-ratio: 9 / 16">
+              <div class="img-placeholder-inner">
+                Halo mascot<br>separate export<br>
+                <span style="opacity:0.6">"XRay Poster" → "Final Poster"</span>
+              </div>
+            </div>
           </div>
         </div>
         <figcaption class="mono fig-caption">The three stages of Halo, overlaid on Canva AI: Setup (priority ranking), Nudge (questions + refined prompt), and Flag (bias breakdown with area scores).</figcaption>
@@ -264,23 +293,18 @@ const next = nextCaseStudy('halo');
 
   .fig-num { color: var(--ink-60); }
 
-  .fig-placeholder {
-    background: #f4f4f2;
-    border: 1px solid rgba(28, 27, 24, 0.1);
-    aspect-ratio: 16 / 6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  .halo-stage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
   }
-  .fig-ph-inner {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: rgba(28, 27, 24, 0.4);
-    text-align: center;
-    max-width: 320px;
-    line-height: 1.6;
+  @media (max-width: 1000px) {
+    .halo-stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+
+  .fig-label { color: var(--ink-60); }
+
   .fig-caption {
     margin-top: 16px;
     max-width: 640px;

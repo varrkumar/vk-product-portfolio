@@ -6,6 +6,7 @@ import SectionRow from '../../components/notebook/SectionRow.astro';
 import InsightLine from '../../components/notebook/InsightLine.astro';
 import Fork from '../../components/notebook/Fork.astro';
 import Figure from '../../components/notebook/Figure.astro';
+import BeforeAfter from '../../components/notebook/BeforeAfter.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
 import { nextCaseStudy } from '../../data/entries';
@@ -44,8 +45,9 @@ import afterDiscover from '../../assets/biomotivate/after-discover.png';
         { label: "Focus", value: "Product, UX research, AI video" },
         { label: "Results", value: "+60% engagement, +40% new patients" },
       ]}
-      cover={cover}
-      coverAlt="Biomotivate's brain characters: meditating, lifting weights, cooking, reading."
+      cover={afterDiscover}
+      coverAlt="The redesigned Discover screen: navigation sidebar with Discover, Emotional Resilience Sessions, Internet Positive Videos, and My Saved Videos."
+      heroSlotPlaceholder="After-redesign hero screenshot — full app screen at 1x, exported from FlutterFlow. Replace cover.png with the final hi-fi once available."
       note="handed: fix the UI.<br><br>turned out: why were patients who'd used it for a year walking away?<br><br><span style='color:#66625A'>(names and details are left out. these are people in recovery.)</span>"
     />
 
@@ -220,15 +222,15 @@ import afterDiscover from '../../assets/biomotivate/after-discover.png';
       </Fragment>
     </SectionRow>
 
-    <Figure
+    <BeforeAfter
       fig="fig. 2"
       wide
-      ratio="16 / 10"
-      caption="The Discover form, before and after. Redesigned in Figma, then built in FlutterFlow: real navigation, saved videos, one clear action."
-      images={[
-        { src: beforeDiscover, alt: "Before: a single long form with a study-participant question, a video picker, a full-screen button and a 1–100 rating field.", label: "before" },
-        { src: afterDiscover, alt: "After: the same form inside a navigation sidebar with Discover, Emotional Resilience Sessions, Internet Positive Videos and My Saved Videos.", label: "after" },
-      ]}
+      before={beforeDiscover}
+      beforeAlt="Before: a single long form with a study-participant question, a video picker, a full-screen button and a 1–100 rating field."
+      after={afterDiscover}
+      afterAlt="After: the same form inside a navigation sidebar with Discover, Emotional Resilience Sessions, Internet Positive Videos and My Saved Videos."
+      caption="The Discover screen, before and after. Drag the handle — or use arrow keys — to compare. Redesigned in Figma, built in FlutterFlow."
+      note="the navigation sidebar was the whole fix. one decision, four destinations."
     />
 
     <!-- 09 -->

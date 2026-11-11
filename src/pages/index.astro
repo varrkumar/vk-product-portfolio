@@ -1,11 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
 import { CASE_STUDIES, SHORT_ENTRIES } from '../data/entries.ts';
+import { COVERS } from '../data/covers.ts';
+import { getImage } from 'astro:assets';
 
 const visibleCaseStudies = CASE_STUDIES.filter(e => !e.draft);
-
 const projectShort = SHORT_ENTRIES.filter(e => e.section === 'projects');
 const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
+
+/* Pre-process thumbnail URLs at build time */
+const thumbUrls: Record<string, string> = {};
+for (const entry of [...visibleCaseStudies, ...projectShort, ...designShort]) {
+  const src = COVERS[entry.slug];
+  if (src) {
+    const img = await getImage({ src, width: 320, format: 'webp' });
+    thumbUrls[entry.slug] = img.src;
+  }
+}
 ---
 
 <Base title="Varrshitha Kumar · Product">
@@ -13,7 +25,7 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
 
     <!-- Nav ---------------------------------------------------------------- -->
     <header class="cs-row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
-      <span style="font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink)">vk.</span>
+      <a href="/" style="text-decoration: none; color: var(--ink)"><Wordmark /></a>
       <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
         <a class="mono nav-link" href="/work">Work</a>
         <a class="mono nav-link" href="/projects">Projects</a>
@@ -70,7 +82,17 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
               <span class="entry-turned">{entry.turnedOut}</span>
             </div>
           </div>
-          <div></div>
+          <div class="entry-thumb-col" aria-hidden="true">
+            {thumbUrls[entry.slug] && (
+              <img
+                class="entry-thumb"
+                data-src={thumbUrls[entry.slug]}
+                alt=""
+                width="200"
+                height="130"
+              />
+            )}
+          </div>
         </a>
       ))}
     </div>
@@ -209,8 +231,30 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
     color: var(--ink);
     transition: background var(--duration-fast) var(--ease-out);
   }
-  .entry-row:hover {
+  .entry-row:hover,
+  .entry-row:focus-within {
     background: color-mix(in srgb, var(--pencil) 4%, transparent);
+  }
+  /* Thumbnail column */
+  .entry-thumb-col {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .entry-thumb {
+    width: 160px;
+    height: 104px;
+    object-fit: cover;
+    object-position: top left;
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+    border: var(--border-hairline);
+    display: block;
+    flex-shrink: 0;
+  }
+  .entry-row:hover .entry-thumb,
+  .entry-row:focus-within .entry-thumb {
+    opacity: 1;
   }
   .entry-num {
     font-size: 11px;
@@ -406,5 +450,20 @@ const designShort  = SHORT_ENTRIES.filter(e => e.section === 'design');
     }
     status();
     setInterval(status, 30000);
+  })();
+
+  /* Lazy-load thumbnails on first hover/focus of their entry row */
+  (function () {
+    document.querySelectorAll('.entry-row').forEach(function (row) {
+      var loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        var img = row.querySelector('img[data-src]');
+        if (img) img.src = img.dataset.src;
+      }
+      row.addEventListener('mouseenter', load);
+      row.addEventListener('focusin', load);
+    });
   })();
 </script>

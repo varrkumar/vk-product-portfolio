@@ -1,4 +1,5 @@
 ---
+import Wordmark from '../Wordmark.astro';
 interface Props {
   entryNum?: string;
 }
@@ -6,7 +7,7 @@ const { entryNum = '' } = Astro.props;
 ---
 
 <header class="cs-row" style="padding-top: 36px; padding-bottom: 36px; align-items: center">
-  <a href="/" style="font-family: var(--font-serif); font-style: italic; font-size: 26px; color: var(--ink); text-decoration: none">vk.</a>
+  <a href="/" style="text-decoration: none; color: var(--ink)"><Wordmark /></a>
   <nav aria-label="Main" style="display: flex; gap: 32px; align-items: center">
     <a class="mono" href="/work" style="color: var(--ink); text-decoration: none">Work</a>
     <a class="mono" href="/projects" style="text-decoration: none">Projects</a>

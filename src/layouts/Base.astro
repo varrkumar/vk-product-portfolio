@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { FRAME_STYLE } from '../config.ts';
 
 interface Props {
   title: string;
@@ -11,7 +12,7 @@ const { title, description = 'Product portfolio — Varrshitha Kumar', noindex =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-frame={FRAME_STYLE}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

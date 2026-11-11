@@ -1,9 +1,41 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseStudyHeader from '../../components/notebook/CaseStudyHeader.astro';
-import { bySection } from '../../data/entries.ts';
+import { Image } from 'astro:assets';
 
-const entries = bySection('design').filter(e => !e.draft);
+import dscImg  from '../../assets/data-science-club/mascot-agents.png';
+import wipImg  from '../../assets/women-in-product/logo-brand.png';
+import echosImg from '../../assets/echos/hackathon-prototype.png';
+
+const entries = [
+  {
+    slug: 'data-science-club',
+    title: 'Data Science Club',
+    context: 'CMU',
+    year: '2023–25',
+    summary: 'Brand identity, event graphics, Poker AI site.',
+    img: dscImg,
+    imgAlt: 'Blue sprout-robot mascot for the DSC AI Agents Weekend competition.',
+  },
+  {
+    slug: 'women-in-product',
+    title: 'Women in Product',
+    context: 'CMU',
+    year: '2025–26',
+    summary: 'Logo, brand system, social, website.',
+    img: wipImg,
+    imgAlt: 'WiP circular badge logo on purple with brand guide.',
+  },
+  {
+    slug: 'echos',
+    title: 'echos',
+    context: 'XHacks → independent',
+    year: '2024–',
+    summary: 'Voice-based location-based social app.',
+    img: echosImg,
+    imgAlt: 'Hackathon prototype overview: splash screen, map view, record screen, and four listening modes.',
+  },
+];
 ---
 
 <Base title="Design · VK">
@@ -11,7 +43,7 @@ const entries = bySection('design').filter(e => !e.draft);
 
     <CaseStudyHeader entryNum="" />
 
-    <div class="cs-row" style="padding-top: 56px; padding-bottom: 32px">
+    <div class="cs-row" style="padding-top: 56px; padding-bottom: 40px">
       <div></div>
       <div>
         <p class="page-eyebrow mono">Design</p>
@@ -19,25 +51,30 @@ const entries = bySection('design').filter(e => !e.draft);
       </div>
     </div>
 
-    <div class="entries-list">
-      {entries.map(entry => (
-        <a href={`/design/${entry.slug}`} class="entry-row cs-row">
-          <span class="entry-num mono">{entry.num ?? '—'}</span>
-          <div class="entry-body">
-            <div class="entry-title-line">
-              <span class="entry-title">{entry.title}</span>
-              <span class="entry-meta mono">{entry.context} · {entry.year}</span>
-            </div>
-            <p class="entry-summary">{entry.summary}</p>
-            <div class="entry-reframe">
-              <span class="entry-handed">{entry.handed}</span>
-              <span class="entry-arrow" aria-hidden="true"> → </span>
-              <span class="entry-turned">{entry.turnedOut}</span>
-            </div>
-          </div>
-          <div></div>
-        </a>
-      ))}
+    <div class="cs-row">
+      <div></div>
+      <ul class="design-gallery cs-wide" role="list">
+        {entries.map(entry => (
+          <li class="gallery-item">
+            <a href={`/design/${entry.slug}`} class="gallery-link" aria-label={entry.title}>
+              <div class="gallery-img-wrap frame-wrap">
+                <Image
+                  src={entry.img}
+                  alt={entry.imgAlt}
+                  widths={[400, 800]}
+                  sizes="(max-width: 1000px) 90vw, 300px"
+                  class="gallery-img"
+                />
+              </div>
+              <div class="gallery-meta">
+                <span class="gallery-title">{entry.title}</span>
+                <span class="gallery-context mono">{entry.context} · {entry.year}</span>
+              </div>
+              <p class="gallery-summary">{entry.summary}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
 
     <footer class="cs-row" style="padding-top: 48px; align-items: end">
@@ -65,76 +102,74 @@ const entries = bySection('design').filter(e => !e.draft);
     letter-spacing: -0.015em;
     max-width: none;
   }
-  .entries-list {
-    border-top: 1px solid var(--ink-10);
+
+  /* Gallery grid */
+  .design-gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px 32px;
   }
-  .entry-row {
-    padding-top: 32px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--ink-10);
+  .gallery-item { display: block; }
+  .gallery-link {
+    display: block;
     text-decoration: none;
     color: var(--ink);
-    transition: background var(--duration-fast) var(--ease-out);
   }
-  .entry-row:hover {
-    background: color-mix(in srgb, var(--pencil) 4%, transparent);
+  .gallery-img-wrap {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 14px;
   }
-  .entry-num {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--ink-40);
-    padding-top: 6px;
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .entry-body {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  .gallery-link:hover .gallery-img {
+    transform: scale(1.02);
   }
-  .entry-title-line {
+  .gallery-meta {
     display: flex;
     align-items: baseline;
-    gap: 16px;
+    gap: 10px;
     flex-wrap: wrap;
+    margin-bottom: 6px;
   }
-  .entry-title {
+  .gallery-title {
     font-family: var(--font-serif);
-    font-size: 24px;
-    font-variation-settings: 'opsz' 24, 'wght' 400;
+    font-size: 18px;
+    font-variation-settings: 'opsz' 18, 'wght' 400;
     line-height: 1.2;
   }
-  .entry-meta {
-    font-size: 11px;
+  .gallery-context {
+    font-size: 10px;
     letter-spacing: 0.06em;
     color: var(--ink-40);
   }
-  .entry-summary {
-    font-family: var(--font-serif);
-    font-size: 15px;
-    font-variation-settings: 'opsz' 15, 'wght' 400;
-    line-height: 1.6;
-    color: var(--ink-60);
-    margin: 0;
-    max-width: 54ch;
-  }
-  .entry-reframe {
+  .gallery-summary {
     font-family: var(--font-serif);
     font-size: 13px;
     font-variation-settings: 'opsz' 13, 'wght' 400;
+    line-height: 1.5;
     color: var(--ink-60);
-    line-height: 1.4;
+    margin: 0;
+    max-width: none;
   }
-  .entry-handed { color: var(--ink-40); }
-  .entry-arrow {
-    color: var(--pencil);
-    font-family: var(--font-mono);
-    font-size: 11px;
-  }
-  .entry-turned { color: var(--ink); }
+
   .back { color: var(--ink-60); text-decoration: none; font-size: 13px; }
   .back:hover { color: var(--ink); }
 
   @media (max-width: 1000px) {
-    .entry-num { display: none; }
+    .design-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
     .page-title { font-size: 28px; }
+  }
+  @media (max-width: 600px) {
+    .design-gallery { grid-template-columns: minmax(0, 1fr); }
   }
 </style>
