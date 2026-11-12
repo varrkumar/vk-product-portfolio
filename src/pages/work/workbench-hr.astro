@@ -51,7 +51,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     />
 
     <!-- 01 -->
-    <SectionRow num="01" label="the brief">
+    <SectionRow num="01" label="overview">
       <Fragment slot="main">
         <p class="body">
           A startup founder came to five CMU students with one sentence: AI-powered HR for small
@@ -74,7 +74,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     </SectionRow>
 
     <!-- 02 -->
-    <SectionRow num="02" label="finding the problem">
+    <SectionRow num="02" label="research">
       <Fragment slot="main">
         <p class="body">
           We mapped the seven core HR processes: recruiting, hiring, onboarding, compliance, performance,
@@ -100,7 +100,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     <!-- 03 -->
     <InsightLine
       num="03"
-      label="the turn"
+      label="insight"
       observed="Payroll tools already existed and were well-adopted"
       assumed="That showing off AI was the point of the MVP"
     >
@@ -110,7 +110,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     <!-- 04 -->
     <Fork
       num="04"
-      label="what to build"
+      label="decision"
       context="The founder had a vision, not a feature list. I ran a matchmaking exercise: each of us brainstormed applications across four categories (automation, generative AI, reasoning/analytics, general tools), then scored each of 17 candidates on financial viability, technical feasibility, and user desirability."
       options={[
         { label: "AI chatbot / HR assistant. Scored 14 of 15, the highest on the board.", pathNotTaken: "It's the most demo-friendly AI feature, and it's the one most investors will ask about first. I'd choose it if the core infrastructure already existed." },
@@ -137,7 +137,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     <!-- 05 -->
     <Fork
       num="05"
-      label="AI as a drafting layer"
+      label="strategy"
       context="The team's first instinct was to make the AI as capable as possible: auto-fill, auto-decide, auto-notify. The faculty mentor flagged that for small-business owners, AI making HR decisions without clear sign-off is a legal and trust problem."
       options={[
         { label: "AI takes action: auto-fills, auto-completes, auto-sends.", pathNotTaken: "If the error rate were near zero and the user had time to build trust in the system. Neither was true in a first version." },
@@ -164,7 +164,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     />
 
     <!-- 06 -->
-    <SectionRow num="06" label="the screens I owned" pb="104px">
+    <SectionRow num="06" label="design" pb="104px">
       <Fragment slot="main">
         <p class="body">
           My screens were the Home Dashboard and the Employee Portal. The dashboard question from mentor
@@ -188,7 +188,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     </SectionRow>
 
     <!-- 07 -->
-    <SectionRow num="07" label="what happened" pb="104px">
+    <SectionRow num="07" label="outcomes" pb="104px">
       <Fragment slot="main">
         <OutcomeStats stats={[
           { number: "Live", label: "marketing site with waitlist and demo request form" },
@@ -210,7 +210,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
     </SectionRow>
 
     <!-- 08 -->
-    <Reflection num="08" label="what stuck">
+    <Reflection num="08" label="reflection">
       Product decisions come from repeated operational problems, not from a feature list. If you pick the problem, the features follow. If you pick the features, you're guessing.
     </Reflection>
 

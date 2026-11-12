@@ -51,7 +51,7 @@ const next = nextCaseStudy('halo');
     />
 
     <!-- 01 -->
-    <SectionRow num="01" label="the brief">
+    <SectionRow num="01" label="overview">
       <Fragment slot="main">
         <p class="body">
           People using AI design tools are trying to make something fast. Canva AI gives you three
@@ -75,7 +75,7 @@ const next = nextCaseStudy('halo');
     </SectionRow>
 
     <!-- 02 -->
-    <SectionRow num="02" label="what we found">
+    <SectionRow num="02" label="research">
       <Fragment slot="main">
         <p class="body">
           Most participants noticed bias that was obvious: a "professional" setting with no women,
@@ -112,7 +112,7 @@ const next = nextCaseStudy('halo');
     <!-- 03 -->
     <InsightLine
       num="03"
-      label="the turn"
+      label="insight"
       observed="Participants fixed obvious bias and ignored what was subtle or slow to fix"
       assumed="That more awareness would close the gap"
     >
@@ -122,7 +122,7 @@ const next = nextCaseStudy('halo');
     <!-- 04 -->
     <Fork
       num="04"
-      label="where to intervene"
+      label="decision"
       context="If users won't go looking for bias on their own, putting a tool somewhere they'd have to seek it out was the wrong move. The question was where in the experience Halo could actually be."
       options={[
         { label: "A standalone bias-audit tool, used after generating.", pathNotTaken: "If participants said they'd 'just use it' without checking, a separate tool asks them to do what they already said they wouldn't." },
@@ -162,7 +162,7 @@ const next = nextCaseStudy('halo');
     <!-- 05 -->
     <Fork
       num="05"
-      label="before, after, or both"
+      label="design"
       context="Even inside the flow, there were two moments to work with: before you generate (vague prompts are where most bias gets introduced) and after (outputs that slipped through anyway). We built both."
       options={[
         { label: "Intervene only before generation, with a Nudge that refines the prompt.", pathNotTaken: "A refined prompt still produces biased output sometimes. 'Is this one actually okay?' still doesn't have an answer." },
@@ -229,7 +229,7 @@ const next = nextCaseStudy('halo');
     </section>
 
     <!-- 06 -->
-    <SectionRow num="06" label="what happened" pb="104px">
+    <SectionRow num="06" label="outcomes" pb="104px">
       <Fragment slot="main">
         <OutcomeStats stats={[
           { number: "Poster", label: "research poster presented to CMU HCI faculty and classmates" },
@@ -253,7 +253,7 @@ const next = nextCaseStudy('halo');
     </SectionRow>
 
     <!-- 07 -->
-    <Reflection num="07" label="what stuck">
+    <Reflection num="07" label="reflection">
       If a user says "I'd just use it," you can tell them not to or you can be there when they do.
     </Reflection>
 

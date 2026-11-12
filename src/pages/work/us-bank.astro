@@ -45,7 +45,7 @@ const next = nextCaseStudy('us-bank');
     />
 
     <!-- 01 -->
-    <SectionRow num="01" label="the brief">
+    <SectionRow num="01" label="overview">
       <Fragment slot="main">
         <p class="body">
           The AI Center of Excellence partners with business teams across U.S. Bank to scope,
@@ -69,7 +69,7 @@ const next = nextCaseStudy('us-bank');
     </SectionRow>
 
     <!-- 02 -->
-    <SectionRow num="02" label="listening">
+    <SectionRow num="02" label="research">
       <Fragment slot="main">
         <p class="body">
           I ran 20+ interviews across the groups that touched the intake: AI champions, risk
@@ -90,7 +90,7 @@ const next = nextCaseStudy('us-bank');
     <!-- 03 -->
     <InsightLine
       num="03"
-      label="the turn"
+      label="insight"
       observed="Fragmented guidance and unclear request paths were the top pain points across 20+ interviews"
       assumed="That removing the knowledge barrier would reduce overhead on both sides"
     >
@@ -100,7 +100,7 @@ const next = nextCaseStudy('us-bank');
     <!-- 04 -->
     <Fork
       num="04"
-      label="guide first, chatbot second, platform third"
+      label="decision"
       context="The end goal was a conversational intake agent: someone describes what they need in plain language, and the system works out the rest. The question was how to get there credibly, without building on knowledge sources that hadn't been vetted yet."
       options={[
         { label: "Build the platform first.", pathNotTaken: "A conversational agent needs trusted content to draw on. Building it first meant either an agent that hallucinated or one that said nothing useful." },
@@ -151,7 +151,7 @@ const next = nextCaseStudy('us-bank');
     <!-- 05 -->
     <Fork
       num="05"
-      label="trust over coverage"
+      label="strategy"
       context="The FAQ chatbot could maximize coverage (answer more, more loosely) or maximize trust (answer less, with citations, with escalation when it can't). In a regulated financial institution, a confident wrong answer is worse than no answer."
       options={[
         { label: "Maximize coverage: answer as many questions as possible from available sources.", pathNotTaken: "If the answer is wrong and there's no citation, there's no way to catch it. In a risk governance context, that's not an acceptable trade." },
@@ -191,7 +191,7 @@ const next = nextCaseStudy('us-bank');
     </section>
 
     <!-- 06 -->
-    <SectionRow num="06" label="making research a game" pb="104px">
+    <SectionRow num="06" label="design" pb="104px">
       <Fragment slot="main">
         <p class="body">
           The second project: AI teams across the AICoE had built components that other teams were
@@ -255,7 +255,7 @@ const next = nextCaseStudy('us-bank');
     <!-- 07 -->
     <Fork
       num="07"
-      label="fix the documentation before building the catalog"
+      label="execution"
       context="The workshop showed that reuse wasn't a search problem. 67% of feedback pointed to documentation and asset quality as the main blocker. Teams couldn't find assets they knew existed, but they also couldn't use assets they found because the documentation wasn't there."
       options={[
         { label: "Build the portal first, then fill it with assets.", pathNotTaken: "A catalog of undocumented assets doesn't get used. The portal would have surfaced the same problem in a more visible place." },
@@ -308,7 +308,7 @@ const next = nextCaseStudy('us-bank');
     </section>
 
     <!-- 08 -->
-    <SectionRow num="08" label="what happened" pb="104px">
+    <SectionRow num="08" label="outcomes" pb="104px">
       <Fragment slot="main">
         <OutcomeStats stats={[
           { number: "Approved", label: "centralized platform prototype, including the intake agent, by senior leadership" },
@@ -331,7 +331,7 @@ const next = nextCaseStudy('us-bank');
     </SectionRow>
 
     <!-- 09 -->
-    <Reflection num="09" label="what stuck">
+    <Reflection num="09" label="reflection">
       I went into every conversation expecting to find answers and kept finding better questions instead.
     </Reflection>
 
