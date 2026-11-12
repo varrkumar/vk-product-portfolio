@@ -337,17 +337,97 @@ html.rn-ready .note-anchor {
 
 /* ============================================================
    Case Study 3-column grid
+   Left gutter ~200px | main ~640px | margin ~240px
    ============================================================ */
-.cs-row { display: grid; grid-template-columns: 120px minmax(0,640px) minmax(0,270px); column-gap: 56px; max-width: 1240px; margin-inline: auto; padding-inline: 56px; box-sizing: border-box; }
+.cs-row {
+  display: grid;
+  grid-template-columns: 200px minmax(0,640px) minmax(0,240px);
+  column-gap: 44px;
+  max-width: 1340px;
+  margin-inline: auto;
+  padding-inline: 56px;
+  box-sizing: border-box;
+}
 .cs-wide { grid-column: 2 / 4; }
-/* show-your-work toggle */
-.sw-note, .sw-mark { opacity: 0; transition: opacity .5s; pointer-events: none; }
-html.show-work .sw-note, html.show-work .sw-mark { opacity: 1; pointer-events: auto; }
-@media (prefers-reduced-motion: reduce) { .sw-note, .sw-mark { transition: none; } }
-@media (max-width: 1000px) {
-  .cs-row { grid-template-columns: minmax(0,1fr); padding-inline: 24px; row-gap: 14px; }
+
+/* ── Pen notes system ────────────────────────────────────── */
+/* JS-off: simply hidden */
+.sw-note { display: none; }
+.sw-mark { opacity: 0; pointer-events: none; }
+
+/* JS-on (html.js-notes added by ProgressRail inline script) */
+/* Desktop: clip-path so we can animate write-in */
+@media (min-width: 1024px) {
+  html.js-notes .sw-note {
+    display: block;
+    visibility: hidden;
+    clip-path: inset(0 100% 0 0);
+  }
+  html.js-notes.notes-on .sw-note {
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+  }
+  html.js-notes .sw-mark { opacity: 0; pointer-events: none; transition: opacity .3s; }
+  html.js-notes.notes-on .sw-mark { opacity: 1; pointer-events: auto; }
+}
+
+/* Mobile: simple show/hide, stack below section with blue left rule */
+@media (max-width: 1023px) {
+  html.js-notes .sw-note { display: none; clip-path: none; }
+  html.js-notes.notes-on .sw-note {
+    display: block;
+    visibility: visible;
+    padding-left: 14px;
+    border-left: 1.5px solid var(--pencil);
+    margin-top: 10px;
+  }
+  html.js-notes .sw-mark { opacity: 0; }
+  html.js-notes.notes-on .sw-mark { opacity: 1; }
+}
+
+/* ── Signature ───────────────────────────────────────────── */
+.cs-sign {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 28px;
+  color: var(--ink);
+  visibility: hidden;
+  clip-path: inset(0 100% 0 0);
+  margin-top: 32px;
+}
+
+/* Next-entry question: hidden until signature fires */
+.cs-next-q-wrap {
+  visibility: hidden;
+  clip-path: inset(0 100% 0 0);
+}
+.cs-next-q-wrap.is-visible {
+  visibility: visible;
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-mark { transition: none; }
+  html.js-notes.notes-on .sw-note { visibility: visible; clip-path: none; }
+  .cs-sign { clip-path: none; }
+}
+
+/* Grid collapse at < 1024px */
+@media (max-width: 1023px) {
+  .cs-row {
+    grid-template-columns: minmax(0,1fr);
+    padding-inline: 24px;
+    row-gap: 14px;
+  }
   .cs-wide { grid-column: auto; }
-  .cs-margin.sw-note { padding-left: 16px; border-left: 1.5px solid var(--pencil); }
+}
+
+/* When the rail is active, hide the per-section gutter labels so they
+   don't stack visually behind the fixed rail block */
+@media (min-width: 1024px) {
+  html.rail-active .cs-gutter {
+    visibility: hidden;
+  }
 }
 
 /* Case study utility classes */

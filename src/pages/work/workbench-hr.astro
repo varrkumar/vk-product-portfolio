@@ -8,6 +8,7 @@ import Fork from '../../components/notebook/Fork.astro';
 import Figure from '../../components/notebook/Figure.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
+import ProgressRail from '../../components/notebook/ProgressRail.astro';
 import { nextCaseStudy } from '../../data/entries';
 
 const next = nextCaseStudy('workbench-hr');
@@ -30,6 +31,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
   <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
 
     <CaseStudyHeader entryNum="02" />
+    <ProgressRail />
 
     <CaseHero
       entryNum="02"
@@ -216,7 +218,7 @@ import dashboardFlow from '../../assets/workbench-hr/dashboard-flow.png';
       <div></div>
       <a href={`/${next.section}/${next.slug}`} class="next">
         <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
-        <div class="next-q">{next.footerQ}</div>
+        <div class="next-q cs-next-q-wrap">{next.footerQ}</div>
       </a>
       <div></div>
     </footer>

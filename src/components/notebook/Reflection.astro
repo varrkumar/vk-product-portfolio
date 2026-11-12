@@ -4,11 +4,19 @@ interface Props {
   label?: string;
 }
 const { num, label } = Astro.props;
+const sectionId = num ? `section-${num.replace(/\s/g, '-')}` : undefined;
 ---
 
-<section class="cs-row" style="padding-bottom: 120px">
+<section
+  class="cs-row"
+  style="padding-bottom: 72px; scroll-margin-top: 120px"
+  id={sectionId}
+  data-section-num={num}
+  data-section-label={label}
+  data-entry-end
+>
   <div class="cs-gutter" style="padding-top: 6px">
-    {num && <div class="mono">{num}</div>}
+    {num   && <div class="mono">{num}</div>}
     {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
   </div>
   <div class="cs-wide">
@@ -17,3 +25,11 @@ const { num, label } = Astro.props;
     </p>
   </div>
 </section>
+
+<!-- Signature: "— vk" writes in when Reflection enters view -->
+<div class="cs-row" style="padding-bottom: 48px">
+  <div></div>
+  <div>
+    <span class="cs-sign hand">— vk</span>
+  </div>
+</div>

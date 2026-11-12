@@ -1,0 +1,36 @@
+---
+/*
+ * PenSvg.astro — pen icon, stroke only, currentColor.
+ * Rotated so the nib points bottom-left (~38° counterclockwise).
+ * .pen-nib fills var(--pencil) when html.notes-on.
+ * Swap this component for your own hand-drawn SVG without touching any other file.
+ */
+---
+<svg
+  class="pen-svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  aria-hidden="true"
+  width="26"
+  height="26"
+>
+  <g transform="rotate(-38 12 12)" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <!-- barrel -->
+    <rect x="9.5" y="2.5" width="5" height="11.5" rx="1.3" stroke-width="1.6" fill="none" />
+    <!-- clip/top detail -->
+    <line x1="12" y1="2.5" x2="12" y2="1" stroke-width="1.2" />
+    <!-- ferrule band -->
+    <line x1="9.5" y1="11.5" x2="14.5" y2="11.5" stroke-width="1.6" />
+    <!-- taper -->
+    <path d="M9.5 14 L12 19.5 L14.5 14" stroke-width="1.6" fill="none" />
+    <!-- nib — fills pencil-blue when notes are on -->
+    <path class="pen-nib" d="M10.5 17.5 L12 21.5 L13.5 17.5 Z" stroke-width="1.5" fill="none" />
+  </g>
+</svg>
+
+<style>
+  html.notes-on .pen-nib {
+    fill: var(--pencil);
+    stroke: var(--pencil);
+  }
+</style>

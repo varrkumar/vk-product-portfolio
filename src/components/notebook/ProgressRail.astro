@@ -1,0 +1,333 @@
+---
+import PenSvg from './PenSvg.astro';
+---
+
+<!--
+  Apply notes state before first paint (no flash).
+  js-notes signals JS is active so clip-path CSS kicks in.
+-->
+<script is:inline>
+  (function () {
+    document.documentElement.classList.add('js-notes');
+    try {
+      if (localStorage.getItem('vk-notes') === 'on') {
+        document.documentElement.classList.add('notes-on');
+      }
+    } catch {}
+  })();
+</script>
+
+<!-- ── Desktop fixed gutter block ────────────────────────── -->
+<aside class="cs-gutter-block" id="cs-gutter-block" aria-hidden="true" aria-label="Page navigation and notes">
+
+  <nav class="cs-rail" aria-label="On this page" id="cs-rail">
+    <div class="cs-rail-track" aria-hidden="true">
+      <div class="cs-rail-fill" id="cs-rail-fill"></div>
+    </div>
+    <ol class="cs-rail-list" id="cs-rail-list" role="list">
+      <!-- Populated by case-study.ts from [data-section-num] elements -->
+    </ol>
+  </nav>
+
+  <div class="cs-pen-wrap">
+    <button
+      class="cs-pen-btn"
+      id="cs-pen-btn"
+      aria-pressed="false"
+      aria-label="Show margin notes"
+      type="button"
+    >
+      <span class="cs-pen-icon">
+        <PenSvg />
+      </span>
+      <span class="cs-pen-hover-label" aria-hidden="true">
+        <span class="cs-pen-label-off">my notes</span>
+        <span class="cs-pen-label-on">erase them</span>
+      </span>
+    </button>
+  </div>
+
+  <!-- First-visit handwritten line (desktop only, notes off, once) -->
+  <div class="cs-first-visit" id="cs-first-visit" aria-hidden="true">
+    <span class="cs-first-visit-text note">[TODO: first-visit line]</span>
+  </div>
+
+</aside>
+
+<!-- ── Mobile sticky top bar ─────────────────────────────── -->
+<div class="cs-mobile-bar" id="cs-mobile-bar" aria-hidden="true" role="status" aria-live="polite">
+  <span class="cs-mobile-label mono" id="cs-mobile-label">01 · the brief</span>
+  <div class="cs-mobile-progress" aria-hidden="true">
+    <div class="cs-mobile-fill" id="cs-mobile-fill"></div>
+  </div>
+</div>
+
+<!-- ── Mobile FAB pen ────────────────────────────────────── -->
+<button
+  class="cs-mobile-pen"
+  id="cs-mobile-pen"
+  aria-pressed="false"
+  aria-label="Show margin notes"
+  type="button"
+>
+  <PenSvg />
+</button>
+
+<style>
+  /* ── Desktop gutter block ─────────────────────────────── */
+  .cs-gutter-block {
+    position: fixed;
+    top: 110px;
+    /*
+     * Left edge of .cs-row on a 1340px max-width page:
+     *   50vw - 1340/2 + 56px padding = 50vw - 614px
+     */
+    left: max(16px, calc(50vw - 614px));
+    width: 170px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .4s ease, transform .4s ease;
+    pointer-events: none;
+    z-index: 40;
+  }
+  .cs-gutter-block.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  @media (max-width: 1023px) { .cs-gutter-block { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-gutter-block { transition: none; }
+  }
+
+  /* ── Rail ─────────────────────────────────────────────── */
+  .cs-rail {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .cs-rail-track {
+    position: relative;
+    width: 1px;
+    min-height: 100%;
+    background: var(--ink-10);
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+  .cs-rail-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    background: var(--ink);
+    height: 0;
+    transition: height .08s linear;
+  }
+  .cs-rail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ── Rail items (populated by JS) ────────────────────── */
+  :global(.cs-rail-item) {
+    margin-bottom: 12px;
+  }
+  :global(.cs-rail-link) {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    text-decoration: none;
+    color: var(--ink-20);
+    transition: color .15s ease;
+    cursor: pointer;
+  }
+  :global(.cs-rail-link:hover),
+  :global(.cs-rail-link:focus-visible) {
+    color: var(--ink);
+    outline: none;
+  }
+  :global(.cs-rail-link:focus-visible) {
+    outline: 2px solid var(--pencil);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+  :global(.cs-rail-num) {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  :global(.cs-rail-label) {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    font-variation-settings: 'opsz' 12, 'wght' 400;
+    line-height: 1.3;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  :global([data-state="current"] .cs-rail-link) { color: var(--ink); }
+  :global([data-state="read"] .cs-rail-link)    { color: var(--ink-40); }
+  :global([data-state="upcoming"] .cs-rail-link){ color: var(--ink-20); }
+
+  /* ── Pen button ───────────────────────────────────────── */
+  .cs-pen-wrap {
+    margin-top: 28px;
+  }
+  .cs-pen-btn {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-40);
+    min-height: 44px;
+    position: relative;
+  }
+  .cs-pen-btn:focus-visible {
+    outline: 2px solid var(--pencil);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  .cs-pen-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s ease, color .2s ease;
+    color: inherit;
+  }
+  .cs-pen-btn:hover .cs-pen-icon,
+  .cs-pen-btn:focus-visible .cs-pen-icon {
+    transform: rotate(-14deg) translateY(-3px);
+    color: var(--ink);
+  }
+
+  /* Hover label: wipes in left-to-right */
+  .cs-pen-hover-label {
+    font-family: var(--font-hand);
+    font-size: 15px;
+    color: var(--pencil);
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    transition: max-width .3s ease, opacity .2s ease;
+    line-height: 1.2;
+  }
+  .cs-pen-btn:hover .cs-pen-hover-label,
+  .cs-pen-btn:focus-visible .cs-pen-hover-label {
+    max-width: 110px;
+    opacity: 1;
+  }
+
+  /* Show only the right label for current state */
+  .cs-pen-label-on  { display: none; }
+  .cs-pen-label-off { display: block; }
+  html.notes-on .cs-pen-label-on  { display: block; }
+  html.notes-on .cs-pen-label-off { display: none; }
+
+  /* ── First-visit line ─────────────────────────────────── */
+  .cs-first-visit {
+    margin-top: 20px;
+    padding-left: 11px;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+  }
+  .cs-first-visit.is-visible { opacity: 1; }
+  .cs-first-visit--done { display: none; }
+  .cs-first-visit-text {
+    display: block;
+    font-size: 15px;
+    clip-path: inset(0 100% 0 0);
+    max-width: 160px;
+    line-height: 1.4;
+  }
+
+  /* ── Mobile bar ───────────────────────────────────────── */
+  .cs-mobile-bar {
+    display: none;
+  }
+  @media (max-width: 1023px) {
+    .cs-mobile-bar {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: var(--paper);
+      padding: 10px 24px 0;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity .3s ease, transform .3s ease;
+      pointer-events: none;
+    }
+    .cs-mobile-bar.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .cs-mobile-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: .08em;
+      color: var(--ink-40);
+      padding-bottom: 8px;
+    }
+    .cs-mobile-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--ink-10);
+    }
+    .cs-mobile-fill {
+      height: 100%;
+      background: var(--ink);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform .08s linear;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-mobile-bar { transition: none; }
+    .cs-mobile-fill { transition: none; }
+  }
+
+  /* ── Mobile FAB ───────────────────────────────────────── */
+  .cs-mobile-pen {
+    display: none;
+  }
+  @media (max-width: 1023px) {
+    .cs-mobile-pen {
+      display: flex;
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--ink-20);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      color: var(--ink-40);
+      box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 8%, transparent);
+    }
+    .cs-mobile-pen:focus-visible {
+      outline: 2px solid var(--pencil);
+      outline-offset: 3px;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/case-study.ts';
+</script>

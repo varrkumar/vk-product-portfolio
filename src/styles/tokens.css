@@ -98,4 +98,5 @@
   --duration-base: 300ms;
   --duration-slow: 600ms;
   --duration-draw: 1200ms;   /* SVG stroke-dashoffset annotation draw */
+  --ease-write: cubic-bezier(.6, .05, .35, 1);
 }

@@ -6,9 +6,16 @@ interface Props {
   pb?: string;
 }
 const { num, label, wide = false, pb = '88px' } = Astro.props;
+const sectionId = num ? `section-${num.replace(/\s/g, '-')}` : undefined;
 ---
 
-<section class="cs-row" style={`padding-bottom: ${pb}`}>
+<section
+  class="cs-row"
+  style={`padding-bottom: ${pb}; scroll-margin-top: 120px`}
+  id={sectionId}
+  data-section-num={num}
+  data-section-label={label}
+>
   <div class="cs-gutter" style="padding-top: 6px">
     <slot name="gutter">
       {num && <div class="mono">{num}</div>}

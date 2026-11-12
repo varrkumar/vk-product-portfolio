@@ -7,6 +7,7 @@ import InsightLine from '../../components/notebook/InsightLine.astro';
 import Fork from '../../components/notebook/Fork.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
+import ProgressRail from '../../components/notebook/ProgressRail.astro';
 import { nextCaseStudy } from '../../data/entries';
 
 const next = nextCaseStudy('us-bank');
@@ -22,14 +23,15 @@ const next = nextCaseStudy('us-bank');
  */
 ---
 
-<Base title="U.S. Bank: AI Center of Excellence · VK" noindex={true}>
+<Base title="U.S. Bank · VK">
   <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
 
     <CaseStudyHeader entryNum="01" />
+    <ProgressRail />
 
     <CaseHero
       entryNum="01"
-      eyebrow="U.S. Bank · AI Center of Excellence"
+      eyebrow="U.S. Bank"
       title="Making it easy to ask the AI team for help"
       lede="As a product management intern on U.S. Bank's AI Center of Excellence, I redesigned how business teams request AI work, ran a workshop that mapped what was worth reusing, and built the roadmap that came out of it."
       meta={[
@@ -337,7 +339,7 @@ const next = nextCaseStudy('us-bank');
       <div></div>
       <a href={`/${next.section}/${next.slug}`} class="next">
         <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
-        <div class="next-q">{next.footerQ}</div>
+        <div class="next-q cs-next-q-wrap">{next.footerQ}</div>
       </a>
       <div></div>
     </footer>

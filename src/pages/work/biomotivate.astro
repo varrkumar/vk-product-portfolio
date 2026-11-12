@@ -9,6 +9,7 @@ import Figure from '../../components/notebook/Figure.astro';
 import BeforeAfter from '../../components/notebook/BeforeAfter.astro';
 import OutcomeStats from '../../components/notebook/OutcomeStats.astro';
 import Reflection from '../../components/notebook/Reflection.astro';
+import ProgressRail from '../../components/notebook/ProgressRail.astro';
 import { nextCaseStudy } from '../../data/entries';
 
 const next = nextCaseStudy('biomotivate');
@@ -28,14 +29,15 @@ import afterDiscover from '../../assets/biomotivate/after-discover.png';
  */
 ---
 
-<Base title="Biomotivate: Peace · VK">
+<Base title="Biomotivate · VK">
   <div style="background: var(--paper); min-height: 100vh; color: var(--ink); padding-bottom: 120px">
 
     <CaseStudyHeader entryNum="03" />
+    <ProgressRail />
 
     <CaseHero
       entryNum="03"
-      eyebrow="Biomotivate · Peace platform"
+      eyebrow="Biomotivate"
       title="Making therapy videos personal"
       lede="I was hired to fix the interface of a VR therapy platform at an addiction recovery house. The real problem was that patients had stopped finding anything in it worth watching."
       meta={[
@@ -264,7 +266,7 @@ import afterDiscover from '../../assets/biomotivate/after-discover.png';
       <div></div>
       <a href={`/${next.section}/${next.slug}`} class="next">
         <div class="mono" style="margin-bottom: 10px">Next entry &rarr;</div>
-        <div class="next-q">{next.footerQ}</div>
+        <div class="next-q cs-next-q-wrap">{next.footerQ}</div>
       </a>
       <div></div>
     </footer>

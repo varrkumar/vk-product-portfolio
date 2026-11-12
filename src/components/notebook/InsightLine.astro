@@ -7,9 +7,16 @@ interface Props {
   assumed?: string;
 }
 const { num, label, validated, observed, assumed } = Astro.props;
+const sectionId = num ? `section-${num.replace(/\s/g, '-')}` : undefined;
 ---
 
-<section class="cs-row" style="padding-bottom: 104px">
+<section
+  class="cs-row"
+  style="padding-bottom: 104px; scroll-margin-top: 120px"
+  id={sectionId}
+  data-section-num={num}
+  data-section-label={label}
+>
   <div class="cs-gutter" style="padding-top: 6px">
     {num && <div class="mono">{num}</div>}
     {label && <div class="hand" style="font-size:20px;color:#66625A;transform:rotate(-2deg);margin-top:4px">{label}</div>}
