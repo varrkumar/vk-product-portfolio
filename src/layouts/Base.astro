@@ -22,6 +22,7 @@ const { title, description = 'Product portfolio — Varrshitha Kumar', noindex =
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <title>{title}</title>
+    <slot name="head" />
   </head>
   <body>
     <slot />

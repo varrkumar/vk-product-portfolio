@@ -1,0 +1,653 @@
+<!doctype html>
+<!-- Approved prototype "C · Real work" (Nov 15, 2026), exported from the Claude design canvas.
+     Format: a Design Component page. Markup lives inside <x-dc>; {{holes}} are filled from renderVals() in the script at the bottom;
+     <sc-for list="{{x}}" as="y"> is a loop. Treat this file as the visual and motion spec. Do not ship it as-is. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Varrshitha Kumar · Work (real work)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Kalam&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif+Tamil&amp;display=swap">
+<style>
+@property --n{syntax:'<integer>';initial-value:0;inherits:false}
+body{margin:0;background:#fff}
+*{box-sizing:border-box}
+a{color:inherit}a:hover{color:inherit}
+.pg{font-family:Newsreader,Georgia,serif;color:#1C1B18;-webkit-font-smoothing:antialiased}
+.pg.still *,.pg.still *::before,.pg.still *::after{animation-play-state:paused!important}
+.nav a{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#5F5B53;text-decoration:none;padding:14px 2px}
+.nav a:hover{color:#1C1B18}
+.nav a.cur{font:400 21px/1 Kalam,cursive;letter-spacing:0;text-transform:none;color:#2D45B8}
+
+/* tiles */
+.cv{position:relative;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;container-type:inline-size;text-decoration:none;aspect-ratio:1.12/1;isolation:isolate}
+.cv:focus-visible{outline:2px solid #2D45B8;outline-offset:3px}
+.art{position:relative;flex:1 1 auto;overflow:hidden;min-height:0}
+.lift{position:absolute;inset:0;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.cv:hover .lift{transform:scale(1.03)}
+.cap{position:relative;padding:2.6cqw 4cqw 3.6cqw;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw}
+.meta{font:500 max(10px,1.32cqw)/1.2 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;margin:0;opacity:.82}
+.ttl{font-weight:400;font-size:max(28px,5.3cqw);line-height:1;letter-spacing:-.02em;margin:1.1cqw 0 0}
+.ask{margin:1.5cqw 0 0;font-size:max(14px,2cqw);line-height:1.3;min-height:2.7em}
+.ask .lb{font:500 max(9px,1.15cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-right:.7em;vertical-align:.12em}
+.old{position:relative;opacity:.78;white-space:nowrap}
+.old svg{position:absolute;left:-3%;top:44%;width:106%;height:.55em;overflow:visible}
+.old path{fill:none;stroke:#2D45B8;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .55s cubic-bezier(.6,.05,.35,1)}
+.new{display:block;font-family:Kalam,cursive;color:#2D45B8;font-size:1.1em;line-height:1.25;clip-path:inset(-30% 100% -30% 0);transition:clip-path 1.05s cubic-bezier(.6,.05,.35,1) .35s}
+.cv:hover .old path,.cv:focus-visible .old path{stroke-dashoffset:0}
+.cv:hover .new,.cv:focus-visible .new{clip-path:inset(-30% 0 -30% 0)}
+.go{flex:none;width:max(44px,6.2cqw);height:max(44px,6.2cqw);border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;transition:background .45s,transform .6s cubic-bezier(.6,.05,.35,1)}
+.go svg{width:38%;height:38%;color:currentColor;transition:color .45s}
+.cv:hover .go{background:currentColor;transform:rotate(-45deg)}
+.cv:hover .go svg{color:var(--t)}
+@media (hover:none){.old path{stroke-dashoffset:0}.new{clip-path:none}}
+
+/* intro */
+.intro{position:relative;border-radius:18px;background:#1C1B18;color:#F4F2EE;container-type:inline-size;aspect-ratio:1.12/1;display:flex;flex-direction:column;justify-content:space-between;padding:5cqw 5cqw 4.4cqw;overflow:hidden}
+.nm{position:relative;display:inline-block;font-weight:300;font-size:max(40px,9cqw);line-height:.95;letter-spacing:-.025em;margin:0}
+.ta{position:absolute;left:.06em;top:-.62em;font-family:"Noto Serif Tamil",serif;font-size:.3em;color:#A9B6F7;letter-spacing:0;clip-path:inset(-30% 100% -30% 0);transition:clip-path 1s cubic-bezier(.6,.05,.35,1)}
+.nm:hover .ta{clip-path:inset(-30% 0 -30% 0)}
+.uline{display:block;width:62%;height:1.4cqw;margin-top:1.2cqw;overflow:visible}
+.uline path{fill:none;stroke:#A9B6F7;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:drawin 1.6s cubic-bezier(.6,.05,.35,1) .5s forwards}
+@keyframes drawin{to{stroke-dashoffset:0}}
+.idx a{display:flex;align-items:baseline;gap:2.2cqw;text-decoration:none;padding:1.15cqw 0;font-size:max(15px,2.5cqw);color:#F4F2EE;transition:padding .45s cubic-bezier(.2,.7,.2,1),color .3s}
+.idx a:hover{padding-left:1.6cqw}
+.idx .no{font:500 max(10px,1.2cqw) "IBM Plex Mono",monospace;letter-spacing:.12em;color:#9C978D}
+.idx .dt{width:1.3cqw;height:1.3cqw;min-width:9px;min-height:9px;border-radius:50%;align-self:center}
+.idx .cx{margin-left:auto;font:500 max(10px,1.2cqw) "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#9C978D}
+
+/* 1 Biomotivate: the lens */
+.wall{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.7cqw;padding:0 3cqw}
+.col{display:flex;flex-direction:column;animation:up 44s linear infinite}
+.col.d{animation-name:down}
+@keyframes up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes down{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.vt{position:relative;aspect-ratio:4/5;border-radius:1.4cqw;margin-bottom:1.7cqw}
+.vt::after{content:"";position:absolute;left:50%;top:46%;border-left:1.3cqw solid rgba(255,255,255,.92);border-top:.8cqw solid transparent;border-bottom:.8cqw solid transparent;transform:translate(-35%,-50%)}
+.vt::before{content:"";position:absolute;left:12%;right:12%;bottom:9%;height:.38cqw;border-radius:99px;background:rgba(255,255,255,.5)}
+.base{filter:saturate(.2) contrast(.85);opacity:.42}
+.lens{clip-path:circle(15cqw at 34% 52%);animation:lens 18s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes lens{0%,100%{clip-path:circle(15cqw at 34% 52%)}33%{clip-path:circle(15cqw at 60% 36%)}66%{clip-path:circle(15cqw at 72% 60%)}}
+.ring{position:absolute;left:34%;top:52%;width:31cqw;height:31cqw;border-radius:50%;border:.55cqw solid #fff;transform:translate(-50%,-50%);box-shadow:0 2cqw 5cqw -1.5cqw rgba(110,40,20,.5);animation:ring 18s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes ring{0%,100%{left:34%;top:52%}33%{left:60%;top:36%}66%{left:72%;top:60%}}
+.ring span{position:absolute;left:50%;bottom:-1.6cqw;transform:translateX(-50%);white-space:nowrap;font:400 max(12px,2.1cqw)/1 Kalam,cursive;color:#fff;background:#6E2814;padding:.9cqw 1.8cqw .7cqw;border-radius:99px}
+
+/* 2 WorkBench: designed vs built */
+.ghost{position:absolute;right:4%;top:15%;width:31%;bottom:13%;border:1.5px dashed rgba(18,61,43,.5);border-radius:1.8cqw;padding:5cqw 2.2cqw 2.4cqw 9%;display:flex;flex-direction:column;justify-content:flex-end;gap:1.3cqw}
+.ghost .gl{position:absolute;right:2.2cqw;top:1.8cqw;font:400 max(12px,2cqw)/1.1 Kalam,cursive;color:#2D45B8;text-align:right}
+.gb{height:3.4cqw;border:1.5px dashed rgba(18,61,43,.5);border-radius:1.6cqw 1.6cqw 1.6cqw .4cqw;width:82%;animation:gb 11s ease infinite both}
+.gb.me{align-self:flex-end;width:58%;border-radius:1.6cqw 1.6cqw .4cqw 1.6cqw}
+@keyframes gb{0%,8%{opacity:0;transform:translateY(1cqw)}16%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+.win{position:absolute;left:6%;right:25%;top:9%;bottom:-6%;background:#FAFAF8;border-radius:1.6cqw;box-shadow:0 3cqw 6cqw -2.4cqw rgba(18,61,43,.45),0 0 0 1px rgba(18,61,43,.08);display:flex;overflow:hidden;font-family:Inter,system-ui,sans-serif;font-size:max(9px,1.42cqw);color:#1f2a24;z-index:2}
+.side{width:24%;background:#123D2B;color:#fff;padding:2.2cqw 1.4cqw}
+.side b{display:block;font-weight:600;margin-bottom:2.2cqw;font-size:1.05em}
+.side i{display:block;font-style:normal;padding:.9cqw 1cqw;border-radius:.8cqw;opacity:.68;margin-bottom:.4cqw}
+.side i.on{background:rgba(255,255,255,.14);opacity:1}
+.wmain{flex:1;padding:2.4cqw;min-width:0}
+.wmain h5{font:600 max(11px,1.9cqw)/1 Inter,sans-serif;margin:.3cqw 0 1.8cqw}
+.wr{display:flex;align-items:center;gap:1.2cqw;background:#fff;border:1px solid #EAEAE6;border-radius:1cqw;padding:1.3cqw 1.5cqw;margin-bottom:1cqw;animation:deal 11s cubic-bezier(.2,.7,.2,1) infinite both}
+.wr span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wr.hot{animation:deal 11s cubic-bezier(.2,.7,.2,1) infinite both,hot 11s ease infinite}
+@keyframes deal{0%,3%{opacity:0;transform:translateY(1.8cqw)}11%,89%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes hot{0%,24%{box-shadow:0 0 0 0 rgba(181,101,29,0)}29%,46%{box-shadow:0 0 0 2px rgba(181,101,29,.9)}52%,100%{box-shadow:0 0 0 0 rgba(181,101,29,0)}}
+.pl{flex:none;font-size:.86em;font-weight:500;padding:.4cqw 1.1cqw;border-radius:99px}
+.draft{position:relative;margin-top:1.4cqw;background:#fff;border:1.5px solid #2F7A57;border-radius:1.2cqw;padding:1.5cqw;animation:pop 11s cubic-bezier(.2,.7,.2,1) infinite both}
+@keyframes pop{0%,30%{opacity:0;transform:translateY(1.2cqw) scale(.97)}37%,89%{opacity:1;transform:none}96%,100%{opacity:0}}
+.draft b{color:#2F7A57;font-weight:600}
+.ln{height:.65cqw;border-radius:99px;background:#E6E4DF;margin:.9cqw 0}
+.acts{display:flex;gap:1cqw;margin-top:1.3cqw}
+.rv{position:relative;display:inline-grid}
+.rv span{grid-area:1/1;text-align:center}
+.rv .a1{animation:sw1 11s infinite}
+.rv .a2{opacity:0;animation:sw2 11s infinite}
+@keyframes sw1{0%,58%{opacity:1}61%,100%{opacity:0}}
+@keyframes sw2{0%,58%{opacity:0}61%,92%{opacity:1}96%,100%{opacity:0}}
+.ptr{position:absolute;left:55%;top:55%;width:2.2cqw;height:2.2cqw;min-width:13px;min-height:13px;background:#111;clip-path:polygon(0 0,0 100%,30% 72%,52% 100%,64% 94%,44% 66%,82% 66%);animation:ptr 11s cubic-bezier(.6,.05,.35,1) infinite;z-index:3}
+@keyframes ptr{0%,40%{opacity:0;transform:translate(9cqw,6cqw)}44%{opacity:1;transform:translate(9cqw,6cqw)}55%{transform:translate(0,0)}57%{transform:translate(0,0) scale(.82)}59%{transform:translate(0,0)}86%{opacity:1}92%,100%{opacity:0;transform:translate(0,0)}}
+
+/* 3 Halo */
+.prompt{position:absolute;left:10%;right:10%;top:11%;display:flex;align-items:center;gap:1.5cqw;background:#fff;border-radius:99px;padding:1.3cqw 1.3cqw 1.3cqw 2.6cqw;color:#2A2068;box-shadow:0 1.6cqw 4cqw -2cqw rgba(42,32,104,.4)}
+.typed{flex:1;min-width:0;font:400 max(10px,1.7cqw)/1.4 "IBM Plex Mono",monospace}
+.typed span{display:inline-block;vertical-align:bottom;white-space:nowrap;overflow:hidden;width:0;border-right:2px solid #6A58D6;animation:type 12s steps(27) infinite}
+@keyframes type{0%,2%{width:0}15%,94%{width:27ch}100%{width:27ch;border-color:transparent}}
+.gen{flex:none;font:600 max(10px,1.5cqw)/1 Inter,sans-serif;color:#fff;background:#6A58D6;padding:1.1cqw 2cqw;border-radius:99px;animation:press 12s infinite}
+@keyframes press{0%,16%{transform:none}17.5%{transform:scale(.92)}19%,100%{transform:none}}
+.tiles{position:absolute;left:10%;right:10%;top:37%;bottom:9%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.6cqw}
+.hl{position:relative;border-radius:1.4cqw;overflow:hidden;animation:tin 12s cubic-bezier(.2,.7,.2,1) infinite both}
+@keyframes tin{0%,18%{opacity:0;transform:scale(.95)}24%,94%{opacity:1;transform:none}100%{opacity:0}}
+.hl svg{position:absolute;inset:0;width:100%;height:100%}
+.fa{animation:fa 12s infinite}
+.fb{opacity:0;animation:fb 12s infinite}
+@keyframes fa{0%,66%{opacity:1}72%,100%{opacity:0}}
+@keyframes fb{0%,66%{opacity:0}72%,94%{opacity:1}100%{opacity:0}}
+.halo{position:absolute;left:20%;top:31.5%;width:15cqw;height:4cqw;margin-left:-7.5cqw;border-radius:50%;border:.55cqw solid #6A58D6;box-shadow:0 0 2.6cqw rgba(106,88,214,.6),inset 0 0 1.4cqw rgba(106,88,214,.5);animation:glide 12s cubic-bezier(.65,0,.35,1) infinite;z-index:2}
+@keyframes glide{0%,20%{opacity:0;left:20%}25%{opacity:1;left:20%}31%{left:40%}37%{left:60%}43%,50%{left:80%}68%{left:80%}74%{left:60%}80%{left:40%}86%{left:20%}92%{opacity:1}97%,100%{opacity:0;left:20%}}
+.nudge{position:absolute;left:50%;top:49%;width:46%;transform:translate(-50%,-50%);background:#fff;border-radius:1.6cqw;padding:2.2cqw 2.4cqw;box-shadow:0 2.4cqw 5cqw -2cqw rgba(42,32,104,.55);font:400 max(10px,1.55cqw)/1.35 Inter,sans-serif;color:#3a3550;opacity:0;animation:nudge 12s cubic-bezier(.2,.7,.2,1) infinite;z-index:3}
+@keyframes nudge{0%,50%{opacity:0;transform:translate(-50%,-44%)}54%,64%{opacity:1;transform:translate(-50%,-50%)}68%,100%{opacity:0;transform:translate(-50%,-50%) scale(.97)}}
+.nudge b{display:block;color:#2A2068;font-weight:600;margin-bottom:.6cqw}
+.nudge .bt{display:flex;gap:1cqw;margin-top:1.4cqw}
+.nudge .y{position:relative;background:#6A58D6;color:#fff;padding:.6cqw 1.4cqw;border-radius:99px;font-weight:500;animation:press2 12s infinite}
+@keyframes press2{0%,61%{transform:none}62.5%{transform:scale(.9)}64%,100%{transform:none}}
+.nudge .n{background:#EEEDF3;padding:.6cqw 1.4cqw;border-radius:99px}
+
+/* 4 Girls on the Run */
+.trk{position:absolute;inset:0;width:100%;height:100%}
+.rn{fill:none;stroke-width:11;stroke-linecap:round;stroke-dasharray:.001 .999;animation:run 10s linear infinite}
+@keyframes run{to{stroke-dashoffset:-1}}
+.msg{position:absolute;left:6%;top:9%;width:55%}
+.msg .k{font:500 max(9px,1.2cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin:0 0 1.6cqw}
+.was{position:relative;display:inline-block;font-size:max(14px,2.4cqw);opacity:.6;margin:0}
+.was svg{position:absolute;left:-3%;top:42%;width:106%;height:.6em;overflow:visible}
+.was path{fill:none;stroke:#2D45B8;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:strike 10s cubic-bezier(.6,.05,.35,1) infinite}
+@keyframes strike{0%,8%{stroke-dashoffset:1}15%,92%{stroke-dashoffset:0}98%,100%{stroke-dashoffset:1}}
+.quote{font-style:italic;font-weight:300;font-size:max(20px,4.3cqw);line-height:1.08;letter-spacing:-.015em;margin:1.2cqw 0 0;clip-path:inset(-10% 100% -10% 0);animation:wr 10s cubic-bezier(.6,.05,.35,1) infinite}
+@keyframes wr{0%,16%{clip-path:inset(-10% 100% -10% 0)}30%,92%{clip-path:inset(-10% 0 -10% 0)}98%,100%{clip-path:inset(-10% 0 -10% 100%)}}
+.who{font:400 max(12px,1.9cqw)/1 Kalam,cursive;color:#2D45B8;margin:1.4cqw 0 0;opacity:0;animation:fadein 10s infinite}
+@keyframes fadein{0%,30%{opacity:0}36%,92%{opacity:1}98%,100%{opacity:0}}
+.bars{margin-top:3cqw;display:flex;flex-direction:column;gap:1.4cqw;font:500 max(9px,1.2cqw)/1.2 "IBM Plex Mono",monospace;letter-spacing:.06em}
+.bar{display:flex;align-items:center;gap:1.4cqw}
+.bar i{display:block;height:1.6cqw;border-radius:99px;background:#5E3A05;transform-origin:left;animation:grow 10s cubic-bezier(.2,.7,.2,1) infinite}
+.bar.lo i{background:rgba(94,58,5,.35);animation-delay:.15s}
+@keyframes grow{0%,36%{transform:scaleX(0)}48%,92%{transform:scaleX(1)}98%,100%{transform:scaleX(0)}}
+
+/* 5 AI Center of Excellence */
+.vote{position:absolute;left:5.5%;top:9%;width:56%;display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:.6cqw}
+.vd{aspect-ratio:1/1;border-radius:50%;border:1px solid rgba(45,69,184,.42);animation:vote 9s cubic-bezier(.2,.7,.2,1) infinite both}
+.vd.e{animation:none}
+@keyframes vote{0%,4%{background:rgba(45,69,184,0);transform:scale(.6)}10%,86%{background:#2D45B8;transform:none}94%,100%{background:rgba(45,69,184,0);transform:scale(.6)}}
+.stat{position:absolute;right:5.5%;top:8%;width:30%;color:#172A40}
+.cnt{font-weight:300;font-size:max(34px,9cqw);line-height:.9;letter-spacing:-.03em;counter-reset:n var(--n);animation:count 9s cubic-bezier(.2,.7,.2,1) infinite}
+.cnt::after{content:counter(n)}
+@keyframes count{0%,3%{--n:0}24%,88%{--n:427}96%,100%{--n:0}}
+.sl{font:500 max(9px,1.18cqw)/1.35 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;margin:1.2cqw 0 0;opacity:.8}
+.pct{position:relative;display:inline-block;font-weight:300;font-size:max(28px,6.6cqw);line-height:1;letter-spacing:-.02em;margin-top:5cqw}
+.pct svg{position:absolute;left:-22%;top:-26%;width:144%;height:152%;overflow:visible}
+.pct path{fill:none;stroke:#2D45B8;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:circ 9s cubic-bezier(.6,.05,.35,1) infinite}
+@keyframes circ{0%,30%{stroke-dashoffset:1}42%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:1}}
+.note{position:absolute;left:5.5%;bottom:5%;font:400 max(12px,1.9cqw)/1 Kalam,cursive;color:#2D45B8}
+
+/* short entries */
+.sm{aspect-ratio:1.04/1}
+.sm .ttl{font-size:max(24px,6.4cqw)}
+.one{margin:1.4cqw 0 0;font-size:max(14px,3cqw);line-height:1.3;opacity:.85}
+.sm .meta{font-size:max(10px,1.9cqw)}
+.sm .go{width:max(40px,9cqw);height:max(40px,9cqw)}
+.eyes{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);display:flex;gap:5cqw}
+.eye{position:relative;width:17cqw;height:17cqw;border-radius:50%;background:#fff;animation:blink 7s infinite}
+@keyframes blink{0%,47%,51%,100%{transform:scaleY(1)}49%{transform:scaleY(.08)}}
+.pu{position:absolute;left:50%;top:50%;width:7cqw;height:7cqw;margin:-3.5cqw;border-radius:50%;background:#4F1428;animation:look 7s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes look{0%,6%{transform:translate(0,0)}13%,24%{transform:translate(-4.4cqw,1.6cqw)}31%,42%{transform:translate(4.4cqw,1.6cqw)}48%,100%{transform:translate(0,0)}}
+.steps{position:absolute;left:16%;right:16%;top:72%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2cqw}
+.sp{position:relative;height:1.8cqw;border-radius:99px;background:rgba(79,20,40,.16);overflow:hidden}
+.sp i{position:absolute;inset:0;background:#B23A62;transform-origin:left}
+.sp.nx i{transform:scaleX(0);animation:step 7s cubic-bezier(.6,.05,.35,1) infinite}
+@keyframes step{0%,52%{transform:scaleX(0)}62%,92%{transform:scaleX(1)}97%,100%{transform:scaleX(0)}}
+.okay{position:absolute;left:50%;top:84%;transform:translateX(-50%);white-space:nowrap;font:400 max(12px,3cqw)/1 Kalam,cursive;color:#2D45B8;opacity:0;animation:fadein2 7s infinite}
+@keyframes fadein2{0%,50%{opacity:0}56%,92%{opacity:1}97%,100%{opacity:0}}
+.rail{position:absolute;left:7%;right:7%;top:20%;height:1cqw;border-radius:99px;background:#0E3B38}
+.tag{position:absolute;top:20%;width:15cqw;margin-left:-7.5cqw;transform-origin:50% 0;animation:swing 3.8s ease-in-out infinite alternate}
+@keyframes swing{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.tag .st{display:block;width:2px;height:6cqw;margin:0 auto;background:#0E3B38}
+.tag .cd{display:block;height:24cqw;border-radius:1.2cqw;clip-path:polygon(50% 0,100% 16%,100% 100%,0 100%,0 16%);position:relative}
+.tag .cd::before{content:"";position:absolute;left:50%;top:9%;width:2.6cqw;height:2.6cqw;margin-left:-1.3cqw;border-radius:50%;background:#D7ECEA}
+.tag .cd::after{content:"";position:absolute;left:22%;right:22%;top:46%;height:1.2cqw;border-radius:99px;background:rgba(255,255,255,.6);box-shadow:0 3.4cqw 0 rgba(255,255,255,.4)}
+.pin{position:absolute;width:3cqw;height:3cqw;margin:-1.5cqw;border-radius:50%;background:#F2B880;box-shadow:0 0 0 1cqw rgba(242,184,128,.18)}
+.rp{position:absolute;left:50%;top:50%;width:36cqw;height:36cqw;margin:-18cqw;border-radius:50%;border:1.5px solid #F2B880;opacity:0;animation:ripple 5s cubic-bezier(.2,.6,.3,1) infinite}
+@keyframes ripple{0%{transform:scale(.06);opacity:.95}100%{transform:scale(1);opacity:0}}
+.wave{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);display:flex;align-items:center;gap:1.2cqw;background:rgba(244,237,228,.08);border:1px solid rgba(244,237,228,.18);border-radius:99px;padding:1.8cqw 3cqw}
+.wave i{display:block;width:1.1cqw;height:5cqw;border-radius:99px;background:#F2B880;animation:wv 1.2s ease-in-out infinite alternate}
+@keyframes wv{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* design strip */
+.strip{display:flex;align-items:center;gap:40px;margin-top:12px;background:#1C1B18;color:#F4F2EE;border-radius:18px;padding:30px 34px;text-decoration:none;overflow:hidden}
+.strip:focus-visible{outline:2px solid #2D45B8;outline-offset:3px}
+.mq{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq>div{display:flex;gap:44px;width:max-content;animation:mq 36s linear infinite;font-style:italic;font-weight:300;font-size:34px;white-space:nowrap}
+.mq em{font-style:normal;color:#A9B6F7;font-family:Kalam,cursive;font-size:22px;align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+.strip .go{width:56px;height:56px}
+.strip:hover .go{background:#F4F2EE;transform:rotate(-45deg)}
+.strip:hover .go svg{color:#1C1B18}
+
+/* notebook sidebar */
+.nb{flex:1 1 300px;max-width:372px;display:flex;flex-direction:column}
+@media (min-width:900px){.nb{position:sticky;top:12px}}
+.tabs{display:flex;align-items:flex-end;gap:5px;padding-left:52px;height:46px;position:relative;z-index:2}
+.tab{position:relative;display:flex;align-items:center;height:40px;padding:2px 18px 0;border-radius:12px 12px 0 0;background:#F3F2EF;box-shadow:inset 0 1px 0 #ECEAE5,inset 1px 0 0 #ECEAE5,inset -1px 0 0 #ECEAE5;font:400 21px/1 Kalam,cursive;color:#7A766D;text-decoration:none;transform:translateY(5px);transition:transform .35s cubic-bezier(.2,.7,.2,1),color .3s,background .3s}
+.tab:hover{transform:translateY(0);color:#1C1B18}
+.tab.cur{height:46px;background:#fff;color:#2D45B8;transform:none;margin-bottom:-1px}
+.tab:focus-visible{outline:2px solid #2D45B8;outline-offset:2px}
+.sb{position:relative;min-height:812px;border-radius:18px;padding:64px 30px 24px 62px;display:flex;flex-direction:column;background-color:#fff;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(45,69,184,.1) 31px,rgba(45,69,184,.1) 32px);box-shadow:inset 0 0 0 1px #ECEAE5}
+.sb::before{content:"";position:absolute;left:40px;top:0;bottom:0;border-left:1px solid rgba(45,69,184,.3)}
+.sb::after{content:"";position:absolute;left:44px;top:0;bottom:0;border-left:1px solid rgba(45,69,184,.14)}
+.sbn{position:relative;font-weight:400;font-size:40px;line-height:32px;letter-spacing:-.02em;margin:0;padding-top:12px}
+.sbn .ta{top:-.6em;font-size:.4em}
+.sbn:hover .ta{clip-path:inset(-30% 0 -30% 0)}
+.typ{font-size:18px;line-height:32px;color:#5F5B53;margin:32px 0 0}
+.hw{font:400 21px/32px Kalam,cursive;color:#2D45B8;margin:0}
+.sfoot{margin-top:auto;padding-top:32px}
+.now{font-size:19px}
+.open{margin:0;color:#1C1B18}
+.lnk{display:flex;flex-wrap:wrap;column-gap:18px;margin:0;font:500 10px/32px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.lnk a{color:#1C1B18;text-decoration:underline;text-decoration-color:rgba(45,69,184,.4);text-underline-offset:4px}
+.lnk a:hover{text-decoration-color:#2D45B8}
+.clk{color:#8A867D}
+@media (max-width:899px){.nb{max-width:none;flex-basis:100%}.sb{min-height:0}}
+/* ===== C: real work ===== */
+.wide{grid-column:1 / -1;flex-direction:row-reverse;aspect-ratio:2.15/1}
+.wide .art{flex:1 1 62%}
+.wide .cap{flex:0 0 38%;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:3.2cqw 2cqw 3cqw 3.4cqw}
+.wide .ttl{font-size:max(30px,5cqw)}
+.wide .meta{font-size:max(10px,.95cqw)}
+.wide .ask{font-size:max(14px,1.45cqw)}
+.wide .go{width:max(44px,4cqw);height:max(44px,4cqw);order:-1;margin-bottom:auto}
+.brains{position:absolute;inset:-12%;opacity:.5;mix-blend-mode:multiply;animation:drift 38s ease-in-out infinite alternate}
+.brains img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes drift{from{transform:translate(0,0) scale(1.05)}to{transform:translate(-7%,-5%) scale(1.12)}}
+.bw{position:absolute;left:6%;right:7%;top:12%;background:#fff;border-radius:1.1cqw;overflow:hidden;box-shadow:0 2.4cqw 5cqw -1.6cqw rgba(110,40,20,.45),0 0 0 1px rgba(110,40,20,.08)}
+.bbar{display:flex;align-items:center;gap:.5cqw;height:2.2cqw;padding:0 1cqw;background:#F4F1EE}
+.bbar i{width:.75cqw;height:.75cqw;border-radius:50%;background:#DDD6D0}
+.bbar span{margin-left:1cqw;font:500 max(9px,.85cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#8A7F78}
+.bscr{position:relative;aspect-ratio:1300/805}
+.bscr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bscr .af{clip-path:inset(0 0 0 100%);animation:wipe2 10s cubic-bezier(.7,0,.3,1) infinite}
+@keyframes wipe2{0%,16%{clip-path:inset(0 0 0 100%)}36%,78%{clip-path:inset(0 0 0 0)}96%,100%{clip-path:inset(0 0 0 100%)}}
+.wipe{position:absolute;top:0;bottom:0;left:100%;width:2px;background:#2D45B8;animation:wline 10s cubic-bezier(.7,0,.3,1) infinite}
+@keyframes wline{0%,16%{left:100%}36%,78%{left:0%}96%,100%{left:100%}}
+.wipe b{position:absolute;top:50%;left:50%;width:3cqw;height:3cqw;margin:-1.5cqw;border-radius:50%;background:#fff;border:2px solid #2D45B8;box-shadow:0 .6cqw 1.6cqw rgba(45,69,184,.35)}
+.ba{position:absolute;right:7%;top:3.2%;margin:0;display:grid;font:400 max(14px,1.7cqw)/1 Kalam,cursive;color:#2D45B8}
+.ba span{grid-area:1/1;text-align:right}
+.ba .l1{animation:lb1 10s infinite}.ba .l2{opacity:0;animation:lb2 10s infinite}
+@keyframes lb1{0%,22%{opacity:1}28%,88%{opacity:0}94%,100%{opacity:1}}
+@keyframes lb2{0%,24%{opacity:0}30%,84%{opacity:1}90%,100%{opacity:0}}
+
+.mpat{position:absolute;left:-12%;top:-12%;width:124%;height:124%;opacity:.16;animation:mp 16s linear infinite}
+@keyframes mp{from{transform:translate(0,0)}to{transform:translate(-10%,-10%)}}
+.deck{position:absolute;left:13%;right:13%;top:18%;aspect-ratio:1.4/1}
+.dk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:1.4cqw;box-shadow:0 2.6cqw 5cqw -1.4cqw rgba(0,0,0,.6);animation:deck 12s cubic-bezier(.65,0,.35,1) infinite both}
+@keyframes deck{
+0%,26%{transform:translateY(0) scale(1);opacity:1;z-index:3}
+33%{transform:translateY(14%) scale(1.02);opacity:0;z-index:3}
+34%{transform:translateY(-14%) scale(.86);opacity:0;z-index:1}
+40%,59%{transform:translateY(-14%) scale(.86);opacity:.45;z-index:1}
+66%,92%{transform:translateY(-7%) scale(.93);opacity:.75;z-index:2}
+100%{transform:translateY(0) scale(1);opacity:1;z-index:3}}
+.wbn{position:absolute;left:6%;top:4.5%;margin:0;font:400 max(13px,2.3cqw)/1 Kalam,cursive;color:#8FE3B0}
+
+.hwin{position:absolute;left:39%;right:4%;top:15%;aspect-ratio:1.45/1;background:#fff;border-radius:1.4cqw;overflow:hidden;box-shadow:0 2.4cqw 5cqw -1.6cqw rgba(42,32,104,.4),0 0 0 1px rgba(42,32,104,.08)}
+.hwin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% 0%;transform-origin:20% 25%}
+.hwin .k1{animation:kb1 14s ease-in-out infinite}
+.hwin .k2{opacity:0;transform-origin:70% 75%;animation:kb2 14s ease-in-out infinite}
+@keyframes kb1{0%{opacity:1;transform:scale(1.02)}44%{opacity:1;transform:scale(1.38)}50%,96%{opacity:0;transform:scale(1.38)}100%{opacity:1;transform:scale(1.02)}}
+@keyframes kb2{0%,44%{opacity:0;transform:scale(1.02)}50%{opacity:1;transform:scale(1.04)}94%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(1.4)}}
+.mascot{position:absolute;left:0;bottom:6%;width:40%;animation:bob 4.2s ease-in-out infinite;z-index:2}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-6%) rotate(1.5deg)}}
+.mshadow{position:absolute;left:11%;bottom:5%;width:18%;height:2.4%;border-radius:50%;background:rgba(42,32,104,.18);filter:blur(3px);animation:shd 4.2s ease-in-out infinite}
+@keyframes shd{0%,100%{transform:scaleX(1);opacity:.9}50%{transform:scaleX(.75);opacity:.5}}
+.spk{position:absolute;width:3.4cqw;height:3.4cqw;background:#B9A6F2;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:tw 2.8s ease-in-out infinite;z-index:3}
+@keyframes tw{0%,100%{opacity:.25;scale:.6}50%{opacity:1;scale:1}}
+.hn{position:absolute;right:4%;bottom:4%;margin:0;font:400 max(13px,2.2cqw)/1 Kalam,cursive;color:#2D45B8}
+
+.pst{position:absolute;margin:0;padding:1cqw 1cqw 1cqw;background:#fff;box-shadow:0 1.6cqw 3.6cqw -1.2cqw rgba(94,58,5,.45);animation:lift 9s cubic-bezier(.45,0,.55,1) infinite}
+.pst img{display:block;height:100%;width:auto}
+.p1{left:6%;top:9%;height:84%;--r:-5deg;transform:rotate(-5deg)}
+.p2{left:34%;top:5%;height:88%;--r:3deg;transform:rotate(3deg);animation-delay:-4.5s}
+@keyframes lift{0%,40%,100%{transform:rotate(var(--r)) translateY(0);box-shadow:0 1.6cqw 3.6cqw -1.2cqw rgba(94,58,5,.45);z-index:1}50%,90%{transform:rotate(0deg) translateY(-3%) scale(1.03);box-shadow:0 3.4cqw 6cqw -1.6cqw rgba(94,58,5,.55);z-index:2}}
+.tape{position:absolute;left:50%;top:-1.6cqw;width:9cqw;height:3cqw;margin-left:-4.5cqw;background:rgba(255,255,255,.62);box-shadow:0 0 0 1px rgba(94,58,5,.06);transform:rotate(-4deg)}
+.stk{position:absolute;right:5%;bottom:7%;width:25%;margin:0;transform-origin:50% 0;animation:flut 3.6s ease-in-out infinite alternate;box-shadow:0 1.4cqw 2.6cqw -1cqw rgba(0,0,0,.3);z-index:3}
+.stk img{display:block;width:100%}
+.stk .tape{width:7cqw;margin-left:-3.5cqw;top:-1.4cqw}
+@keyframes flut{from{transform:rotate(7deg)}to{transform:rotate(3.5deg) translateY(-1%)}}
+.gn{position:absolute;right:5%;top:12%;margin:0;font:400 max(13px,2.2cqw)/1.1 Kalam,cursive;color:#2D45B8;text-align:right;z-index:3}
+.gn svg{display:block;width:6cqw;height:4cqw;margin:.6cqw 0 0 auto;overflow:visible;transform:rotate(60deg)}
+.gn path{fill:none;stroke:#2D45B8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+#aicoe .art{background-image:linear-gradient(rgba(45,69,184,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(45,69,184,.07) 1px,transparent 1px);background-size:2.2cqw 2.2cqw}
+
+.sm{aspect-ratio:.92/1}
+.burst{position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%);animation:spin 60s linear infinite;opacity:.95}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.phones{position:absolute;inset:8% 6% 0;display:flex;justify-content:center;align-items:flex-start;gap:3cqw}
+.phones img{height:96%;width:auto;border-radius:3.4cqw;box-shadow:0 2cqw 4cqw -1cqw rgba(0,0,0,.7);animation:fl 4.8s ease-in-out infinite}
+.phones img:nth-child(2){margin-top:-4%}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-5%)}}
+.ec{position:absolute;left:-6%;top:50%;width:170%;aspect-ratio:508/240;transform:translateY(-50%)}
+.ec img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.er{position:absolute;left:31%;top:40%;width:36%;aspect-ratio:1;margin:-18% 0 0 -18%;border-radius:50%;border:2px solid rgba(255,255,255,.9);opacity:0;animation:ripple 4.2s cubic-bezier(.2,.6,.3,1) infinite}
+
+.strip{gap:34px;padding:22px 22px 22px 34px}
+.mq>div{gap:14px;align-items:center;animation-duration:44s}
+.mq img{height:150px;width:auto;border-radius:10px;display:block}
+.strip:hover .mq>div{animation-play-state:paused}
+
+/* ===== C v2 ===== */
+#biomotivate .bw{top:9%}
+#biomotivate .brains{opacity:.42}
+#gotr.wide .p1{left:4%;top:8%;height:86%}
+#gotr.wide .p2{left:27%;top:5%;height:90%}
+#gotr.wide .stk{right:4%;bottom:7%;width:21%}
+#gotr.wide .gn{right:4%;top:7%;font-size:max(14px,1.6cqw)}
+#gotr.wide .gn svg{width:4cqw;height:3cqw}
+#gotr.wide .tape{width:6cqw;margin-left:-3cqw;height:2cqw;top:-1cqw}
+#aicoe{color:#172A40}
+.scA,.scB{position:absolute;inset:0}
+.scA{animation:scA 16s ease infinite}
+.scB{opacity:0;animation:scB 16s ease infinite}
+@keyframes scA{0%,44%{opacity:1;transform:none}50%,94%{opacity:0;transform:translateY(-2%)}100%{opacity:1;transform:none}}
+@keyframes scB{0%,46%{opacity:0;transform:translateY(2%)}52%,94%{opacity:1;transform:none}99%,100%{opacity:0}}
+.frm{position:absolute;left:6%;top:9%;width:32%;height:72%;background:#fff;border-radius:1.2cqw;padding:2cqw 2cqw;box-shadow:0 1.6cqw 3.6cqw -1.6cqw rgba(23,42,64,.35);overflow:hidden}
+.frm .fl{margin:0 0 1.2cqw;font:500 max(8px,1.15cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#5C7FA8}
+.frm i{display:block;height:2.6cqw;border:1px solid #D5DDE8;border-radius:.6cqw;margin-bottom:1.1cqw;position:relative}
+.frm i::before{content:"";position:absolute;left:0;top:-.9cqw;width:40%;height:.5cqw;border-radius:99px;background:#E1E7F0}
+.frm i{animation:fin 16s ease infinite both}
+.frm i:nth-of-type(2){animation-delay:.1s}.frm i:nth-of-type(3){animation-delay:.2s}.frm i:nth-of-type(4){animation-delay:.3s}.frm i:nth-of-type(5){animation-delay:.4s}.frm i:nth-of-type(6){animation-delay:.5s}.frm i:nth-of-type(7){animation-delay:.6s}.frm i:nth-of-type(8){animation-delay:.7s}
+@keyframes fin{0%,2%{opacity:0;transform:translateY(.8cqw)}6%,100%{opacity:1;transform:none}}
+.xo{position:absolute;inset:6%;width:88%;height:88%;overflow:visible}
+.xo path{fill:none;stroke:#2D45B8;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:xo 16s cubic-bezier(.6,.05,.35,1) infinite}
+.xo path+path{animation-name:xo2}
+@keyframes xo{0%,11%{stroke-dashoffset:1}15%,100%{stroke-dashoffset:0}}
+@keyframes xo2{0%,14%{stroke-dashoffset:1}18%,100%{stroke-dashoffset:0}}
+.harr{position:absolute;left:39.5%;top:38%;width:8%;overflow:visible}
+.harr path{fill:none;stroke:#2D45B8;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:xo 16s ease infinite;animation-delay:.6s}
+.chat{position:absolute;left:49%;right:5%;top:9%;display:flex;flex-direction:column;gap:1.3cqw;font:400 max(9px,1.45cqw)/1.35 Inter,system-ui,sans-serif}
+.cb{margin:0;padding:1.3cqw 1.6cqw;border-radius:1.4cqw;max-width:92%}
+.cb.me{align-self:flex-end;background:#3A5A80;color:#fff;border-bottom-right-radius:.3cqw;animation:cin 16s ease infinite both;animation-delay:2.9s}
+.cb.ai{background:#fff;color:#172A40;border-bottom-left-radius:.3cqw;box-shadow:0 0 0 1px #D5DDE8;animation:cin 16s ease infinite both;animation-delay:3.7s}
+@keyframes cin{0%{opacity:0;transform:translateY(1cqw)}4%,40%{opacity:1;transform:none}100%{opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:.8cqw}
+.chips span{padding:.6cqw 1.2cqw;border-radius:99px;background:#E6ECF5;color:#3A5A80;font-weight:500;animation:cin 16s ease infinite both}
+.chips span:nth-child(1){animation-delay:4.5s}.chips span:nth-child(2){animation-delay:4.8s}.chips span:nth-child(3){animation-delay:5.1s}
+.cite{margin:0;align-self:flex-start;font:500 max(8px,1.15cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.06em;color:#2D45B8;border:1px dashed rgba(45,69,184,.5);padding:.7cqw 1.1cqw;border-radius:.6cqw;animation:cin 16s ease infinite both;animation-delay:5.6s}
+.sl2{position:absolute;left:49%;bottom:16%;margin:0;font:400 max(12px,1.9cqw)/1.1 Kalam,cursive;color:#2D45B8;animation:cin 16s ease infinite both;animation-delay:6s}
+.bh{margin:0 0 2.2cqw;font:500 max(9px,1.2cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.scB{padding:7% 6% 0}
+.bl{display:grid;grid-template-columns:34% 1fr 9%;align-items:center;gap:1.6cqw;margin-bottom:1.5cqw;font-size:max(11px,1.6cqw)}
+.bl i{display:block;height:2.2cqw;width:var(--w);border-radius:99px;background:rgba(23,42,64,.22);transform-origin:left;animation:bgrow 16s cubic-bezier(.2,.7,.2,1) infinite}
+.bl b{font-weight:400;font-variant-numeric:tabular-nums}
+.bl.top i{background:#2D45B8}
+.bl.top b{position:relative}
+.bl.top b::after{content:"";position:absolute;inset:-.7cqw -1cqw;border:1.6px solid #2D45B8;border-radius:50%;transform:rotate(-6deg);clip-path:inset(0 100% 0 0);animation:ring2 16s cubic-bezier(.6,.05,.35,1) infinite}
+@keyframes ring2{0%,60%{clip-path:inset(0 100% 0 0)}66%,100%{clip-path:inset(0 0 0 0)}}
+.bl:nth-of-type(2) i{animation-delay:.08s}.bl:nth-of-type(3) i{animation-delay:.16s}.bl:nth-of-type(4) i{animation-delay:.24s}.bl:nth-of-type(5) i{animation-delay:.32s}.bl:nth-of-type(6) i{animation-delay:.4s}
+@keyframes bgrow{0%,50%{transform:scaleX(0)}58%,100%{transform:scaleX(1)}}
+.bf{margin:2.4cqw 0 0;font:500 max(9px,1.2cqw)/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.bn{position:absolute;right:6%;top:6%;margin:0;font:400 max(12px,2cqw)/1 Kalam,cursive;color:#2D45B8;transform:rotate(-3deg)}
+
+.one{font-size:max(14px,2cqw)}
+#workbench .new{color:#B7C4FF}#workbench .old path{stroke:#B7C4FF}#workbench .old{opacity:.85}
+@media (max-width:760px){.wide{flex-direction:column;aspect-ratio:.8/1}.wide .art{flex:1 1 auto}.wide .cap{flex:none;padding:3.2cqw 4cqw 3.6cqw}.wide .ttl{font-size:max(28px,5.3cqw)}.g3{grid-template-columns:minmax(0,1fr)!important}}
+
+@media (max-width:760px){
+ .g2,.g3{grid-template-columns:minmax(0,1fr)!important}
+ .cv{aspect-ratio:.9/1}
+ .intro{aspect-ratio:auto;min-height:520px}
+ .strip{flex-wrap:wrap;gap:18px}
+ .mq{flex-basis:100%;order:3}
+ .hd{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){
+ .pg *,.pg *::before,.pg *::after{animation:none!important;transition:none!important}
+ .cnt::after{content:"427"}
+ .uline path,.was path,.pct path{stroke-dashoffset:0}
+ .quote{clip-path:none}.who{opacity:1}
+ .typed span{width:27ch}
+ .lens{clip-path:circle(15cqw at 34% 52%)}
+ .scB{display:none}.xo path,.harr path{stroke-dashoffset:0}.bl.top b::after{clip-path:none}
+ .bscr .af{clip-path:none}.wipe{display:none}.ba .l1{opacity:0}.ba .l2{opacity:1}.hwin .k2{opacity:0}.phones img{animation:none}
+}
+</style>
+</helmet>
+<div class="pg {{motionCls}}" style="max-width: 1680px; margin: 0 auto; padding: 10px 12px 18px">
+
+<div class="shell" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px">
+
+<div class="nb">
+<nav class="tabs" aria-label="Main">
+<a class="tab cur" href="#work" aria-current="page">work</a>
+<a class="tab" href="#design">design</a>
+<a class="tab" href="#about">about</a>
+</nav>
+<aside class="sb" aria-label="About Varrshitha">
+<h1 class="sbn">Varrshitha Kumar<span class="ta" lang="ta">வர்ஷிதா</span></h1>
+<p class="typ">Product manager and designer at Carnegie Mellon.</p>
+<p class="hw">every project started as a different question.</p>
+<div class="sfoot">
+<p class="hw now">currently: building Sous for Human-AI Interaction</p>
+<p class="typ open">Open to [ROLES · START DATE]</p>
+<p class="lnk"><a href="#resume">Résumé</a><a href="#linkedin">LinkedIn</a><a href="#contact">Email</a><span class="clk">Pittsburgh · {{time}}</span></p>
+</div>
+</aside>
+</div>
+
+<main id="work" style="flex: 999 1 560px; min-width: 0">
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+
+<a class="cv" id="biomotivate" href="#biomotivate" style="background: #F7E1D8; color: #6E2814; --t: #F7E1D8">
+<div class="art" aria-hidden="true"><div class="lift">
+<div class="brains"><img src="../case study raw contents/_landing-covers/bio-brains.jpg" alt=""></div>
+<div class="bw">
+<div class="bbar"><i></i><i></i><i></i><span>Peace platform</span></div>
+<div class="bscr"><img src="../case study raw contents/_landing-covers/bio-before.jpg" alt=""><img class="af" src="../case study raw contents/_landing-covers/bio-after.jpg" alt=""><div class="wipe"><b></b></div></div>
+</div>
+<p class="ba"><span class="l1">before</span><span class="l2">after</span></p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Internship · Summer 2025</p>
+<h2 class="ttl">Biomotivate</h2>
+<p class="ask"><span class="lb">Asked to</span><span class="old">fix the interface<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0,6 C25,4.4 50,6.6 75,4.8 C88,4 95,5.2 100,4.6"></path></svg></span><span class="new">found out why patients stopped coming</span></p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+<a class="cv" id="aicoe" href="#aicoe" style="background: #DFE6EF; color: #172A40; --t: #DFE6EF">
+<div class="art" aria-hidden="true"><div class="lift">
+<div class="scA">
+<div class="frm"><p class="fl">request form</p><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><svg class="xo" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" d="M8,10 C30,32 60,60 92,90"></path><path pathLength="1" d="M90,12 C64,34 40,62 10,88"></path></svg></div>
+<svg class="harr" viewBox="0 0 60 30"><path pathLength="1" d="M3,18 C18,8 36,24 54,14 M46,8 L55,14 L47,21"></path></svg>
+<div class="chat">
+<p class="cb me">I need help summarizing customer call notes.</p>
+<p class="cb ai">Got it. A few questions so the team can pick this up:</p>
+<div class="chips"><span>Data source</span><span>Who uses it</span><span>Risk tier</span></div>
+<p class="cite">[1] Request guide</p>
+</div>
+<p class="sl2">the long form becomes a conversation</p>
+</div>
+<div class="scB">
+<p class="bh">What blocks reuse · share of feedback</p>
+<div class="bl top"><span>Documentation &amp; quality</span><i style="--w: 67%"></i><b>67%</b></div>
+<div class="bl"><span>Discoverability</span><i style="--w: 55%"></i><b>55%</b></div>
+<div class="bl"><span>No central owner</span><i style="--w: 44%"></i><b>44%</b></div>
+<div class="bl"><span>Environment &amp; access</span><i style="--w: 33%"></i><b>33%</b></div>
+<div class="bl"><span>Rebuild culture</span><i style="--w: 28%"></i><b>28%</b></div>
+<p class="bf">427 votes · 4 teams · 44 assets</p>
+<p class="bn">not a search problem</p>
+</div>
+<p class="note">redrawn, not screenshotted</p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Internship · Summer 2026</p>
+<h2 class="ttl">AI Center of Excellence</h2>
+<p class="ask"><span class="lb">Asked to</span><span class="old">make AI requests easier<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0,5.6 C26,4.2 50,6.4 76,4.8 C88,4.2 95,5.6 100,5"></path></svg></span><span class="new">fixed the documentation, not the search</span></p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+<a class="cv" id="workbench" href="#workbench" style="background: #0E3B2A; color: #EAF6EE; --t: #0E3B2A">
+<div class="art" aria-hidden="true"><div class="lift">
+<svg class="mpat" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice"><defs><pattern id="wbm" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M12 54 V30 Q12 12 30 12 Q48 12 48 30 V54 M30 24 V54" fill="none" stroke="#2BD27A" stroke-width="7"></path></pattern></defs><rect x="-60" y="-60" width="720" height="720" fill="url(#wbm)"></rect></svg>
+<div class="deck">
+<img class="dk" src="../case study raw contents/_landing-covers/wb-dash.jpg" alt="">
+<img class="dk" src="../case study raw contents/_landing-covers/wb-pipeline.jpg" alt="" style="animation-delay: -4s">
+<img class="dk" src="../case study raw contents/_landing-covers/wb-portal.jpg" alt="" style="animation-delay: -8s">
+</div>
+<p class="wbn">AI drafts, humans decide</p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Client · Spring 2026 · 0 to 1</p>
+<h2 class="ttl">WorkBench HR</h2>
+<p class="ask"><span class="lb">Asked to</span><span class="old">build an AI HR product<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0,5 C20,6.4 45,4 70,5.6 C85,6.2 94,4.8 100,5.2"></path></svg></span><span class="new">designed the whole vision, built only what proves it</span></p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+<a class="cv" id="halo" href="#halo" style="background: #F6EEFF; color: #2A2068; --t: #F6EEFF">
+<div class="art" aria-hidden="true"><div class="lift">
+<span class="spk" style="left: 8%; top: 16%"></span><span class="spk" style="left: 30%; top: 10%; animation-delay: -1.2s; transform: scale(.7)"></span><span class="spk" style="left: 4%; top: 52%; animation-delay: -2.1s; transform: scale(.55)"></span>
+<img class="mascot" src="../case study raw contents/_landing-covers/halo-mascot.png" alt="">
+<i class="mshadow"></i>
+<div class="hwin"><img class="k1" src="../case study raw contents/_landing-covers/halo-nudge.jpg" alt=""><img class="k2" src="../case study raw contents/_landing-covers/halo-flag.jpg" alt=""></div>
+<p class="hn">before generating, and after</p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Course · Spring 2026 · Project lead</p>
+<h2 class="ttl">Halo</h2>
+<p class="ask"><span class="lb">Asked to</span><span class="old">help people notice bias<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0,5.6 C22,4 48,6.4 72,4.6 C86,4 95,5.4 100,5"></path></svg></span><span class="new">brought the bias check to the moment they generate</span></p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+<a class="cv" id="gotr" href="#gotr" style="background: #FFF0C7; color: #5E3A05; --t: #FFF0C7">
+<div class="art" aria-hidden="true"><div class="lift">
+<figure class="pst p1"><img src="../case study raw contents/_landing-covers/gotr-quotes.jpg" alt=""><i class="tape"></i></figure>
+<figure class="pst p2"><img src="../case study raw contents/_landing-covers/gotr-student.jpg" alt=""><i class="tape" style="transform: rotate(5deg)"></i></figure>
+<figure class="stk"><img src="../case study raw contents/_landing-covers/gotr-sticky.jpg" alt=""><i class="tape"></i></figure>
+<p class="gn">mine. it made<br>the final three<svg viewBox="0 0 60 40"><path pathLength="1" d="M4,6 C20,8 36,16 48,32 M38,30 L49,33 L49,22"></path></svg></p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Club · Design for America · 2025–26</p>
+<h2 class="ttl">Girls on the Run</h2>
+<p class="ask"><span class="lb">Asked to</span><span class="old">recruit more coaches<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0,5 C24,6.2 50,4.2 74,5.6 C88,6 95,4.6 100,5.2"></path></svg></span><span class="new">led with the reason coaches stay</span></p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+
+
+
+
+
+<a class="cv" id="sous" href="#sous" style="background: #F6DDE4; color: #4F1428; --t: #F6DDE4">
+<div class="art" aria-hidden="true"><div class="lift">
+<div class="eyes"><div class="eye"><i class="pu"></i></div><div class="eye"><i class="pu"></i></div></div>
+<div class="steps"><div class="sp"><i></i></div><div class="sp nx"><i></i></div><div class="sp"></div><div class="sp"></div></div>
+<p class="okay" style="margin: 0">two confident looks, then it moves on</p>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Course · Fall 2026 · In progress</p>
+<h2 class="ttl">Sous</h2>
+<p class="one">When should AI move on, and when should it speak up?</p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+<a class="cv" id="depop" href="#depop" style="background: #121212; color: #F4F2EE; --t: #121212">
+<div class="art" aria-hidden="true"><div class="lift">
+<svg class="burst" viewBox="-100 -100 200 200"><polygon points="96.0,0.0 60.4,13.8 86.5,41.7 48.5,38.7 59.9,75.1 26.9,55.9 21.4,93.6 0.0,62.0 -21.4,93.6 -26.9,55.9 -59.9,75.1 -48.5,38.7 -86.5,41.7 -60.4,13.8 -96.0,0.0 -60.4,-13.8 -86.5,-41.7 -48.5,-38.7 -59.9,-75.1 -26.9,-55.9 -21.4,-93.6 -0.0,-62.0 21.4,-93.6 26.9,-55.9 59.9,-75.1 48.5,-38.7 86.5,-41.7 60.4,-13.8" fill="#E5251B"></polygon></svg>
+<div class="phones">
+<img src="../case study raw contents/_landing-covers/depop-stamp.jpg" alt="" style="animation-delay: -.8s">
+<img src="../case study raw contents/_landing-covers/depop-map.jpg" alt="">
+<img src="../case study raw contents/_landing-covers/depop-review.jpg" alt="" style="animation-delay: -1.6s">
+</div>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Club · BTG PMA · Spring 2026</p>
+<h2 class="ttl">Depop Pop-Ups</h2>
+<p class="one">A strategy pitch to PNC leaders and Tepper faculty.</p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+<a class="cv" id="echos" href="#echos" style="background: #C9D2F6; color: #1B1F4B; --t: #C9D2F6">
+<div class="art" aria-hidden="true"><div class="lift">
+<div class="ec"><img src="../case study raw contents/_landing-covers/echos-card.jpg" alt=""><i class="er"></i><i class="er" style="animation-delay: 1.4s"></i><i class="er" style="animation-delay: 2.8s"></i></div>
+</div></div>
+<div class="cap">
+<div>
+<p class="meta">Hackathon → redesign · In progress</p>
+<h2 class="ttl">echos</h2>
+<p class="one">A voice-based, location-based social app.</p>
+</div>
+<span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+
+</div>
+
+<a class="strip" id="design" href="#design">
+<div style="flex: none">
+<p class="meta" style="font-size: 11px; color: #9C978D; opacity: 1">Design</p>
+<p style="margin: 8px 0 0; font-size: 30px; line-height: 1.05; letter-spacing: -.01em">Brand and<br>visual work</p><p style="margin: 10px 0 0; font-family: Kalam, cursive; font-size: 18px; color: #A9B6F7">logos, mascots, posters, sites</p>
+</div>
+<div class="mq" aria-hidden="true"><div><img src="../case study raw contents/_landing-covers/d-poker25.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-nlp.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-wip-brand.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-agents.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-llm.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-wip-gbm.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-sprout.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-poker25.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-nlp.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-wip-brand.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-agents.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-llm.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-wip-gbm.jpg" alt=""><img src="../case study raw contents/_landing-covers/d-sprout.jpg" alt=""></div></div>
+<span class="go" aria-hidden="true" style="color: #F4F2EE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</a>
+
+<footer id="about" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 22px 8px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #5F5B53">
+<span>Varrshitha Kumar · 2026</span>
+<span style="display: flex; gap: 26px"><a href="#about" style="text-decoration: none">About</a><a href="#contact" style="text-decoration: none">[YOUR EMAIL]</a></span>
+</footer>
+</main>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"motion":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pal = ['#E9A18A','#D2603F','#F0B9A6','#C0563A','#EFC4B4','#DA7B5E','#F4CDBF','#B9512F','#E59478'];
+    const durs = ['46s','38s','52s','41s','48s'];
+    const bioCols = [0,1,2,3,4].map((c) => {
+      const t = [];
+      for (let i = 0; i < 8; i++) t.push(pal[(i * 2 + c * 3) % pal.length]);
+      return { cls: c % 2 ? 'col d' : 'col', dur: durs[c], tiles: t.concat(t) };
+    });
+    const dots = [];
+    for (let r = 0; r < 18; r++) {
+      for (let c = 0; c < 24; c++) {
+        const i = r * 24 + c;
+        dots.push({ cls: i >= 427 ? 'vd e' : 'vd', delay: ((r + c) * 0.038).toFixed(2) + 's' });
+      }
+    }
+    const haloTiles = [
+      { bg: '#CFC7F2', delay: '0s', flip: 'none' },
+      { bg: '#BDB2EE', delay: '.12s', flip: 'scaleX(-1)' },
+      { bg: '#D9D3F5', delay: '.24s', flip: 'none' },
+      { bg: '#C6BCF0', delay: '.36s', flip: 'scaleX(-1)' }
+    ];
+    const index = [
+      { no: '01', name: 'Biomotivate', cx: 'Internship', dot: '#D2603F', href: '#biomotivate' },
+      { no: '02', name: 'WorkBench HR', cx: 'Client', dot: '#2F7A57', href: '#workbench' },
+      { no: '03', name: 'Halo', cx: 'Course', dot: '#6A58D6', href: '#halo' },
+      { no: '04', name: 'Girls on the Run', cx: 'Club', dot: '#D98A12', href: '#gotr' },
+      { no: '05', name: 'AI Center of Excellence', cx: 'Internship', dot: '#5C7FA8', href: '#aicoe' },
+      { no: '06', name: 'Sous', cx: 'In progress', dot: '#B23A62', href: '#sous' }
+    ];
+    const motion = this.props.motion ?? true;
+    return { bioCols, dots, haloTiles, index, time: this.state.time || this.now(), motionCls: motion ? '' : 'still' };
+  }
+  now() {
+    try { return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }).format(new Date()); } catch (e) { return ''; }
+  }
+  componentDidMount() { this.t = setInterval(() => this.setState({ time: this.now() }), 20000); }
+  componentWillUnmount() { clearInterval(this.t); }
+}
+</script>
+</body>
+</html>
